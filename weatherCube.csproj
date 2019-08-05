@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0">
+  <PropertyGroup>
+    <RootNamespace>weatherCube</RootNamespace>
+    <ProjectGuid>{CA43A305-019B-4834-ABD0-FC31CF04A0F5}</ProjectGuid>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="assets\css\bootstrap\bootstrap-grid.css" />
+    <Content Include="assets\css\bootstrap\bootstrap-grid.min.css" />
+    <Content Include="assets\css\bootstrap\bootstrap-reboot.css" />
+    <Content Include="assets\css\bootstrap\bootstrap-reboot.min.css" />
+    <Content Include="assets\css\bootstrap\bootstrap.css" />
+    <Content Include="assets\css\bootstrap\bootstrap.min.css" />
+    <Content Include="assets\css\style.css" />
+    <Content Include="assets\css\weatherCube.css" />
+    <Content Include="assets\favicon\android-chrome-192x192.png" />
+    <Content Include="assets\favicon\android-chrome-256x256.png" />
+    <Content Include="assets\favicon\apple-touch-icon-114x114-precomposed.png" />
+    <Content Include="assets\favicon\apple-touch-icon-114x114.png" />
+    <Content Include="assets\favicon\apple-touch-icon-120x120-precomposed.png" />
+    <Content Include="assets\favicon\apple-touch-icon-120x120.png" />
+    <Content Include="assets\favicon\apple-touch-icon-144x144-precomposed.png" />
+    <Content Include="assets\favicon\apple-touch-icon-144x144.png" />
+    <Content Include="assets\favicon\apple-touch-icon-152x152-precomposed.png" />
+    <Content Include="assets\favicon\apple-touch-icon-152x152.png" />
+    <Content Include="assets\favicon\apple-touch-icon-180x180-precomposed.png" />
+    <Content Include="assets\favicon\apple-touch-icon-180x180.png" />
+    <Content Include="assets\favicon\apple-touch-icon-57x57-precomposed.png" />
+    <Content Include="assets\favicon\apple-touch-icon-57x57.png" />
+    <Content Include="assets\favicon\apple-touch-icon-60x60-precomposed.png" />
+    <Content Include="assets\favicon\apple-touch-icon-60x60.png" />
+    <Content Include="assets\favicon\apple-touch-icon-72x72-precomposed.png" />
+    <Content Include="assets\favicon\apple-touch-icon-72x72.png" />
+    <Content Include="assets\favicon\apple-touch-icon-76x76-precomposed.png" />
+    <Content Include="assets\favicon\apple-touch-icon-76x76.png" />
+    <Content Include="assets\favicon\apple-touch-icon-precomposed.png" />
+    <Content Include="assets\favicon\apple-touch-icon.png" />
+    <Content Include="assets\favicon\browserconfig.xml" />
+    <Content Include="assets\favicon\favicon-16x16.png" />
+    <Content Include="assets\favicon\favicon-32x32.png" />
+    <Content Include="assets\favicon\favicon.ico" />
+    <Content Include="assets\favicon\mstile-144x144.png" />
+    <Content Include="assets\favicon\mstile-150x150.png" />
+    <Content Include="assets\favicon\mstile-310x150.png" />
+    <Content Include="assets\favicon\mstile-310x310.png" />
+    <Content Include="assets\favicon\mstile-70x70.png" />
+    <Content Include="assets\favicon\safari-pinned-tab.svg" />
+    <Content Include="assets\js\bootstrap\bootstrap.bundle.js" />
+    <Content Include="assets\js\bootstrap\bootstrap.bundle.min.js" />
+    <Content Include="assets\js\bootstrap\bootstrap.js" />
+    <Content Include="assets\js\bootstrap\bootstrap.min.js" />
+    <Content Include="assets\js\jQuery\jquery.js" />
+    <Content Include="assets\js\weatherCube.js" />
+    <Content Include="assets\js\scrolling-nav.js" />
+    <Content Include="index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\css\bootstrap\bootstrap-grid.css.map" />
+    <None Include="assets\css\bootstrap\bootstrap-grid.min.css.map" />
+    <None Include="assets\css\bootstrap\bootstrap-reboot.css.map" />
+    <None Include="assets\css\bootstrap\bootstrap-reboot.min.css.map" />
+    <None Include="assets\css\bootstrap\bootstrap.css.map" />
+    <None Include="assets\css\bootstrap\bootstrap.min.css.map" />
+    <None Include="assets\favicon\site.webmanifest" />
+    <None Include="assets\js\bootstrap\bootstrap.bundle.js.map" />
+    <None Include="assets\js\bootstrap\bootstrap.bundle.min.js.map" />
+    <None Include="assets\js\bootstrap\bootstrap.js.map" />
+    <None Include="assets\js\bootstrap\bootstrap.min.js.map" />
+  </ItemGroup>
+</Project>

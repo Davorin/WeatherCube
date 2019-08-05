@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>JQuery WeatherCube Plugin</title>
+	<meta content="" name="description" />
+	<meta content="" name="keywords" />
+	<meta content="Davorin Casar" name="author" />
+	<!--IE Compatibility modes-->
+	<meta content="IE=edge" http-equiv="X-UA-Compatible" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<!-- /ie compatibility modes -->
+	<!-- *********************************************************************************************************** -->
+	<!-- Favicon: http://realfavicongenerator.net -->
+	<meta name="apple-mobile-web-app-title" content="WeatherCube"/>
+	<meta name="application-name" content="WeatherCube"/>
+	<meta name="msapplication-TileColor" content="#da532c"/>
+	<meta name="msapplication-TileImage" content="assets/favicon/mstile-144x144.png?v=ng96y0QdgR"/>
+	<meta name="msapplication-config" content="assets/favicon/browserconfig.xml?v=ng96y0QdgR"/>
+	<meta name="theme-color" content="#ffffff"/>
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png?v=ng96y0QdgR"/>
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png?v=ng96y0QdgR"/>
+	<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/android-chrome-192x192.png?v=ng96y0QdgR"/>
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png?v=ng96y0QdgR"/>
+	<link rel="manifest" href="assets/favicon/site.webmanifest?v=ng96y0QdgR"/>
+	<link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg?v=ng96y0QdgR" color="#5bbad5"/>
+	<link rel="shortcut icon" href="assets/favicon/favicon.ico?v=ng96y0QdgR"/>
+	<!-- /favicon: http://realfavicongenerator.net -->
+	<!-- *********************************************************************************************************** -->
+	<link rel="stylesheet" href="assets/fonts/digitalNumbers/digitalNumbers.css?v=wAXeYng6BG" />
+	<link rel="stylesheet" href="assets/fonts/weather-icons/weather-icons.css?v=wAXeYng6BG" />
+	<link rel="stylesheet" href="assets/fonts/weather-icons/weather-icons-wind.css?v=wAXeYng6BG" />
+	<!-- *********************************************************************************************************** -->
+	<link rel="stylesheet" href="assets/js/bootstrap/css/bootstrap.css?v=wAXeYng6BG" />
+	<link rel="stylesheet" href="assets/js/leaflet/leaflet.css?v=wAXeYng6BG" />
+	<link rel="stylesheet" href="assets/css/style.css?v=wAXeYng6BG" />
+	<link rel="stylesheet" href="assets/css/weatherCube.css?v=wAXeYng6BG" />
+	<!-- *********************************************************************************************************** -->
+	<script src="assets/js/jQuery/jquery.js?v=wAXeYng6BG"></script>
+	<script src="assets/js/bootstrap/js/bootstrap.bundle.js?v=wAXeYng6BG"></script>
+	<script src="assets/js/eCharts/echarts.js?v=wAXeYng6BG"></script>
+	<script src="assets/js/leaflet/leaflet.js?v=wAXeYng6BG"></script>
+	<script src="assets/js/weatherCube.js?v=wAXeYng6BG"></script>
+	<script src="assets/js/weatherCube_i18n.js?v=wAXeYng6BG"></script>
+</head>
+
+<body>
+<div class="container-fluid">
+	<section class="row mt-3">
+		<div id="weatherCube" class="col-md-12 weatherCube"></div>
+	</section>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		$('#weatherCube').weatherCube({
+			// OpenWeatherMap apiKey get it here: https://openweathermap.org/api
+			apiKey: '7d0c9102eea1625d556cbd3cd10faea8',
+			// Selected forecast city
+			city: 'Murska Sobota',
+			// We are using city so coordinates are set to null
+			latitude: null,
+			longitude: null,
+			// language en, sl
+			language: 'en',
+			// imperial or metric
+			units: "metric",
+			// EarthQuakes period week or day
+			quakesPeriod: "week",
+			// default, tick, weezle
+			icons: "weezle",
+			// weather update interval 2 hours
+			wInterval: 7200000,
+			// Satellite images
+			satImageLocations: [
+				{
+					region: "EU",
+					type: "visual",
+					animated: true
+				},
+				{
+					region: "GR",
+					type: "visual",
+					animated: true
+				},
+				{
+					region: "AF",
+					type: "visual",
+					animated: true
+				},
+				{
+					region: "RU",
+					type: "visual",
+					animated: true
+				}],
+			debug: true,
+			onComplete: function() {
+				alert('Then followup with an awesome callback!');
+			},
+			onError: function() {
+				alert('Then followup with an awesome callback!');
+			}
+		});
+	});
+</script>
+</body>
+</html>

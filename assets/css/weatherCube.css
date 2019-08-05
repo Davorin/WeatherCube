@@ -1,0 +1,653 @@
+/* ------------------------------------------------------------------------------
+*  # Digital Numbers Font
+*
+*  HyperCube component
+* ---------------------------------------------------------------------------- */
+.digital-font
+{
+	font-family: 'sa-digital-number', sans-serif;
+	font-size: 26px;
+	font-weight: normal;
+}
+
+/* ------------------------------------------------------------------------------
+*  # Weather Loader
+*
+*  HyperCube component
+* ---------------------------------------------------------------------------- */
+
+.cubeLoader-grid
+{
+	height: 60px;
+	margin: 40px auto;
+	transition: all .4s ease-in-out;
+	width: 60px;
+}
+
+.cubeLoader-grid .cubeLoader
+{
+	animation: cubeLoaderGridScaleDelay 1.3s infinite ease-in-out;
+	background-color: rgb(255, 226, 0);
+	box-shadow: inset 0 0 36px -8px rgba(255, 255, 255, 0.75);
+	float: left;
+	height: 33.33%;
+	width: 33.33%;
+}
+
+.cubeLoader-grid .cube3
+{
+	animation-delay: .4s;
+}
+
+.cubeLoader-grid .cube7
+{
+	animation-delay: 0s;
+}
+
+.cubeLoader-grid .cube1,
+.cubeLoader-grid .cube5,
+.cubeLoader-grid .cube9
+{
+	animation-delay: .2s;
+}
+
+.cubeLoader-grid .cube2,
+.cubeLoader-grid .cube6
+{
+	animation-delay: .3s;
+}
+
+.cubeLoader-grid .cube4,
+.cubeLoader-grid .cube8
+{
+	animation-delay: .1s;
+}
+
+@-webkit-keyframes cubeLoaderGridScaleDelay
+{
+	0%,
+	70%,
+	100%
+	{
+		transform: scale3D(1, 1, 1);
+	}
+
+	35%
+	{
+		transform: scale3D(0, 0, 1);
+	}
+}
+
+@keyframes cubeLoaderGridScaleDelay
+{
+	0%,
+	70%,
+	100%
+	{
+		transform: scale3D(1, 1, 1);
+	}
+
+	35%
+	{
+		transform: scale3D(0, 0, 1);
+	}
+}
+
+/* --------------------------------------------------------------------------- */
+
+/* ------------------------------------------------------------------------------
+*  # WeatherCube Widget
+*
+*  HyperCube component
+* ---------------------------------------------------------------------------- */
+
+.weatherCube
+{
+	font-family: "Constantia", Verdana, Helvetica, Sans-Serif, serif;
+}
+
+.weatherCube .weatherCubeSatImage,
+.weatherCube .tab-content .hourMedia,
+.weatherCube .weatherCubeChart
+{
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W/Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip/ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK/piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/HfGadZUbfw177G7j/OGbIs8TahLyynl4X4RinF793Oz+BU0saXtUHrVBFT/DnA3ctNPoGbs4hRIjTok8i+algT1lTHi4SxFvONKNrgQFAq2/gFnWMXgwffgYMJpiKYkmW3tTg3ZQ9Jq+f8XN+A5eeUKHWvJWJ2sgJ1Sop+wwhqFVijqWaJhwtD8MNlSBeWNNWTa5Z5kPZw5+LbVT99wqTdx29lMUH4OIG/D86ruKEauBjvH5xy6um/Sfj7ei6UUVk4AIl3MyD4MSSTOFgSwsH/QJWaQ5as7ZcmgBZkzjjU1UrQ74ci1gWBCSGHtuV1H2mhSnO3Wp/3fEV5a+4wz//6qy8JxjZsmxxy5+4w9CDNJY09T072iKG0EnOS0arEYgXqYnXcYHwjTtUNAcMelOd4xpkoqiTYICWFq0JSiPfPDQdnt+4/wuqcXY47QILbgAAAABJRU5ErkJggg==);
+	box-shadow: inset -5px 0 31px -4px rgba(255, 255, 255, .4);
+}
+
+.weatherCube .moonTable,
+.weatherCube .weatherCubeMoon,
+.weatherCube .alert,
+.weatherCube footer,
+.weatherCube header,
+.weatherCube .weatherDay,
+.weatherCube .weatherCubeForecast,
+.weatherCube .weatherCubeEarthquake,
+.weatherCube .weatherCubeEarthquake:first-child,
+.weatherCube .weatherCubeCurrent
+{
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W/Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip/ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK/piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/HfGadZUbfw177G7j/OGbIs8TahLyynl4X4RinF793Oz+BU0saXtUHrVBFT/DnA3ctNPoGbs4hRIjTok8i+algT1lTHi4SxFvONKNrgQFAq2/gFnWMXgwffgYMJpiKYkmW3tTg3ZQ9Jq+f8XN+A5eeUKHWvJWJ2sgJ1Sop+wwhqFVijqWaJhwtD8MNlSBeWNNWTa5Z5kPZw5+LbVT99wqTdx29lMUH4OIG/D86ruKEauBjvH5xy6um/Sfj7ei6UUVk4AIl3MyD4MSSTOFgSwsH/QJWaQ5as7ZcmgBZkzjjU1UrQ74ci1gWBCSGHtuV1H2mhSnO3Wp/3fEV5a+4wz//6qy8JxjZsmxxy5+4w9CDNJY09T072iKG0EnOS0arEYgXqYnXcYHwjTtUNAcMelOd4xpkoqiTYICWFq0JSiPfPDQdnt+4/wuqcXY47QILbgAAAABJRU5ErkJggg==);
+	box-shadow: inset -5px 0 31px -4px rgba(0, 0, 0, .7);
+}
+
+.weatherCube .weatherCubeForecast .weatherDay
+{
+	border-left: 2px ridge rgb(166, 166, 158);
+	min-width: 20%;
+}
+
+.weatherCube .weatherCubeForecast .weatherDay:first-child
+{
+	border-left: 0;
+}
+
+.weatherCube .headerWeatherLink i
+{
+	font-size: 32px;
+	line-height: 38px;
+}
+
+.weatherCube .headerWeatherLink b
+{
+	font-size: 24px;
+	margin-left: 3px;
+}
+
+.weatherCube .carousel
+{
+	width: 400px;
+}
+
+.weatherCube .carousel-item
+{
+	height: 100%;
+	min-height: 100%;
+	padding: 0;
+}
+
+.weatherCube .carousel-item .navbar-brand
+{
+	height: 44px;
+}
+
+.weatherCube .moonPane .moonTable,
+.weatherCube .moonPane
+{
+	background-color: black;
+	width: 100%;
+}
+
+.weatherCube .moonPane .moonTable,
+.weatherCube .moonPane .moonTable td
+{
+	border: 1px solid #495057;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.weatherCube .moonPane .moonTable th
+{
+	color: orange;
+	padding: 4px;
+	text-align: center;
+}
+
+.weatherCube .moonPane .moonTable th span
+{
+	border-bottom: 1px solid #B16F00;
+}
+
+.weatherCube .moonPane .moonTable img
+{
+	height: 54px;
+	margin-top: -10px;
+	width: 54px;
+}
+
+.weatherCube .moonPane .moonTable div
+{
+	margin-left: 4px;
+	text-align: left;
+}
+
+.weatherCube .moonPane .moonTable .moonPhase
+{
+	color: orange;
+	padding: 4px;
+	width: 100%;
+}
+
+.weatherCube .carousel-item table,
+.weatherCube .carousel-item table tr,
+.weatherCube .carousel-item table td,
+.weatherCube .carousel-item table th,
+.weatherCube .carousel-item table tbody
+{
+	border-collapse: collapse;
+	font-size: 13px;
+	margin: 0;
+	padding: 0;
+}
+
+.weatherCube .carousel-item table td img
+{
+	border: 1px solid black;
+	border-radius: 2px;
+}
+
+.weatherCube footer i
+{
+	font-size: 24px;
+	line-height: 24px;
+}
+
+.weatherCube .hourMedia .hour .currIcon
+{
+	font-size: 36px;
+	line-height: 36px;
+	margin-right: 3px;
+}
+
+.weatherCube .currentIcon
+{
+	font-size: 100px;
+	line-height: 100px;
+}
+
+.weatherCube .currentIconDay
+{
+	font-size: 70px;
+	line-height: 70px;
+	padding: 12px;
+}
+
+.weatherCube .weatherDesc
+{
+	margin-top: 5px;
+	padding: 2px;
+}
+
+.weatherCube .weatherIcon hr
+{
+	height: 1px;
+	opacity: .6;
+	width: 100%;
+}
+
+.weatherCube .weatherIcon .wi-thermometer
+{
+	font-size: 38px;
+	margin-right: auto;
+	padding-top: 5px;
+}
+
+.weatherCube header .carousel
+{
+	padding: 4px;
+}
+
+.weatherCube .weatherIcon .weatherUnit
+{
+	font-size: 34px;
+	margin-top: -12px;
+}
+
+.weatherCube .weatherIcon .digital-font
+{
+	font-size: 40px;
+}
+
+.weatherCube .weatherToolbox .nav-item
+{
+	background: transparent;
+	margin: 0;
+	padding: 0 2px 0 0;
+}
+
+.weatherCube .weatherToolbox .nav-item.active
+{
+	background: transparent;
+}
+
+.weatherCube .weatherToolbox .nav-item.active i
+{
+	color: rgb(255, 255, 255);
+}
+
+.weatherCube .weatherCubeCurrent img
+{
+	height: 95px;
+	width: 95px;
+}
+
+.weatherCube .weatherDay .weatherUnit
+{
+	font-size: 32px;
+}
+
+.weatherCube .media .digital-font
+{
+	color: white;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.weatherCube .hourTitle
+{
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.weatherCube .satImage img
+{
+	border: 3px groove rgb(83, 82, 81);
+	border-radius: 3px;
+}
+
+.weatherCube .hourMedia
+{
+	min-width: 12.5%;
+	padding-top: 5px;
+}
+
+.weatherCube footer,
+.weatherCube header,
+.weatherCube .weatherPane,
+.weatherCube .weatherCubeForecast,
+.weatherCube .weatherCubeCurrent
+{
+	border: 2px solid rgb(68, 68, 68);
+}
+
+.weatherCube footer
+{
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+	border-top: 0;
+}
+
+.weatherCube header
+{
+	border-bottom: 0;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	height: inherit;
+}
+
+.weatherCube .weatherCubeForecast
+{
+	border-bottom: 0;
+	border-left: 0;
+	height: inherit;
+}
+
+.weatherCube .weatherCubeCurrent
+{
+	border-bottom: 0;
+	height: inherit;
+	overflow: hidden;
+}
+
+.weatherCube .weatherCubeForecast img
+{
+	height: 95px;
+	padding: 8px;
+	text-align: center;
+	width: 95px;
+}
+
+.weatherCube .hourMedia img
+{
+	height: 50px;
+	width: 50px;
+}
+
+.weatherCube .weatherChart
+{
+	height: 320px;
+	max-height: 100%;
+	width: 100%;
+}
+
+.weatherCube .weatherEChart
+{
+	height: 420px;
+	max-height: 100%;
+	width: 100%;
+}
+
+.weatherCube .weatherMap
+{
+	height: 600px;
+}
+
+.weatherCube .weatherCopyrightDialog img
+{
+	height: 100px;
+	padding: 5px;
+	width: 100px;
+}
+
+.weatherCube .weatherDay .card-body:first-child
+{
+	position: relative;
+	transition: all .2s ease-out 0s;
+}
+
+.weatherCube .weatherDay .hidden-content,
+.weatherDay .card-body:first-child:after
+{
+	left: 3px;
+	position: absolute;
+	right: 3px;
+}
+
+.weatherCube .weatherDay .card-body:first-child:after
+{
+	background-color: #0027A4;
+	background-image: url(data:image/png;base64,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);
+	border-radius: 4px;
+	bottom: 3px;
+	content: "";
+	display: block;
+	opacity: 0;
+	top: 3px;
+	transform: rotate3d(-1, 1, 0, 100deg);
+	transition: all .4s ease-in-out 0s;
+}
+
+.weatherCube .weatherDay .card-body:first-child:hover:after
+{
+	opacity: .9;
+	transform: rotate3d(0, 0, 0, 0deg);
+}
+
+.weatherCube .weatherDay .card-body:first-child .hidden-content
+{
+	opacity: 0;
+	top: 45%;
+	transform: translate(10%, -30%);
+	transition: all .2s ease-out 0s;
+	z-index: 1;
+}
+
+.weatherCube .weatherDay .card-body:first-child:hover .hidden-content
+{
+	opacity: 1;
+	transform: translate(0, -50%);
+	transition-delay: .2s;
+}
+
+.weatherCube .weatherDay .card-body:first-child .hidden-content .title
+{
+	display: block;
+	font-size: 22px;
+	margin: 0;
+	overflow: hidden;
+	text-align: left;
+	width: 97%;
+}
+
+.weatherCube .weatherDay .card-body:first-child .hidden-content .title .digital-font
+{
+	color: white;
+	font-size: 18px;
+}
+
+.weatherCube .weatherDay .card-body:first-child .hidden-content.card-body
+{
+	margin: 3px 0 0 5px;
+	padding: 0;
+}
+
+.weatherCube .weatherCubeEarthquake
+{
+	color: white;
+	font-family: "Constantia", Verdana, Helvetica, Sans-Serif, serif;
+	height: 460px;
+	overflow: hidden;
+	overflow-y: auto;
+}
+
+.weatherCube .weatherCubeEarthquake .earthquakes h1.digital-font
+{
+	font-size: 60px;
+}
+
+.weatherCube .weatherCubeEarthquake .earthquakes .digital-font:not(h1)
+{
+	font-size: 16px;
+}
+
+.weatherCube .weatherCubeMoon i
+{
+	font-size: 34px;
+}
+
+.weatherCubeMoon .digital-font
+{
+	font-size: 16px;
+	padding-bottom: 15px;
+	vertical-align: middle;
+}
+
+.weatherCube .weatherIcon .weatherMax,
+.weatherCube .weatherIcon .weatherMin,
+.weatherCube .weatherToolbox .nav-item i.wi-earthquake,
+.weatherCube .media .wi
+{
+	font-size: 18px;
+}
+
+.weatherCube .weatherToolbox .nav-item i,
+.weatherCube .hourTitle i
+{
+	font-size: 22px;
+}
+
+@media
+only screen and (max-width: 990px)
+{
+	.weatherCube .weatherDay .card-body:first-child
+	{
+		margin-bottom: 30px
+	}
+}
+
+/* Extra small devices (portrait phones, less than 576px)
+   No media query since this is the default in Bootstrap */
+
+/* Small devices (landscape phones, 576px and up) */
+
+@media
+(min-width: 576px)
+{
+}
+
+/* Medium devices (tablets, 768px and up) */
+
+@media
+(min-width: 768px)
+{
+}
+
+/* Large devices (desktops, 992px and up) */
+
+@media
+(min-width: 992px)
+{
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+
+@media
+(min-width: 1200px)
+{
+}
+
+/*------------------------------------------------------------------------------------*/
+
+/* We occasionally use media queries that go in the other direction (the given screen size or smaller): */
+
+/* Extra small devices (portrait phones, less than 576px) */
+
+@media
+(max-width: 575px)
+{
+	.weatherCube .hourMedia
+	{
+		padding-top: 5px;
+		min-width: 100%;
+		position: relative;
+	}
+}
+
+/* Small devices (landscape phones, less than 768px) */
+
+@media
+(max-width: 767px)
+{
+	.weatherCube .hourMedia
+	{
+		padding-top: 5px;
+		min-width: 25%;
+	}
+}
+
+/* Medium devices (tablets, less than 992px) */
+
+@media
+(max-width: 991px)
+{
+}
+
+/* Large devices (desktops, less than 1200px) */
+
+@media
+(max-width: 1199px)
+{
+}
+
+.weatherCube .earthquake-popup .digital-font
+{
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.weatherCube .earthquake-popup
+{
+	background: rgb(193, 32, 25);
+}
+
+.weatherCube .leaflet-popup-content-wrapper,
+.weatherCube .leaflet-tooltip-bottom:before
+{
+	background: rgb(193, 32, 25);
+	min-width: 130px;
+	color: white;
+	font-weight: bold;
+}
+
+.leaflet-fade-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-zoom-animated
+{
+	will-change:auto !important;
+}

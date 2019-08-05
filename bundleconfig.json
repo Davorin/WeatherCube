@@ -1,0 +1,20 @@
+[
+  {
+    "outputFileName": "assets/js/weatherCube.min.js",
+    "inputFiles": [
+      "assets/js/weatherCube.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/js/weatherCube_i18n.min.js",
+    "inputFiles": [
+      "assets/js/weatherCube_i18n.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/css/weatherCube.min.css",
+    "inputFiles": [
+      "assets/css/weatherCube.css"
+    ]
+  }
+]
