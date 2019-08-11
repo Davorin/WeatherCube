@@ -14,4 +14,59 @@ Used api endpoints are:
 - Naval Oceanography Portal for astronomy data
 --------------------------------------------------------------
 
-we Can set a few options like:
+We can set a few options like:
+
+$('#weatherCube').weatherCube({
+			// OpenWeatherMap apiKey get it here: https://openweathermap.org/api
+			apiKey: '',
+      
+			// Selected forecast city
+			city: 'Murska Sobota',
+      
+			// We are using city so coordinates are set to null
+			latitude: '',
+			longitude: '',
+      
+			// language en, sl - it's auto set trough browser if you leave it empty.
+			language: 'en',
+      
+			// imperial or metric
+			units: "metric",
+      
+			// EarthQuakes period week or day
+			quakesPeriod: "week",
+      
+			// forecast icons default, tick, weezle
+			icons: "weezle",
+      
+			// weather update interval 2 hours
+			wInterval: 7200000,
+      
+			// Widget theme light or dark its ads a class 
+      // .weatherCube-lightTheme or .weatherCube-darkTheme
+			theme: 'light',
+      
+			// Satellite images
+			satImageLocations: [
+				{
+					region: "EU",
+					type: "visual",
+					animated: true
+				},
+				{
+					region: "GR",
+					type: "visual",
+					animated: true
+				},
+				{
+					region: "AF",
+					type: "visual",
+					animated: true
+				},
+				{
+					region: "RU",
+					type: "visual",
+					animated: true
+				}],
+			debug: true
+		});
