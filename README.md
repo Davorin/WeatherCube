@@ -4,6 +4,13 @@ This is a full jquery, bootstrap 4 weather widget.
 **It can show you latest weather forecast, charts for latest forecast,
 latest earthquakes and charts, moon position, weather alarm, and satellite images.**
 
+There are no extra images for the script. All images are in.svg format 
+and are base64 encoded in the WeatherCube Widget. You can use three tipes of images 
+set in options:
+
+-default - this are default font based icons from https://erikflowers.github.io/weather-icons/
+-tick
+-weezle
 
 It uses multiple api endpoints for collecting the data used.
 
