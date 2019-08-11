@@ -65,3 +65,5 @@ Used api endpoints are:
 
 ----------------------------------------------------------------------------------
 It's full responsive widget build upon bootstrap 4 and jquery also using leaflet maps an Echarts plugins. 
+
+assets/images/screen/1.png
