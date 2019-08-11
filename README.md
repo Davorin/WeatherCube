@@ -7,11 +7,11 @@ This is a full jquery, bootstrap 4 weather widget.
 It uses multiple api endpoints for collecting the data used.
 
 Used api endpoints are:
-- OpenWeatherMap - forecasts, uvi, and map services
-- USGS for earthquake data
-- MetoAlarm for live weather warning
-- sat24 for satellite images
-- Naval Oceanography Portal for astronomy data
+- OpenWeatherMap - forecasts, uvi, and map services  https://openweathermap.org/api
+- USGS for earthquake data  https://earthquake.usgs.gov/earthquakes/
+- MetoAlarm for live weather warning  https://www.meteoalarm.eu/
+- sat24 for satellite images  https://en.sat24.com/en
+- Naval Oceanography Portal for astronomy data  https://www.public.navy.mil/
 --------------------------------------------------------------
 
 ```javascript
