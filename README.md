@@ -67,3 +67,35 @@ $(document).ready(function()
 It's full responsive widget build upon bootstrap 4 and jquery also using leaflet maps an Echarts plugins. 
 
 ![Screenshot](screen.png)
+
+---------------------------------------------------------------------------------
+Eplaining the sat24.com api for satellite images
+```
+// Images by country PNG
+// Link https://api.sat24.com/mostrecent/
+// Europe codes DE, SP, FR, ALPS, IT, SCAN, GB, PL, GR, TU, RU, BA, BC, SE, HU, UK, EU
+// Africa codes CE, NG, CAF, TD, CG, EG, ET, CM, IS, LY, MG, MO, BW, SA, SO, SD, TZ, TN, WA, ZM, ZA, KE, AO, EA, AF
+// Asia codes ID, TH, MY, PG, KR, KP, LA, SEASIA
+// Oceania codes NZ, OCE, AU
+// America codes ANA, AMA, ASA
+// Japan, Taiwan, HongKong, Korea codes JP
+// Define map Type visual5hdcomplete, infraPolair, rainTMC, snow
+// Link Example
+// https://api.sat24.com/mostrecent/BA/visual5hdcomplete or
+// https://api.sat24.com/mostrecent/BA/infraPolair
+```
+```
+// Animated by country GIF
+// Link https://api.sat24.com/animated/
+// Europe codes DE, SP, FR, ALPS, IT, SCAN, GB, PL, GR, TU, RU, BA, BC, SE, HU, UK, EU
+// Africa codes CE, NG, CAF, TD, CG, EG, ET, CM, IS, LY, MG, MO, BW, SA, SO, SD, TZ, TN, WA, ZM, ZA, KE, AO, EA, AF
+// Asia codes ID, TH, MY, PG, KR, KP, LA, SEASIA
+// Oceania codes NZ, OCE, AU
+// America codes ANA, AMA, ASA
+// Japan, Taiwan, HongKong, Korea codes JP
+// Define map Type visual, infraPolair, rainTMC, snow
+// Numbers define map size 1-small, 2-medium, 3-large
+// Link Example
+// https://api.sat24.com/animated/HU/visual/1/
+// https://api.sat24.com/animated/BA/infraPolair/2/
+```
