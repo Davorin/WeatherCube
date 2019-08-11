@@ -16,57 +16,9 @@ Used api endpoints are:
 
 We can set a few options like:
 
-$('#weatherCube').weatherCube({
-			// OpenWeatherMap apiKey get it here: https://openweathermap.org/api
-			apiKey: '',
-      
-			// Selected forecast city
-			city: 'Murska Sobota',
-      
-			// We are using city so coordinates are set to null
-			latitude: '',
-			longitude: '',
-      
-			// language en, sl - it's auto set trough browser if you leave it empty.
-			language: 'en',
-      
-			// imperial or metric
-			units: "metric",
-      
-			// EarthQuakes period week or day
-			quakesPeriod: "week",
-      
-			// forecast icons default, tick, weezle
-			icons: "weezle",
-      
-			// weather update interval 2 hours
-			wInterval: 7200000,
-      
-			// Widget theme light or dark its ads a class 
-      // .weatherCube-lightTheme or .weatherCube-darkTheme
-			theme: 'light',
-      
-			// Satellite images
-			satImageLocations: [
-				{
-					region: "EU",
-					type: "visual",
-					animated: true
-				},
-				{
-					region: "GR",
-					type: "visual",
-					animated: true
-				},
-				{
-					region: "AF",
-					type: "visual",
-					animated: true
-				},
-				{
-					region: "RU",
-					type: "visual",
-					animated: true
-				}],
-			debug: true
-		});
+  <script src="assets/js/jQuery/jquery.js?v=wAXeYng6BG"></script>
+  <script src="assets/js/bootstrap/js/bootstrap.bundle.js?v=wAXeYng6BG"></script>
+  <script src="assets/js/eCharts/echarts.js?v=wAXeYng6BG"></script>
+  <script src="assets/js/leaflet/leaflet.js?v=wAXeYng6BG"></script>
+  <script src="assets/js/weatherCube.min.js?v=wAXeYng6BG"></script>
+  <script src="assets/js/weatherCube_i18n.min.js?v=wAXeYng6BG"></script>
