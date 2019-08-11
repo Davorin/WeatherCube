@@ -32,12 +32,11 @@ function getI18n(key, lang)
 			versionLeafleet: 'Leafleet Version: ',
 			versionEChars: 'ECharts Version: ',
 			
+      apiError: 'WeatherCube needs API key to continue!.',
+      apiKeyError: 'OpenWeatherMap API key is missing!!',
+      browserError: 'Upgrade your browser, dude!',
 			satError: 'Weather Satellite Images, are disabled!',
 			satNotSet: 'Weather Satellite Images, are not set!',
-			
-			currentForecastToday: 'Today',
-			currentForecastLat: ' at Lat: ',
-			currentForecastLon: ' - Lon: ',
 			
 			earthquakesLatitude: 'Latitude:',
 			earthquakesLongitude: 'Longitude:',
@@ -49,6 +48,28 @@ function getI18n(key, lang)
 			earthquakesStrength: 'Earthquakes by strength:',
 			earthquakesMinStrength: 'Max. Strength',
 			earthquakesMaxStrength: 'Min. Strength',
+      
+      currentForecastToday: 'Today',
+      currentForecastLat: ' at Lat: ',
+      currentForecastLon: ' - Lon: ',
+      currentForecastMin: 'Min.',
+      currentForecastMax: 'Max.',
+      currentForecastUvi: 'Uvi:',
+      
+      currentIndexLow: 'Low',
+      currentIndexModerate: 'Moderate',
+      currentIndexHigh: 'High',
+      currentIndexVeryHigh: 'Very high',
+      currentIndexVeryExtreme: 'Extreme',
+      currentIndexVeryUnknown: 'Unknown',
+      
+      currentForecastPrecipitation: 'Precipitation',
+      currentForecastWind: 'Wind',
+      currentForecastClouds: 'Clouds',
+      currentForecastPressure: 'Pressure',
+      currentForecastRain: 'Rain',
+      currentForecastTemperature: 'Temperature',
+      currentForecastEarthquakes: 'Earthquakes',
 			
 			windSpeed: 'Wind Speed',
 			maxWindSpeed: 'Max. Wind Speed',
@@ -77,6 +98,39 @@ function getI18n(key, lang)
 			waningGibbous: 'Waning Gibbous',
 			lastQuarter: 'Last Quarter',
 			waningCrescent: 'Waning Crescent',
+      
+      earthToday: 'Alert\'s for Today:',
+      earthTomorrow: 'Alert\'s for Tomorrow:',
+      
+      earthSun: 'Sun:',
+      earthMoon: 'Moon:',
+      
+      earthSeasons: 'This year Earth\'s Seasons and Apsides',
+      earthSeasonsWinter: 'Winter',
+      earthSeasonsSpring: 'Spring',
+      earthSeasonsSummer: 'Summer',
+      earthSeasonsFall: 'Fall',
+      earthSeasonsDate: 'On Date',
+      earthSeasonsName: 'Season',
+      
+      earthSeasonsPerihelion: 'Perihelion',
+      earthSeasonsEquinox: 'Equinox',
+      earthSeasonsSolstice: 'Solstice',
+      earthSeasonsAphelion: 'Aphelion',
+      
+      earthAstrology: 'Zodiac Sign',
+      earthAstrologyAries: 'Aries',
+      earthAstrologyTaurus: 'Taurus',
+      earthAstrologyGemini: 'Gemini',
+      earthAstrologyCancer: 'Cancer',
+      earthAstrologyLeo: 'Leo',
+      earthAstrologyVirgo: 'Virgo',
+      earthAstrologyLibra: 'Libra',
+      earthAstrologyScorpio: 'Scorpio',
+      earthAstrologySagittarius: 'Sagittarius',
+      earthAstrologyCapricorn: 'Capricorn',
+      earthAstrologyAquarius: 'Aquarius',
+      earthAstrologyPisces: 'Pisces',
 			
 			january: 'January',
 			february: 'February',
@@ -114,9 +168,9 @@ function getI18n(key, lang)
 			viewClose: 'Zapri',
 			viewSat: 'Ogled satelitskih slik',
 			viewCharts: 'Ogled grafikonov',
-			viewMaps: 'ogled Map',
+			viewMaps: 'Ogled Map',
 			viewEarthquakes: 'Ogled zemeljskih potresov',
-			viewMoon: 'Prikaži podatke o Luni',
+			viewMoon: 'Prikaži podatke o astrologiji',
 			viewHours: 'Danes, po urah',
 			viewPartners: 'Partnerji:',
 			viewAt: ' ob:',
@@ -125,17 +179,15 @@ function getI18n(key, lang)
 			versionBootstrap: 'Bootstrap Verzija: ',
 			versionLeafleet: 'Leafleet Verzija: ',
 			versionEChars: 'ECharts Verzija: ',
-			
+      
+      apiError: 'WeatherCube needs API key to continue!.',
+      apiKeyError: 'OpenWeatherMap API key is missing!!',
 			satError: 'Satelitske slike so onemogočene!',
-			satNotSet: 'Satelitske slike niso nastavljene!\'',
-			
-			currentForecastToday: 'Danes',
-			currentForecastLat: ' pri Lat: ',
-			currentForecastLon: ' - Lon: ',
+			satNotSet: 'Satelitske slike niso nastavljene!',
 			
 			earthquakesLatitude: 'Širina:',
 			earthquakesLongitude: 'Dolžina:',
-			earthquakesTime: 'Čas:',
+			earthquakesTime: 'Čas dogodka:',
 			earthquakesStatus: 'Status:',
 			earthquakesTsunami: 'Cunami:',
 			earthquakesTsunamiYes: 'DA',
@@ -143,7 +195,29 @@ function getI18n(key, lang)
 			earthquakesStrength: 'Potresi po jakosti:',
 			earthquakesMinStrength: 'Max. Moč',
 			earthquakesMaxStrength: 'Min. SMoč',
-			
+      
+      currentForecastToday: 'Danes',
+      currentForecastLat: ' pri Lat: ',
+      currentForecastLon: ' - Lon: ',
+      currentForecastMin: 'Min.',
+      currentForecastMax: 'Max.',
+      currentForecastUvi: 'Uvi:',
+      
+      currentIndexLow: 'Nizko',
+      currentIndexModerate: 'Zmerno',
+      currentIndexHigh: 'Visoko',
+      currentIndexVeryHigh: 'Zelo Visoko',
+      currentIndexVeryExtreme: 'Ekstremno',
+      currentIndexVeryUnknown: 'Neznano',
+      
+      currentForecastPrecipitation: 'Padavine',
+      currentForecastWind: 'Vetrovnost',
+      currentForecastClouds: 'Oblačnost',
+      currentForecastPressure: 'Pritisk',
+      currentForecastRain: 'Deževje',
+      currentForecastTemperature: 'Temperatura',
+      currentForecastEarthquakes: 'Potresi',
+      
 			windSpeed: 'Hitrost Vetra',
 			maxWindSpeed: 'Max. Hitrost Vetra',
 			minWindSpeed: 'Min. Hitrost Vetra',
@@ -171,7 +245,40 @@ function getI18n(key, lang)
 			waningGibbous: 'Pojemajoči Krajec',
 			lastQuarter: 'Zadnja Četrtina',
 			waningCrescent: 'Pojemajoča Luna',
-			
+      
+      earthToday: 'Opozorila za danes:',
+      earthTomorrow: 'Opozorila za jutri:',
+      
+      earthSun: 'Sonce:',
+      earthMoon: 'Luna:',
+      
+      earthSeasons: 'Letošnji letni časi Zemlje in apsidi',
+      earthSeasonsWinter: 'Zima',
+      earthSeasonsSpring: 'Pomlad',
+      earthSeasonsSummer: 'Poletje',
+      earthSeasonsFall: 'Jesen',
+      earthSeasonsDate: 'Na Datum:',
+      earthSeasonsName: 'Sezona:',
+      
+      earthSeasonsPerihelion: 'Perihelion',
+      earthSeasonsEquinox: 'Enakonočje',
+      earthSeasonsSolstice: 'Solsticij',
+      earthSeasonsAphelion: 'Afelija',
+      
+      earthAstrology: 'Trenutno Nebesno Znamenje:',
+      earthAstrologyAries: 'Oven',
+      earthAstrologyTaurus: 'Bik',
+      earthAstrologyGemini: 'Dvojčka',
+      earthAstrologyCancer: 'Rak',
+      earthAstrologyLeo: 'Lev',
+      earthAstrologyVirgo: 'Devica',
+      earthAstrologyLibra: 'Tehtnica',
+      earthAstrologyScorpio: 'Škorpijon',
+      earthAstrologySagittarius: 'Strelec',
+      earthAstrologyCapricorn: 'Kozorog',
+      earthAstrologyAquarius: 'Vodnar',
+      earthAstrologyPisces: 'Ribi',
+      
 			january: 'Januar',
 			february: 'Februar',
 			march: 'Marec',
@@ -219,7 +326,9 @@ function getI18n(key, lang)
 			versionBootstrap: 'Bootstrap Version: ',
 			versionLeafleet: 'Leafleet Version: ',
 			versionEChars: 'ECharts Version: ',
-			
+      
+      apiError: 'WeatherCube needs API key to continue!.',
+      apiKeyError: 'OpenWeatherMap API key is missing!!',
 			satError: 'Wettersatellitenbilder sind deaktiviert!',
 			satNotSet: 'Wettersatellitenbilder sind nicht gesetzt!',
 			
@@ -313,7 +422,9 @@ function getI18n(key, lang)
 			versionBootstrap: 'Bootstrap Version: ',
 			versionLeafleet: 'Leafleet Version: ',
 			versionEChars: 'ECharts Version: ',
-			
+      
+      apiError: 'WeatherCube needs API key to continue!.',
+      apiKeyError: 'OpenWeatherMap API key is missing!!',
 			satError: 'Weather Satellite Images, are disabled!',
 			satNotSet: 'Weather Satellite Images, are not set!',
 			

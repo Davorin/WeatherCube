@@ -7,7 +7,7 @@
 	src: url("DigitalNumbers-Regular.eot?#iefix") format("embedded-opentype"), url("DigitalNumbers-Regular.woff") format("woff"), url("DigitalNumbers-Regular.ttf") format("truetype"), url("DigitalNumbers-Regular.svg") format("svg");
 }
 
-[class^="iconNumber-"], [class*=" iconNumber-"]
+[class^="iconNumber-"], [class*="iconNumber-"]
 {
 	font-family: 'sa-digital-number', sans-serif;
 	speak: none;

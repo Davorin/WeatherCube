@@ -1,56 +1,58 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<title>JQuery WeatherCube Plugin</title>
-	<meta content="" name="description" />
-	<meta content="" name="keywords" />
-	<meta content="Davorin Casar" name="author" />
-	<!--IE Compatibility modes-->
-	<meta content="IE=edge" http-equiv="X-UA-Compatible" />
-	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-	<!-- /ie compatibility modes -->
-	<!-- *********************************************************************************************************** -->
-	<!-- Favicon: http://realfavicongenerator.net -->
-	<meta name="apple-mobile-web-app-title" content="WeatherCube"/>
-	<meta name="application-name" content="WeatherCube"/>
-	<meta name="msapplication-TileColor" content="#da532c"/>
-	<meta name="msapplication-TileImage" content="assets/favicon/mstile-144x144.png?v=ng96y0QdgR"/>
-	<meta name="msapplication-config" content="assets/favicon/browserconfig.xml?v=ng96y0QdgR"/>
-	<meta name="theme-color" content="#ffffff"/>
-	<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png?v=ng96y0QdgR"/>
-	<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png?v=ng96y0QdgR"/>
-	<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/android-chrome-192x192.png?v=ng96y0QdgR"/>
-	<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png?v=ng96y0QdgR"/>
-	<link rel="manifest" href="assets/favicon/site.webmanifest?v=ng96y0QdgR"/>
-	<link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg?v=ng96y0QdgR" color="#5bbad5"/>
-	<link rel="shortcut icon" href="assets/favicon/favicon.ico?v=ng96y0QdgR"/>
-	<!-- /favicon: http://realfavicongenerator.net -->
-	<!-- *********************************************************************************************************** -->
-	<link rel="stylesheet" href="assets/fonts/digitalNumbers/digitalNumbers.css?v=wAXeYng6BG" />
-	<link rel="stylesheet" href="assets/fonts/weather-icons/weather-icons.css?v=wAXeYng6BG" />
-	<link rel="stylesheet" href="assets/fonts/weather-icons/weather-icons-wind.css?v=wAXeYng6BG" />
-	<!-- *********************************************************************************************************** -->
-	<link rel="stylesheet" href="assets/js/bootstrap/css/bootstrap.css?v=wAXeYng6BG" />
-	<link rel="stylesheet" href="assets/js/leaflet/leaflet.css?v=wAXeYng6BG" />
-	<link rel="stylesheet" href="assets/css/style.css?v=wAXeYng6BG" />
-	<link rel="stylesheet" href="assets/css/weatherCube.css?v=wAXeYng6BG" />
-	<!-- *********************************************************************************************************** -->
-	<script src="assets/js/jQuery/jquery.js?v=wAXeYng6BG"></script>
-	<script src="assets/js/bootstrap/js/bootstrap.bundle.js?v=wAXeYng6BG"></script>
-	<script src="assets/js/eCharts/echarts.js?v=wAXeYng6BG"></script>
-	<script src="assets/js/leaflet/leaflet.js?v=wAXeYng6BG"></script>
-	<script src="assets/js/weatherCube.js?v=wAXeYng6BG"></script>
-	<script src="assets/js/weatherCube_i18n.js?v=wAXeYng6BG"></script>
+  <meta charset="UTF-8"/>
+  <title>JQuery WeatherCube Widget</title>
+  <meta content="Widget for acquiring various weather data, earthquakes and satellite images." name="description"/>
+  <meta content="" name="openWeatherMap, jquery, bootstrap, widget, weather, usgs, astronomy, weather charts"/>
+  <meta content="Davorin Casar" name="author"/>
+  <!--IE Compatibility modes-->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <!-- /ie compatibility modes -->
+  <!-- *********************************************************************************************************** -->
+  <!-- Favicon: http://realfavicongenerator.net -->
+  <link href="assets/favicon/apple-touch-icon.png?v=WG2BO9EXnj" rel="apple-touch-icon" sizes="180x180">
+  <link href="assets/favicon/favicon-32x32.png?v=WG2BO9EXnj" rel="icon" sizes="32x32" type="image/png">
+  <link href="assets/favicon/android-chrome-192x192.png?v=WG2BO9EXnj" rel="icon" sizes="192x192" type="image/png">
+  <link href="assets/favicon/favicon-16x16.png?v=WG2BO9EXnj" rel="icon" sizes="16x16" type="image/png">
+  <link href="assets/favicon/site.webmanifest?v=WG2BO9EXnj" rel="manifest">
+  <link color="#5bbad5" href="assets/favicon/safari-pinned-tab.svg?v=WG2BO9EXnj" rel="mask-icon">
+  <link href="assets/favicon/favicon.ico?v=WG2BO9EXnj" rel="shortcut icon">
+  <meta content="FM-RadioCube" name="apple-mobile-web-app-title">
+  <meta content="FM-RadioCube" name="application-name">
+  <meta content="#da532c" name="msapplication-TileColor">
+  <meta content="assets/favicon/mstile-144x144.png?v=WG2BO9EXnj" name="msapplication-TileImage">
+  <meta content="assets/favicon/browserconfig.xml?v=WG2BO9EXnj" name="msapplication-config">
+  <meta content="#ffffff" name="theme-color">
+  <!-- /favicon: http://realfavicongenerator.net -->
+  <!-- *********************************************************************************************************** -->
+  <link href="assets/fonts/digitalNumbers/digitalNumbers.css?v=wAXeYng6BG" rel="stylesheet"/>
+  <link href="assets/fonts/weather-icons/weather-icons.css?v=wAXeYng6BG" rel="stylesheet"/>
+  <link href="assets/fonts/weather-icons/weather-icons-wind.css?v=wAXeYng6BG" rel="stylesheet" />
+  <!-- *********************************************************************************************************** -->
+  <link href="assets/js/bootstrap/css/bootstrap.css?v=wAXeYng6BG" rel="stylesheet"/>
+  <link href="assets/js/leaflet/leaflet.css" rel="stylesheet" />
+  <link href="assets/css/weatherCube.min.css?v=wAXeYng6BG" rel="stylesheet"/>
+  <!-- *********************************************************************************************************** -->
+  <script src="assets/js/jQuery/jquery.js?v=wAXeYng6BG"></script>
+  <script src="assets/js/bootstrap/js/bootstrap.bundle.js?v=wAXeYng6BG"></script>
+  <script src="assets/js/eCharts/echarts.js?v=wAXeYng6BG"></script>
+  <script src="assets/js/leaflet/leaflet.js?v=wAXeYng6BG"></script>
+  <script src="assets/js/weatherCube.min.js?v=wAXeYng6BG"></script>
+  <script src="assets/js/weatherCube_i18n.min.js?v=wAXeYng6BG"></script>
 </head>
 
 <body>
 <div class="container-fluid">
-	<section class="row mt-3">
-		<div id="weatherCube" class="col-md-12 weatherCube"></div>
-	</section>
+  <div class="row mt-3">
+    <div class="col-12 mb-3">
+      
+      <div id="weatherCube" class="weatherCube"></div>
+      
+    </div>
+  </div>
 </div>
-
 <script type="text/javascript">
 	$(document).ready(function()
 	{
@@ -60,8 +62,8 @@
 			// Selected forecast city
 			city: 'Murska Sobota',
 			// We are using city so coordinates are set to null
-			latitude: null,
-			longitude: null,
+			latitude: '',
+			longitude: '',
 			// language en, sl
 			language: 'en',
 			// imperial or metric
@@ -72,6 +74,8 @@
 			icons: "weezle",
 			// weather update interval 2 hours
 			wInterval: 7200000,
+			// Widget theme light or dark
+			theme: 'light',
 			// Satellite images
 			satImageLocations: [
 				{
@@ -94,15 +98,19 @@
 					type: "visual",
 					animated: true
 				}],
-			debug: true,
-			onComplete: function() {
-				alert('Then followup with an awesome callback!');
-			},
-			onError: function() {
-				alert('Then followup with an awesome callback!');
-			}
+			debug: true
 		});
 	});
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62352038-3"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	
+	gtag('config', 'UA-62352038-3');
 </script>
 </body>
 </html>
