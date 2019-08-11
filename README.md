@@ -1,6 +1,9 @@
 # WeatherCube V1.2.2019
 
 This is a full jquery, bootstrap 4 weather widget.
+**It can show you latest weather forecast, charts for latest forecast,
+latest earthquakes and charts, moon position, weather alarm, and satellite images.**
+
 
 It uses multiple api endpoints for collecting the data used.
 
