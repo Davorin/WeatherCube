@@ -1,6 +1,4 @@
-# WeatherCube
-
-Starting with version V1.2.2019.
+# WeatherCube V1.2.2019
 
 This is a full jquery, bootstrap 4 weather widget.
 
