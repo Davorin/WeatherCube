@@ -2599,7 +2599,7 @@
             });
             
             html += '</tbody></table>';
-            widget.$element.find('#weatherCube-seasonsTable-'+uId).append(html);
+            widget.$element.find('#weatherCube-seasonsTable-'+uId),empty().append(html);
         
             if (debug)
             {
