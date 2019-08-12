@@ -77,7 +77,7 @@ It's full responsive widget build upon bootstrap 4 and jquery also using leaflet
 ![Screenshot](screen.png)
 
 ---------------------------------------------------------------------------------
-Eplaining the sat24.com api for satellite images
+Explaining the sat24.com api for satellite images
 ```
 // Images by country PNG
 // Link https://api.sat24.com/mostrecent/
