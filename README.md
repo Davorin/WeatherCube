@@ -115,3 +115,25 @@ Explaining the sat24.com api for satellite images
 // https://api.sat24.com/animated/HU/visual/1/
 // https://api.sat24.com/animated/BA/infraPolair/2/
 ```
+
+Variable | Type
+-------- | ---
+city | String
+index | int
+latitude | String
+longitude | String
+units | String
+quakesPeriod | string
+icons | String
+wInterval | int
+theme | String
+satImageLocations | Array
+
+
+Issues
+=====
+
+--------------------------------------------------------
+# License
+
+> Copyright 2007 - 2019 Product of MCX-Systems®
