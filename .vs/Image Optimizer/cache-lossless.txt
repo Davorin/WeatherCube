@@ -1,0 +1,7 @@
+C:\Projects\jQuery\weatherCube\assets\images\background\Summer.png|47464
+C:\Projects\jQuery\weatherCube\assets\images\background\Winter.jpg|25852
+C:\Projects\jQuery\weatherCube\assets\images\background\Winter.png|41826
+C:\Projects\jQuery\weatherCube\assets\images\background\Autumn.jpg|46660
+C:\Projects\jQuery\weatherCube\assets\images\background\Autumn.png|76235
+C:\Projects\jQuery\weatherCube\assets\images\background\Summer.jpg|32101
+C:\Projects\jQuery\weatherCube\assets\js\leaflet\images\marker-shadow.png|618
