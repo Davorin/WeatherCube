@@ -20,7 +20,12 @@ Used api endpoints are:
 - MetoAlarm for live weather warning  https://www.meteoalarm.eu/
 - sat24 for satellite images  https://en.sat24.com/en
 - Naval Oceanography Portal for astronomy data  https://www.public.navy.mil/
+
+It's full responsive widget build upon bootstrap 4 and jquery also using leaflet maps an Echarts plugins.
 --------------------------------------------------------------
+
+Usage:
+=====
 
 ```javascript
 $(document).ready(function()
@@ -71,12 +76,15 @@ $(document).ready(function()
 });
 ```
 
-----------------------------------------------------------------------------------
-It's full responsive widget build upon bootstrap 4 and jquery also using leaflet maps an Echarts plugins. 
+
+ScreenShot
+=====
 
 ![Screenshot](screen.png)
 
----------------------------------------------------------------------------------
+Help:
+=====
+
 Explaining the sat24.com api for satellite images
 ```
 // Images by country PNG
@@ -107,3 +115,19 @@ Explaining the sat24.com api for satellite images
 // https://api.sat24.com/animated/HU/visual/1/
 // https://api.sat24.com/animated/BA/infraPolair/2/
 ```
+
+Variable | Type
+-------- | ---
+city | String
+index | int
+latitude | String
+longitude | String
+
+Issues
+=====
+
+
+--------------------------------------------------------
+# License
+
+> Copyright 2007 - 2019 Product of MCX-Systems®
