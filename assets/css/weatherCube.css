@@ -156,7 +156,7 @@
 
 .weatherCube .tab-content .weatherHoursAreaScroll
 {
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 .weatherCube .weatherCube-button
@@ -168,13 +168,14 @@
 
 .weatherCube .weatherCube-carousel
 {
-	width: 180px;
+	width: 100%;
+	max-width: 320px;
 }
 
 .weatherCube .weatherCube-carousel img
 {
 	margin-right: 10px;
-	border: 1px solid #1D2124;
+	border: 1px solid rgb(29, 33, 36);
 }
 
 .weatherCube .popover
@@ -451,6 +452,12 @@
 	padding-left: 20px;
 }
 
+.weatherCube .weatherCube-main,
+.weatherCube .tab-content
+{
+	overflow: hidden;
+}
+
 /***********************************************************************/
 
 /***********************************************************************/
@@ -573,9 +580,9 @@ screen and (min-width: 576px)
 		font-size: 16px;
 	}
 
-	.weatherCube .weatherCube-carousel
+	.weatherCube .weatherCube-carousel 
 	{
-		width: 200px;
+		width: 320px;
 	}
 
 	.weatherCube .weatherCube-day
@@ -604,7 +611,7 @@ screen and (min-width: 768px)
 {
 	.weatherCube .weatherCube-carousel
 	{
-		width: 230px;
+		width: 320px;
 	}
 
 	.weatherCube .weatherCube-day
@@ -658,9 +665,9 @@ screen and (min-width: 992px)
 		font-size: 18px;
 	}
 
-	.weatherCube .weatherCube-carousel
+	.weatherCube .weatherCube-carousel 
 	{
-		width: 280px;
+		width: 320px;
 	}
 
 	.weatherCube .weatherCube-day
@@ -711,7 +718,7 @@ screen and (min-width: 1200px)
 {
 	.weatherCube .weatherCube-carousel
 	{
-		width: 300px;
+		width: 320px;
 	}
 
 	.weatherCube .weatherCube-day
