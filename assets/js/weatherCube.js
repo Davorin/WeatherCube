@@ -479,6 +479,11 @@
 					'" aria-selected="true" class="nav-item active mr-2 weatherCube-button">' +
 					'<i class="wi wi-time-5 wi-fw"></i>' +
 					'</a>' +
+					'<a title="' + getI18n( 'viewUvi', this.options.language ) + '" href="#tabUvi-' + uId +
+					'" role="tab" aria-controls="tabUvi-' + uId +
+					'" aria-selected="false" class="nav-item mr-2 weatherCube-button">' +
+					'<i class="wi wi-stars wi-fw"></i>' +
+					'</a>' +
 					'<a title="' + getI18n('viewSat', this.options.language) + '" href="#tabSat-' + uId +
 					'" role="tab" aria-controls="tabSat-' + uId +
 					'" aria-selected="false" class="nav-item mr-2 weatherCube-button">' +
@@ -514,6 +519,10 @@
 					'" class="weatherHoursAreaScroll d-flex flex-row justify-content-between flex-md-wrap flex-xl-nowrap">' +
 					/* Weather hour Area */
 					'</div>' +
+					'</div>' +
+					'<div id="tabUvi-' + uId + '" class="tab-pane fade" role="tabpanel">' +
+					'<div id="tabUviForecast-' + uId + '" class="weatherCube-uviForecast row no-gutters"></div>' +
+					this.createUviForecastTable(uId) +
 					'</div>' +
 					'<div id="tabSat-' + uId + '" class="tab-pane fade" role="tabpanel">' +
 					'<div id="imagesContainer-' + uId + '" class="weatherCube-satImages row no-gutters"></div>' +
@@ -1439,12 +1448,12 @@
 					'<span class="digital-numbers-animated mr-1 pb-1">' + Math.round(data.main.temp_max) + '</span>' +
 					'<i class="wi ' + widget.generateUnitIcon(widget.options.units) + ' pb-2 mr-2"></i>' +
 					'</div>' +
-					'<hr class="p-1 m-0 mt-2"/>' +
+					'<hr class="p-1 m-0 mt-1"/>' +
 					'<div class="weatherCubeMinMaxTemperature d-flex justify-content-end align-items-center mr-2">' +
-					'<span class="mr-1 pb-2">' + getI18n('currentForecastUvi', this.options.language) + '</span>' +
-					'<span id="weatherCube-uviIndex-' + uId + '" class="mr-1 pb-2 font-weight-bold mr-2"></span>' +
+					'<img id="weatherCube-uviIndexImage-' + uId + '" src="" class="img-fluid mr-2" alt="UV-index" />' +
+					'<span id="weatherCube-uviIndex-' + uId + '" class="mr-1 font-weight-bold mr-2"></span>' +
 					'</div>' +
-					'<hr class="p-1 m-0"/>' +
+					'<hr class="p-1 m-0 mt-2"/>' +
 					'</div>' +
 					'</div>' +
 					'<div class="weatherCube-desc font-weight-bold mt-auto mt-0 p-1 text-center">' +
@@ -1740,40 +1749,184 @@
 
 			updateUviWeather: function(uId, data)
 			{
+				let widget = this;
+				
 				if (this.options.debug)
 				{
 					console.info('Updating uvi data!');
 				}
+				
+				let uviRowWeek = '';
+				let uviRowIcon = '';
+				let uviRowValue = '';
+				let uviRowWarning = '';
+				
+				// Each day
+				$.each(data, function(i, item)
+				{
+					let uviWeekIndex = item.value;
+					let uviWarning;
+					let uviWeekDate = new Date(item.date * 1000).getDay();
+					let dayName = widget.dayToString(uviWeekDate, widget.options.language);
 
-				let index = '';
-				let uviIndex = data[0].value;
+					if (i < 5)
+					{
+						if (uviWeekIndex <= 3)
+						{
+							uviWarning = getI18n('currentIndexLow', widget.options.language);
+						}
+						else if (uviWeekIndex > 3 && uviWeekIndex <= 6)
+						{
+							uviWarning = getI18n('currentIndexModerate', widget.options.language);
+						}
+						else if (uviWeekIndex > 6 && uviWeekIndex <= 8)
+						{
+							uviWarning = getI18n('currentIndexHigh', widget.options.language);
+						}
+						else if (uviWeekIndex > 8 && uviWeekIndex <=10)
+						{
+							uviWarning = getI18n('currentIndexVeryHigh', widget.options.language);
+						}
+						else
+						{
+							uviWarning = getI18n('currentIndexExtreme', widget.options.language);
+						}
+						
+						uviRowWeek += '<td class="p-2"><span class="h5 font-weight-bold">'+dayName+'</span></td>';
+						uviRowIcon += '<td class="p-2"><img src="'+widget.getUviIndexImage(Math.floor(uviWeekIndex))+'" class="img-fluid" alt="'+uviWarning+'" /></td>';
+						uviRowValue += '<td class="p-2"><samp class="digital-numbers h4">'+uviWeekIndex+'</samp></td>';
+						uviRowWarning += '<td class="p-2"><h4><span class="badge badge-warning p-1">'+uviWarning+'</span></h4></td>';
+						
+						if(i === 0)
+						{
+							setTimeout(function()
+							{
+								widget.$element.find('#weatherCube-uviIndexImage-' + uId).attr('src', widget.getUviIndexImage(Math.floor(uviWeekIndex)));
+								widget.$element.find('#weatherCube-uviIndex-' + uId).text(uviWarning);
+							}, 1000);
+						}
+					}
+				});
 
-				if (uviIndex < 2.9)
-				{
-					index = getI18n('currentIndexLow', this.options.language);
-				}
-				else if (uviIndex > 3 && uviIndex < 5.9)
-				{
-					index = getI18n('currentIndexModerate', this.options.language);
-				}
-				else if (uviIndex > 6 && uviIndex < 7.9)
-				{
-					index = getI18n('currentIndexHigh', this.options.language);
-				}
-				else if (uviIndex > 8 && uviIndex < 10.9)
-				{
-					index = getI18n('currentIndexVeryHigh', this.options.language);
-				}
-				else if (uviIndex > 11)
-				{
-					index = getI18n('currentIndexExtreme', this.options.language);
-				}
-				else
-				{
-					index = 'Unknown';
-				}
-
-				this.$element.find('#weatherCube-uviIndex-' + uId).text(index);
+				let html = '<div class="table-responsive">' +
+					'<table class="table table-borderless table-striped">' +
+					'<thead>' +
+					'<tr class="uviTableInfo-tr bg-primary">' +
+					'<td colspan="6" class="p-2">' +
+					'<span class="h5 font-weight-bold">'+getI18n('currentUviIndexWeek', widget.options.language)+'</span>' +
+					'</td>' +
+					'</tr>' +
+					'</thead>' +
+					'<tbody>' +
+					'<tr>' +
+					uviRowWeek +
+					'</tr>' +
+					'<tr>' +
+					uviRowIcon +
+					'</tr>' +
+					'<tr>' +
+					uviRowValue +
+					'</tr>' +
+					'<tr>' +
+					uviRowWarning +
+					'</tr>' +
+					'</tbody>' +
+					'</table>' +
+				    '</div>';
+				
+				widget.$element.find( '#tabUviForecast-' + uId ).empty().append(html);
+			},
+			
+			createUviForecastTable: function()
+			{
+				return '<table class="uviTableInfo table table-striped table-borderless p-2">' +
+					'<thead>' +
+					'<tr class="uviTableInfo-tr">' +
+					'<th class="m-2 p-4 text-center bg-primary">' +
+					'<samp class="h2 digital-numbers font-weight-bold">1</samp>' +
+					'</th>' +
+					'<th class="m-2 p-4 text-center bg-primary">' +
+					'<samp class="h2 digital-numbers font-weight-bold">2</samp>' +
+					'</th>' +
+					'<th class="m-2 p-4 text-center bg-success">' +
+					'<samp class="h2 digital-numbers font-weight-bold">3</samp>' +
+					'</th>' +
+					'<th class="m-2 p-4 text-center bg-success">' +
+					'<samp class="h2 digital-numbers font-weight-bold">4</samp>' +
+					'</th>' +
+					'<th class="m-2 p-4 text-center bg-success">' +
+					'<samp class="h2 digital-numbers font-weight-bold">5</samp>' +
+					'</th>' +
+					'<th class="m-2 p-4 text-center bg-warning">' +
+					'<samp class="h2 digital-numbers font-weight-bold">6</samp>' +
+					'</th>' +
+					'<th class="m-2 p-4 text-center bg-warning">' +
+					'<samp class="h2 digital-numbers font-weight-bold">7</samp>' +
+					'</th>' +
+					'<th class="m-2 p-4 text-center bg-danger">' +
+					'<samp class="h2 digital-numbers font-weight-bold">8</samp>' +
+					'</th>' +
+					'<th class="m-2 p-4 text-center bg-danger">' +
+					'<samp class="h2 digital-numbers font-weight-bold">9</samp>' +
+					'</th>' +
+					'<th class="m-2 p-4 text-center bg-danger">' +
+					'<samp class="h2 digital-numbers font-weight-bold">10</samp>' +
+					'</th>' +
+					'<th class="m-2 p-4 text-center bg-secondary">' +
+					'<samp class="h2 digital-numbers font-weight-bold">11&nbsp;-&nbsp;16</samp>' +
+					'</th>' +
+					'</tr>' +
+					'<tr class="uviTableInfo-tr">' +
+					'<th colspan="3" class="bg-primary">' +
+					'<samp class="h4 font-weight-bold">'+getI18n('currentIndexLow', this.options.language)+'</samp>' +
+					'</th>' +
+					'<th colspan="2" class="bg-success">' +
+					'<samp class="h4 font-weight-bold">'+getI18n('currentIndexModerate', this.options.language)+'</samp>' +
+					'</th>' +
+					'<th colspan="3" class="bg-warning">' +
+					'<samp class="h4 font-weight-bold">'+getI18n('currentIndexHigh', this.options.language)+'</samp>' +
+					'</th>' +
+					'<th colspan="2" class="bg-danger">' +
+					'<samp class="h4 font-weight-bold">'+getI18n('currentIndexVeryHigh', this.options.language)+'</samp>' +
+					'</th>' +
+					'<th colspan="1" class="bg-secondary">' +
+					'<samp class="h4 font-weight-bold">'+getI18n('currentIndexExtreme', this.options.language)+'</samp>' +
+					'</th>' +
+					'</tr>' +
+					'</thead>' +
+					'<tbody>' +
+					'<tr>' +
+					'<td colspan="2" class="border-success p-2">' +
+					'<div class="alert alert-primary" role="alert">' +
+					'<span class="h6 p-1">' +
+					getI18n('currentIndexLowDesc', this.options.language)+
+					'</span>' +
+					'</div>' +
+					'</td>' +
+					'<td colspan="3" class="border-warning p-2">' +
+					'<div class="alert alert-success" role="alert">' +
+					'<span class="h6 p-1">' +
+					getI18n('currentIndexModerateDesc', this.options.language)+
+					'</span>' +
+					'</div>' +
+					'</td>' +
+					'<td colspan="3" class="border-danger p-2">' +
+					'<div class="alert alert-warning" role="alert">' +
+					'<span class="h6 p-1">' +
+					getI18n('currentIndexHighDesc', this.options.language)+
+					'</span>' +
+					'</div>' +
+					'</td>' +
+					'<td colspan="3" class="border-dark p-2">' +
+					'<div class="alert alert-danger" role="alert">' +
+					'<span class="h6 p-1">' +
+					getI18n('currentIndexExtremeDesc', this.options.language)+
+					'</span>' +
+					'</div>' +
+					'</td>' +
+					'</tr>' +
+					'</tbody>' +
+					'</table>';
 			},
 
 			/***************************************************************************/
@@ -3493,6 +3646,60 @@
 
 				return uniqId;
 			},
+			
+			/***************************************************************************/
+			
+			getUviIndexImage: function(uviWeekIndex)
+			{
+				if(uviWeekIndex <= 1)
+				{
+					return uviIcons[0];
+				}
+				else if(uviWeekIndex > 1 && uviWeekIndex <= 2)
+				{
+					return uviIcons[1];
+				}
+				else if(uviWeekIndex > 2 && uviWeekIndex <= 3)
+				{
+					return uviIcons[2];
+				}
+				else if(uviWeekIndex > 3 && uviWeekIndex <= 4)
+				{
+					return uviIcons[3];
+				}
+				else if(uviWeekIndex > 4 && uviWeekIndex <= 5)
+				{
+					return uviIcons[4];
+				}
+				else if(uviWeekIndex > 5 && uviWeekIndex <= 6)
+				{
+					return uviIcons[5];
+				}
+				else if(uviWeekIndex > 6 && uviWeekIndex <= 7)
+				{
+					return uviIcons[6];
+				}
+				else if(uviWeekIndex > 7 && uviWeekIndex <= 8)
+				{
+					return uviIcons[7];
+				}
+				else if(uviWeekIndex > 8 && uviWeekIndex <= 9)
+				{
+					return uviIcons[8];
+				}
+				else if(uviWeekIndex > 9 && uviWeekIndex <= 10)
+				{
+					return uviIcons[9];
+				}
+				else if(uviWeekIndex > 10 && uviWeekIndex <= 11)
+				{
+					return uviIcons[10];
+				}
+				else
+				{
+					return uviIcons[11];
+				}
+			},
 
 			/***************************************************************************/
 
@@ -3984,6 +4191,235 @@
 
 			/***************************************************************************/
 		});
+	
+	const uviIcons = [
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAmCAMAAADz5UuZAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
+		'AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAA/FBMVEUAAACEjKoALHcVNHgi' +
+		'OnoLMncAI3YAAGQyRH1KVoY9TIIcN3lDUoX///+6vszq7PL39/ozSIMAFXJ7g6WRlrEADW8uQX3A' +
+		'ws7v8fXFyNRgbpiUm7MAAG3LztkoPnvZ3Oa9wtMAAFKtssVsd5wAG3JOXYycorrN0Nvj5esAAFup' +
+		'r8SKkq6nq73e4erR1eBzfaEtSoiGi6WytcR3gqSFkrVDVYpbZJKKk7JqeKK5v9QLHHkXS3EASmsi' +
+		'NXsohlkqrTcpsTQiSHckYmwmn0QntCwnrTgiRHgnsTIntiYml04ljFQiGn4kg2EiLHwiFX8lh18o' +
+		'uRcjXW8kdGMiJX54fYdRAAAAAXRSTlMAQObYZgAAAAFiS0dEDfa0YfUAAAAHdElNRQfjCAwCJyYt' +
+		'7tQDAAABYElEQVQoz+XSaVbCMBAA4DQZSGkbSikUpBsCUlYRUHChspVFEVC4/11sK7jAEcyf5H3J' +
+		'TPImgxCHCQGACIkEE5AohxBH+ZggAkiCFEwkFqMcwiCwOOWxHI8nFEiqLJUmSMMCy/iYvcgx3TDM' +
+		'hEUsBAeUTSrbhsDylIdfeFlgoLNiyQpQ8nMKwckrVnYqhgU+Eo05VRplpmE4cqJs8AFqRpw5tQqr' +
+		'lzDHskrwVgQgRhtN2VarWppeFygOw4HPSa3cTbuD2xm11VXDi0ThVq3UuuWC3snf6XYPwwHNptrX' +
+		'G528wtmKGCJ/X+T0Yv+hl3po1fWvcL8IJJJ8fBoMBqDh0uF2f7jW83A4Go5dsL7RnUy90cib+QhH' +
+		'dOczb+EtFn9xPFtOX7wzfF29LU9wPllvticIsJ6vzhHgX6J1xJ96Wghr4WKzfT9+h4b99g7V/djt' +
+		'duG2RoOmx2EGd79fh7GYQ58oX0tqdbM99AAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0wOC0xMlQw' +
+		'OTozOTozOC0wNzowMMk5O6kAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMDgtMTJUMDk6Mzk6Mzgt' +
+		'MDc6MDC4ZIMVAAAAAElFTkSuQmCC',
+		
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAmCAMAAADz5UuZAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
+		'AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABLFBMVEUAAACEjKoBLHcVNHgi' +
+		'O3oOMXcAI3QAAGQwQ31KVoY8TIIcN3lDUob///+7vszn6vC2u8v39/oySoUADnB6g6SSl7FAToLA' +
+		'ws7v8fXFyNRgbpiUm7QAAG3LztkpPnzr7fLU2OK9wtMAAFitssVrdpwAHHFOXYycorrN0Nvj5esA' +
+		'JHmpr8SKkq6mq73e4era3edzfqF/iKaytcSIjaaFkrVcZ5KLk7IyR4JqeKK5vtRYXZIAAHUNP3MY' +
+		'XmoAa18AYV8CUWwpL38iNHskSnUsiVopqTorsi4psjImoUEieGAjVHAmpD0oticnsTImlUoiRXYn' +
+		'tCwnrjUntiUlklEiLXsiJX0lflwmnUUjW24jZWoiHX4li1UnqzsiQnkkdGMlhlgmmUgkbWQiDX0n' +
+		'uShz2AQaAAAAAXRSTlMAQObYZgAAAAFiS0dEDfa0YfUAAAAHdElNRQfjCAwCJyzNOz0dAAAB7klE' +
+		'QVQoz1XSa3uaMBQHcAinBcHYqdh2ilhvU9eL1m3turtxq642Ehh4qZe67ft/hyVAN/Z/k+f5kZNz' +
+		'yBNJkpGiAMCesicWUPZlSZJVLaUbAGk9LRYllVJlCRk6zqgaOsg8y+Ygb+JCXpE0dIiPOB4/L+KS' +
+		'ZZWztmJLEGOlrFZOLB1XVQ046jHW6tgo4UbTFpjmZx6KnS9wq92xbOCoaLhdU1/ismW1K9mWpQnU' +
+		'rAxun3bwWRPJ+DgnZpUAjP3zi4OuWdPy6kldRWG5oRXTvWLuso9eHZk90wwbGfprs3NqtuqlfjVd' +
+		'6r5BEGP54vKqcN6vXsvdayMqf9uQS42rm3eFm95ZKSrnl6Cg9x8+fvr8xRigZtwdgAy/fru9HY3G' +
+		'34n9hORuck9HI0pH91MgMToT5jI6njDqej/8CIOZ57L5AmDJmS39EMmcMdcJAB4WlLJVIJA46zVd' +
+		'BRuIPk9JdObGGQriOKZs6sfdCQntYcsbPgbxnFH8pUupuyBJ9O9c5nqzABJIxLSe6P0PCcz5geHo' +
+		'Cdxx20UNn9BfcRs7/2HwyG0yjC3CYMbEMD4kMNhy4zexSSBZUp6fv4gvEt/nZi2Kp1HmM/FHNhmu' +
+		'xU4Whv7e+WBLyHZcj/2Nt/M1JJ73NpmlrYpHjwZBIgMkS38A1fNtQyG8RvQAAAAldEVYdGRhdGU6' +
+		'Y3JlYXRlADIwMTktMDgtMTJUMDk6Mzk6NDQtMDc6MDAEXFjEAAAAJXRFWHRkYXRlOm1vZGlmeQAy' +
+		'MDE5LTA4LTEyVDA5OjM5OjQ0LTA3OjAwdQHgeAAAAABJRU5ErkJggg==',
+		
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAmCAMAAADz5UuZAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
+		'AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABWVBMVEUAAACDjKoALHkVNHgi' +
+		'O3oOMXcAI3QAAGQyRHtKVoY9TIIaNnpDUob///+6vszn6vD39/o1SoQAEG97hKSOlbAuQXvAws7v' +
+		'8fXFyNRgbpiUm7QAAG3LztkkQIAqPnrr7fLX2uO8wtMAAFKtssVrdpwAG3JMW4+corrN0Nvj5esA' +
+		'AFsAJHqorcCKkaze4era3ecABnHR1eBzfqEwSISIjaaytcR3gqSFkrWnr8dcZ5KWm6+oq7tqeKJj' +
+		'cJ+CjLSyutYAAH1VYGyDiF6JjVZncFo7TXASNICEh2PW0i/07QH89AHq5BbCwD8ADn0AE3yrq035' +
+		'8Qr/+QDv6QCIi2GbnFbd2CX17Q1rc2g4SXUvRHXPyzhbZWuJimu8uFa4tVi0sViNkF358RB0fGIA' +
+		'HHuTlVsANHTb1i1LWHELMHzd2Cq7uUXJxjuBhl9LWW/JxjKzsU/g2yGcnVmwrljTPyupAAAAAXRS' +
+		'TlMAQObYZgAAAAFiS0dEDfa0YfUAAAAHdElNRQfjCAwCJy26PA2LAAACMklEQVQoz02S61faQBDF' +
+		'k81oQsIiCtFK6FKKCIiIVbHvutjamuUhQYhgWqpCCxW1j///Q3dDqt0ve87vzMy9d85IkowUBQDm' +
+		'lDnxgTIvS5KsaiHdAAjrYfEpoZAqSwh0HFE1tBCJRBdhKYbjS4pkIh0vc7jyaBUnLCsZfawQCQKY' +
+		'SqqpJ5aO06oG/8GnGQwJvJYlAob5TF1UruNcvmAR4FAxcX5DLeKkZeVT0ZylCWhaEZzfLOBSFsl4' +
+		'ZVF4lQCM+c2thXJsw9xWn2VU5LeDthreWd3dq6C95djOfswXMvTnscKL/VwmUUmHE+WXCAKY3IrF' +
+		'X72upHfl8q7hQ+3NWinx9t3Bejy9U0rM2rkS0O3q4fsPR/Sjkg3UgdBPxzZjdq1ebWgBJM0TxlqM' +
+		'P6d9Sk0fmrQjUK1rM5fZZ0Xfp9GrtVp2pw/VOqfnTQF5ocOcDgVA9Jy1bE/4JM3PXwZfe3yS1rxg' +
+		'l/bVUFgiTUqp0OzR0T0EomncCEL023fG3PFk5lO8vudd/GCucy08BRB5bVuYnfYN+AcJ8pgjbN5Q' +
+		'7R7C5PburitCnTYe2gGGQzRyebC+ESzEn0BEXpeNuBKHE4SQj42xy5wBFcdgjD2vqojqB6jRn8y1' +
+		'zyhPwNsvZ+1keMX9/fIoHR5yofatn4g0pg53OL0+5iGdEz8RgclR1/E332JOvSgUJWQS1L+2eSBu' +
+		'siOYifh5m8Sg1d+DwZ+bPuUmTFUcPb8eE/Gd0qZhijXI0l/b7G/szLEMxgAAACV0RVh0ZGF0ZTpj' +
+		'cmVhdGUAMjAxOS0wOC0xMlQwOTozOTo0NS0wNzowMKIrU3AAAAAldEVYdGRhdGU6bW9kaWZ5ADIw' +
+		'MTktMDgtMTJUMDk6Mzk6NDUtMDc6MDDTduvMAAAAAElFTkSuQmCC',
+		
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAmCAMAAADz5UuZAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
+		'AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABU1BMVEUAAACEjKoBLHgRMncV' +
+		'NHkjOnoAI3QAAGQyQ3tKVoY8TIIbNnlDUoYeOnr///+7vszn6vC2u8v39/o0SYMAFHJ7g6WUmrMA' +
+		'DW8uQXtAToLAws7v8fXFyNRgbpgAAG3Mz9okQIAqPnrr7fLU2OK9wtMAAFKtssVrdpwAHHNRXo+c' +
+		'orrj5esAAFsAJXupr8SLk7Cnq73e4era3ed0fqEtSoiDiaSytcSIjaZ3gqSFkbNcZ5JpdqO0u9ME' +
+		'MXkMMnk5TGhWY2pha2omP3RCUXTk3xz27wDl4AUAAHy1s0v/+QD27hKpqVFQXG/v6QD89ACbnVhd' +
+		'Z2vd2CK+vEOWmFr58AvY1C3GwzyHi18AHHxtdGjSzjQ+THdLVXf17Qx6gGMAFXx6f2PLyDYADXrM' +
+		'yTEdO3fb1yWOkF8XO3XAvkSzsz7Ixix5gF52fWBsdl/W0ibNyyff2w3Uvpd6AAAAAXRSTlMAQObY' +
+		'ZgAAAAFiS0dEDm+9ME8AAAAHdElNRQfjCAwCJy4jNVwxAAACE0lEQVQoz03S61vTMBQH4DTroaHd' +
+		'MmS0BJDWjMnGpYyLIoggl9XYqWEbA4oyJjdvePv/P5lewJ0veZ73+Z0kPQ1CGs7pAJDTczmI1yEN' +
+		'Ic0gw6YFkDfz8aIPDxsawgWTFg2CR4qPRkswZlNnXEcMT9BJhVOPp6njut7oE4sjyLDsGeUZ16QV' +
+		'g4BCM8Ons7Tg0GqNx5hXe07EyTk67y24HBTmGPUWDZ96asPy6LxLYmRukXpLC7RewxqdKsV3RQDW' +
+		'0PLKyKq9yMaNmVkDJ+0FMp1fm372fB2/mLTXNuzkIMvctBeWNuZnnfVK3ll9iSFDb8WuO8vrlZK2' +
+		'WrISJFtVzanWK3P1V1ubTtquhqBv13as2uvd3b39sez0uDjXDxpB8OYABhCIeBs2w3eCDCJ+/0HK' +
+		'xr41mFRB2ZSHaTBDjluBlO3trA1lwY4KHgk2gNxvBV15HH/2f2TiRAVPBeBt/R55dKaCHyP+6fz8' +
+		'4B6JCvbkReSfdJvHhRRZ/7PsyssrEl2Hsn2T4dW1wrNIoZS3KbL+hWo+EYTFmCV5dCxl0PI578eY' +
+		'7MnEFxXsCHYDtRi/KkVEfAt7snHbbrdve1L2Gt99rrATdrvyocLrfoIyyEpZIH9E6oHprbufaf36' +
+		'rUZ6t2cB4oCjtHxxqe4ZYeAIM/WDkiL+n1D+3QeC1fPOhgiwc3F4dArMiB/9wxghEqLPsYb+AWc4' +
+		'bN3Gpcj9AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA4LTEyVDA5OjM5OjQ2LTA3OjAwk8NJ7QAA' +
+		'ACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wOC0xMlQwOTozOTo0Ni0wNzowMOKe8VEAAAAASUVORK5C' +
+		'YII=',
+		
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAmCAMAAADz5UuZAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
+		'AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABYlBMVEUAAACDjKoBLHYVM3gi' +
+		'OnoOMXcAI3QAAGQyRHtKVoY8TIIbNnpDUob///+7vswALHrq7PK2u8v39/o1SoMAEnB8hKSNlbMA' +
+		'DW8sP3pAToLAws7v8fXFyNRgbpiVm7MAAG3LztkkQIDZ3Oa9wtMAAFisscZsdpsAHHFPXY+corrN' +
+		'0Nvj5esAJHuorcCMkq3e4erR1eB0fqEtSoiGi6WytcR2gaWGkrRcZ5Koq7tpd6NjcJ+1vdSDjbE2' +
+		'SXJVYWhPXGNaZWxeaWxCUnIAAH6VmFr38AD17g307QH89AC2slj58Qz/+QC6t1bz6xvx6SBfZXRC' +
+		'TnhKVHc5SHgMMXwDMXlNWXMAFH1KWG6Lj1xsdGbJxj7c2COChmGbnFf27xLQzS3t5wxsc2vU0DBS' +
+		'Xm24tkw8TXIAHHsADXzHxTUdO3e/vETCwD3i3Rurqlavr0uysE/p5Anm4Rd3fWZkbWrSzjSjo1ne' +
+		'Ust3AAAAAXRSTlMAQObYZgAAAAFiS0dEDfa0YfUAAAAHdElNRQfjCAwCJy9UMmynAAACG0lEQVQo' +
+		'z2WSC1PaQBDH81jNkXCEQoOnFkJ5VIFYawVbtYJySE6Dra1Kq1TQWkFQWyv2+/cSoDLjTm528pt9' +
+		'/G9vBUGUZBkAJuQJ14E8KQqCqCCfqgH4Vb/rZJ9PEQUJVBxQkB4MPAuF4bmBI1OyQKRpPMPh7Iso' +
+		'jplmPPRSJgIMYTCuBBOmipMKAg7VIUylMcTwqzniQj+vOe1GzuNMNmcS4FAmOJtSLBw3zWwwlDGR' +
+		'C4kZwNmFHH49J4l4NuxqFQC0yYXFYMJIkSnlTVqRvHRAUf9S9O1yXl+eMZYKhtdIU1eMXLqQScfy' +
+		'SX8s8U6CIYwvGpHY+3wyLCbCsgfR6poYWVtZn4+sr36IFLx00DaKxRL/SsXNrVKprHmSaGW7WrVt' +
+		'2ztsh6IBZLtsZE5tDO4N7ONYJNv7tP95YF9GNTnc192nODjUNXiER1adUosggDFIvn6rVI71OhmH' +
+		'JzZvbTe+U/IfDiVxd0rJCDabzG61zliV2ecW8eCp4zg/LnSrfMKazs+BTuu8Vtu5rBPS3jhjrOVF' +
+		'AliUUo2XQp0rxhpdb/JAEPL0Idp7hLquy0/gxeZW2Uun1yNI6lfMvunqCGmHN6NGiN46TdbrUtr+' +
+		'xSX99iSBdnnHVf+57jW4uzs64OkESPvednYH17Tv+UiIwDeCdPoPNnMctv3Q7/Bfia83d1a7/7dW' +
+		'uz1u8y5EcZfejSU6vxUfshsnCv8AmG53TNiPp4kAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTktMDgt' +
+		'MTJUMDk6Mzk6NDctMDc6MDA1tEJZAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE5LTA4LTEyVDA5OjM5' +
+		'OjQ3LTA3OjAwROn65QAAAABJRU5ErkJggg==',
+		
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAmCAMAAADz5UuZAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
+		'AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABNVBMVEUAAACEjKoBLHYUM3cU' +
+		'NnojOnoMMngAI3YAAGQyRH1KVoY8TIIcN3pDUob///+7vswALXzq7PK2u8v39/o0SIMADnB6g6SL' +
+		'lLAuQX1AToLAws7v8fXFyNRgbpiUm7MAAG3LztkkQIArPHrZ3Oa9wtMAAFKtssVrdpwAG3JOXYyc' +
+		'orrN0Nvj5esAAFupr8Snq73e4erR1eB0fqEtSoiGi6WytcSFkbNZZZJ7hqhqeaO0vdMAM3srNm1T' +
+		'RmdVTG1dU24mPnbThiztkgLijQBdT2qcalTzlQDrkROwc0pDRHPgjBI7Q3MyPXntkgvThiUSO3XC' +
+		'fDuMYl1zWGLLgjFjUWoAI4HMgix7XF2UZlsrPnXbih6ibVK2dkRJR2+wcVbGfzOCXWK+ezobO3bn' +
+		'jx66eUFpU2mga1lCpljrAAAAAXRSTlMAQObYZgAAAAFiS0dEDm+9ME8AAAAHdElNRQfjCAwCJzDZ' +
+		'OmFSAAACE0lEQVQoz2WSbV/aMBTF29JAgRDKgFJ1tiwwYIAPc6JzcY5lmAoWfMA5VxAnc37/j7Cb' +
+		'tm7ut75J+u85uefeRlFULaEjhJJ6MgELSqRURVGNdCaLEcplc3LRMxlDVTScJXkjbRbyL4olVLZI' +
+		'pawrtrZCVgGuvVwnjutWi68SVEExLFSNQs3NkrqRRgCzMXzdINghzRaVMAdnrkjlG9LudF2KACZs' +
+		'0tkwUqTqup1Cse2mJbTdPOlsdkmlpalkrSSzKgjh1NZ2oWZt2GXjbcPQQjtOr+d21t/t9szdVWvH' +
+		'ssJCOLtndTetdsPp1XNObV9DMaxuv684W716Sa2VcGQ/aKpOs1Lfr3w42HMiOwxBZ60kTh1+PPp0' +
+		'2IqrywdK9j9z/mWgP4OImsfCEycmfQ714Yjz0WkofIK+eQLC40gYQ8oGfCwmZ7HtCZ6D8CIWRpCy' +
+		'S+6JKfPRP3AqxvzqK9P/nknNCzBff7u5PDX/QPw9EOOxxyHTjMWQmjNgAh6PizkL54n02xHkmS4W' +
+		'd3zsiR9MDkQKoUFmmmGn9xGEjDxYYt+n7FqISR9L+3Iiwu/Q61zwn8Pk/zDwcWi/h22f+T5bBlzc' +
+		'xYVu4Pz5krH+A2xmZvQ7zibwEswfAlhGQxipQsF/NBIepIeUXMakimZjym7PueyIT38xim0NrrcN' +
+		'WjZ4XCwerxjobENeerg9lMqGTEZhq6nKb9WKZeF5gxOoAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5' +
+		'LTA4LTEyVDA5OjM5OjQ4LTA3OjAww/wysAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wOC0xMlQw' +
+		'OTozOTo0OC0wNzowMLKhigwAAAAASUVORK5CYII=',
+		
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAmCAMAAADz5UuZAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
+		'AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABPlBMVEUAAACDjKoBLHYUNHgj' +
+		'OnoOMXcAI3QAAGQwQn1KVoY7TIIcOHpDUob///+6vswALn3n6vD29/o1SYIAFHF7hKSSmLAADW9A' +
+		'ToLAws7u8PXFyNRgbpiVm7MAAG3LztkkQIAaNXcsPHrr7fLU2OK9wtMAAFKsscVsdpsAHHNOXYyc' +
+		'orrN0Nvj5esAAFuMk62nq73e4era3ed0faAtSoiGi6WytcR1gaWFkbOnr8dcZ5KKlLJqeaNkdJ+O' +
+		'mba3wNVQYpK0vdMzP3RVS2xQRWhHOmJNQWVbUW86QXSOZFvskgDrkRPskQvljwTylQDnjx6SZVmA' +
+		'XWAzPXpJRHdGRHTThipmUmkAM3xvV2J6WmPDfTkAOHizdkYLNnxOSW/aih+jbVC6eUPOgzFuVGjA' +
+		'e0BgT2yxdEqcalXgjBOqcU0UO3b8o2yDAAAAAXRSTlMAQObYZgAAAAFiS0dEDfa0YfUAAAAHdElN' +
+		'RQfjCAwCJzDZOmFSAAAB8klEQVQoz1WSi1faMBTG+4g2NIQI1scGZQYZY4BTnOCGOkeRQdpm+MCo' +
+		'Gz7mNt3+/39gSUsn3nN6bvrL9/V+p+dqmm6YJgBgzpxTDZjzuqbpFkzZCIC0nVbNTKUsXTOQjTMW' +
+		'JAuZTDYHFh28tGxq0FjBqxK+eJnHBdctZl+tUQ1MYaloldZdG5ctCCS0p/B1BaMCflOlCqblN1eU' +
+		'8i2u1RsuBRKaENc3rCouum69lK25UEHoZnC90sDvqoaOs7bKqgGA5je3FprOBly21iuWEdkRzKe3' +
+		'8+93WmRn1dluO9EgZO86jQ/tWqXQKqcLzY8GmMLiltNZ2myVc3oztxbb9/b1g/3Op8PO573dg/Yi' +
+		'jQZ1vd5Rz+v3e96X/pE3QBJSMmS+H7BAPmHgsyGhEeTynauSNzyBzGf+V1Wys9ETPD45PTsdjHnA' +
+		'zkViZxcEIXLJfH4laDIovBD0RFzJ20sRRxp4ntdFVJyzgI+/xT8EICEEko7v3OdyTAzjmlyHjN90' +
+		'EZiBlNxK4a0SzijBDQ/C6wmYgVEwfhcJn6D4IYPfi1lIRRL8Gfwp3cfPIBW/kuAzkPyWwod4TALN' +
+		's0fGH6Pg/yElD1L4JxECLTr8HXM/9EQSTzNgFJzxu+loAA213kDcj4ajRAgttfRyJQQhZDL1Grr2' +
+		'D786YTniHgrgAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA4LTEyVDA5OjM5OjQ4LTA3OjAww/wy' +
+		'sAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wOC0xMlQwOTozOTo0OC0wNzowMLKhigwAAAAASUVO' +
+		'RK5CYII=',
+		
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAmCAMAAADz5UuZAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
+		'AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABRFBMVEUAAACDjKoALHcUM3gj' +
+		'OnoLMXgAI3QAAGQyRH1KVoY9TIIcOHlDUob///+7vszn6vC2u8v29/oxSoYAD3B7g6SQl7AuQX3A' +
+		'ws7s7vPFyNRgbpiVm7MAAG3Mz9okQIAZMnfZ3OW9wtMAAFKtssZrdpwAHHMqOnpOXYycorrj5esA' +
+		'AFupr8SLkq6nq73e4erR1eB0faCGi6WytcR3gqSFkrXa3ulcZ5J8hqiKlbIyR4JqeKK0wdVIZZK2' +
+		'vtNaKmt1Cl55CVpaIWgAQoANPHuZKl3OEjneASTSCDOdIlYqOHcTOns5NnXCE0DlABzjACThASjJ' +
+		'DTlMNHEAO3y9FUPdAizEDzyFKmFhMGxUMm6VJlu0Gko/NXTNCja2F0YzOnmrHU90LmdbMW3WAi6P' +
+		'KF5sL2l7LGWLKF5sLWffAB+mIFOnJ1tlL2kwaqS7AAAAAXRSTlMAQObYZgAAAAFiS0dEDfa0YfUA' +
+		'AAAHdElNRQfjCAwCJzGuPVHEAAACLElEQVQoz02S+VfaQBDHcywGExaL0kgJqVplK15F7YG9bIsN' +
+		'h+wGx0UOQY6qtfb//72zIb7XeXlvJ5+Z78w3eatpumGahJCEmVAHMRd0TdOt5KLtEJKyU+owFxct' +
+		'XTMcm6atpLGUfpZZJitZ+nzF1FzDpqsIcy/y1CsU/MzLNVcjT9C3cusFm25YSfIffLVJHY9uFZmC' +
+		'KZxpq87XdNsvFRhBaLrU37GK1MeBucx2IamgW0hTf7dE94qGTjO28qoR4izsHyytZ3fcFevNpmVE' +
+		'cieZT5Xzy4dHxuFqtnycjRY59ttsafd4e9M72kh5794bJIb+wYeKt3+0caKvnzhz+cct3duqfPpc' +
+		'+VLe8+Zy/AlOorj29fTbd/bDKMbbCauSs58BRq3eqLIYNs9bXIQhPrx9AWwO4ZJLEbTbUkjecaJO' +
+		'BlfIOl3GepdI+8AiOBCydg2oaAyFuIwgcTpCjOCGkBsYcyw3FWx2VP2GRTCsnTuRHOvBBKpNmM6k' +
+		'GMQzu4EQs/6096smQn47n8ngTsqQS8mFDO5jnwyuh0KGQoQynPViCBc19DcbjWrodzZ98okv43OA' +
+		'Rh2LLVCdcCEl+mwyRiIfXSAag9+BfJioUcqH5FfAIhgGMZzGkETZAAhjDP6g/FZBAi0hRb0BUO1j' +
+		'MmzMP3PCQ8mH43FbyEiNi5DeP8TmBa8jY5rhOgxuWwHHCNp3yFwDr7eLvdA9e3w8+9tUzFKXHm8P' +
+		'+o4CE2bo2j/qyYX6M9kIjQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0wOC0xMlQwOTozOTo0OS0w' +
+		'NzowMGWLOQQAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMDgtMTJUMDk6Mzk6NDktMDc6MDAU1oG4' +
+		'AAAAAElFTkSuQmCC',
+		
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAmCAMAAADz5UuZAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
+		'AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABRFBMVEUAAACEjKoALHcTM3cW' +
+		'NXgjOnoOMXcAInMAAGQyRH1KVoY9TIIcNnhDUoUcO3v///+7vszn6vC2u8v39/o1SYMADnB7g6WQ' +
+		'l7AuQX3Aws7v8fXFyNRgbpmVmrMAAG3Mz9okQIArO3rr7fLU2OK9wtMAAFKtssVrdpwAHHJOXYyc' +
+		'orrj5ewAAFsAJHmpsMSLkq6nq73e4era3ed0faBgbZcuSIaGi6WytcSFkrVDVYpZZZGKlbFqeKK2' +
+		'wNVHZZMDNXgZMXZXK2xwCl97CFpbIWcyOXkAQoASO3yZKFvMDTndASTgASjQCjOcIlYoOXc6NnTF' +
+		'DzvlABzjACQAO3y7FkXnABbdAizBFEJ9LWVmMGtVM2+JKWCtHU8tN3XNBTK2F0a/ET/bBzFENnQJ' +
+		'OXlwLmikIVRrLmnWAi2zG0teMm04OXiFK2L20uZXAAAAAXRSTlMAQObYZgAAAAFiS0dEDxi6ANkA' +
+		'AAAHdElNRQfjCAwCJzGuPVHEAAACE0lEQVQoz02S+1faMBzF28BXC4UGp3TVWbogAwbOB0zZ5pzu' +
+		'wQqtD5JAdIA6GSjO///3paVw1tNzkn5yc+9tThRFRbE4ACzFl2JygNiyqiiqlkjqKYC0ng6GeDKp' +
+		'qQoydJzREmgl82J1DbImfpmNKxbS8bqEG682sZ3LOauv40SBCOYdLb+V03FBS8B/8E0RGzYulUkA' +
+		'09JTD5RvccWp5ghIGLOws629w440zK9WcokAWrkMdnaqeLeMVLyxFnRVAFLLe/srNXPbympbRQ2F' +
+		'0EhspuvvDw4b6HDdrNfry0FQSv9gVnfMStFuFD7atU8IIujsm0f2XqNwoNbWUiFMfC6pduno+MvR' +
+		'cX3XNsOe8hBSJ+XTr9++/2j+ROUoHYgLrbbn+d7Z+YVBIuhedijzffnSzqU7g4R3e4J57Y5ggl7x' +
+		'EBJ+TQVr/yLQ70o64CSEQypEXyr4za3P7kII/DdjXTmFplz2z5pGGNRm4fpsz/3IDeAfqexwQkiT' +
+		'38mZAXNPNuDyGXuCDqMgme57k/HD+SMT3ngWRPi0J2RRj/qChuZBkHEx9SijTMgNT3MIBn9qDSdX' +
+		'svqEz/89cOD8pM38x5ELCwjwl0+ooK1QuIC8L3zWjj4iGJalzzPhwvPBE+wqYgvYjXrPIAnZNbun' +
+		'0zkjCrJkz5vbHvX6EbSQvN4WuKPB82DMZzpLCy49IuAGZxTtRaryD87VclJzniJKAAAAJXRFWHRk' +
+		'YXRlOmNyZWF0ZQAyMDE5LTA4LTEyVDA5OjM5OjQ5LTA3OjAwZYs5BAAAACV0RVh0ZGF0ZTptb2Rp' +
+		'ZnkAMjAxOS0wOC0xMlQwOTozOTo0OS0wNzowMBTWgbgAAAAASUVORK5CYII=',
+		
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAmCAMAAADz5UuZAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
+		'AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABRFBMVEUAAACDjKoBLHYRMncX' +
+		'NXkjOnoAI3YAAGQzQ31KVoY9TIIbNnlDUoUcOnv///+6vswALXnn6vD39/o1SIMAFG96g6SMlLAA' +
+		'DW8uQX3Aws7v8fXFyNRgbpiUm7MAAG3Mz9okQIAsO3rr7fLU2OK9wtMAAFKtssVsdpwAHHJOXYyc' +
+		'orrj5ewAAFupsMSnq73e4era3edzfaAtSoh/h6aytcSIjaaFkrNDVYpcZZFpe6Nldp6yvtQAO30t' +
+		'NHVSK2xKJ2w+KXBqMWopKHLNCjXbAizeACM5OXeqJVfZCC/UDzKaKV2DLGPjACThAiptLWfCEz/o' +
+		'ABatHU5NNHGiIlXlABt+LWZTMm/IET7UAy+WJFlDNnS6FUJcMGvWACZlL2m0GkkTO3tkMWsAQICl' +
+		'J112LWYxOXmqH1CLKmFwL2k6QXzvAAA8NXP4/s76AAAAAXRSTlMAQObYZgAAAAFiS0dEDm+9ME8A' +
+		'AAAHdElNRQfjCAwCJzNAMzDoAAAB50lEQVQoz9XSW3PSQBQA4E1gSUjIQqGhtBLiUqQIvVDF2uqp' +
+		'GslChQWhLIhQgRZpvfz/dzeIM47/wH3ZmW/OZefsQUhRQ2GMcSgcCuHgjigIKZoeNUyMY0YsuMLR' +
+		'qKYg1TJIXNMTW/F4MoW3bZLeCaOMapBdiXuPssTJ5dzk4zBFeIN5V8vv5wxS0HT8Fz4pEsshByUa' +
+		'YEzWNILIp6TsVnIUSwxliHuoRYgrC+aT5ZweYCYXJ+5RhaRLqkL2UsFbEcZm5Phkq2ofZna0/aKm' +
+		'rtMtPRs7zT57Xku82LVPbXvdyDTO7MqRXS46tcJLp3qu4g26J3baOa4VUko1Za5Rv3ilOAfpwnn6' +
+		'9cWZ8zudwuWbt9sJU1Xfed770ro7Ba/uMw+sRvOKsQ8tCBDajHdYFy4/9jry9Pog0699zn2JA+Hz' +
+		'K5/7YggUjZj/iTPPGnfY58akz/lU4s0Xr9VjsxHjc8Bg1vl4skCT27ulYDdfmWjBagV94Y8ALSwI' +
+		'sC1EGyiF+zXi1X+FQyEe/sXbGRNLaKxgyv3rPzib+Lw+AfjGeJ1aG+zKEF5fNse+GMjRyTpL4Xdl' +
+		'TKcj5KDl5ChSv0Pzh+gCPDDBuRh7oKtyve+G8/sRUBgNpvPWT9C1YOlVAFhg+dXBsaiqoF/cjJQD' +
+		'UEaZ+QAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0wOC0xMlQwOTozOTo1MS0wNzowMJrOd/0AAAAl' +
+		'dEVYdGRhdGU6bW9kaWZ5ADIwMTktMDgtMTJUMDk6Mzk6NTEtMDc6MDDrk89BAAAAAElFTkSuQmCC',
+		
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAmCAMAAADz5UuZAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
+		'AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABBVBMVEUAAACDjKoALHcRMncZ' +
+		'NXgjOnoAI3UAAGQwQn1KVoY9TIJDUoUcOXr///+6vs7n6vC2u8v39/o0R4IADnB7g6WPla/Aws7v' +
+		'8fXFyNRgbpiVm7MAAG3Mz9okQIAqPHvr7fLZ3OW8wtMAAFKtssVsdp0AG3FOXYycorrj5ewAAFsA' +
+		'JHmpsMSnq73d4OrR1eBzfaAtSoiDiaSytcSIjaZ3gqSGkrNDVYpbZpGKlLJoeKJmdZuImLMANndE' +
+		'QX89Pn4fL3h9QYZcR4WsYJu6ZZ8BOXm+ZqBKQoEROXkMOXluTIi1Y512ToqhXZiaWpV9UIyDUY3D' +
+		'Z6I8QH+LU4+VWJNURILJaqRrSoaEkkB4AAAAAXRSTlMAQObYZgAAAAFiS0dEDfa0YfUAAAAHdElN' +
+		'RQfjCAwCJzNAMzDoAAABt0lEQVQoz83SbXfSMBQH8DRtaCgJk1I2aesFZBPmhigyNzV0dn20PK44' +
+		'v/9HMSl7gWd+AF/lnN/53+See4OQhnWDEKIbuk7UWdMQ0kxat6Q2rIY6jHrd1BBmFm+aFJ80X7Vs' +
+		'0nZ4p20gii1+KvHsdZe7nue33hiAyDP2fLPX9yw+MCk5wrdDzlx+fgEKG/JOSyXf8ZE/9oBI1Cn3' +
+		'L8333JcX9lojjyqkXpP7V2PeucAaP7NVr0i2VruenPSdS9o2PwxNXJUz2m1Mux8/zfDnU2c6d6qH' +
+		'DOvGGV/NR0N3NvjiTm4xeUZ/4ty517OBrfVto0L76zfNPb8b3Haa05vv86ocBCyCmjBqGDN6/yNg' +
+		'KinChygKYwAgYCySNJOY/4ySKAmF6i8TUCxERtBCmkxKBLFcraPVaiMkFg/JAfNwsy22mzBHaRFu' +
+		'dwqBCSFI8ShigoJQlApBPIZhGhQpky0xdkC2LKJkHQeHgcAB97tdtFvH7BjjItoXEuEYs/IXVUj+' +
+		'SuYifYEC2L8w+28QXiIgTEX5JNcBeZo8VUix/N7Z730p18WCcr+UW6Om+vQ4E0JNTE5eBgFr6A85' +
+		'wm2kUn75ewAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0wOC0xMlQwOTozOTo1MS0wNzowMJrOd/0A' +
+		'AAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMDgtMTJUMDk6Mzk6NTEtMDc6MDDrk89BAAAAAElFTkSu' +
+		'QmCC'
+	];
 
 	const seasionImages = [
 		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAAImCAIAAABM+YZfAAAABGdBTUEAALGPC/xhBQAAACBjSFJN' +
