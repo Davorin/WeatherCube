@@ -21,7 +21,6 @@ Used api endpoints are:
 - sat24 for satellite images  https://en.sat24.com/en
 - Naval Oceanography Portal for astronomy data  https://www.public.navy.mil/
 
-It's full responsive widget build upon bootstrap 4 and jquery also using leaflet maps an Echarts plugins.
 --------------------------------------------------------------
 
 Usage:
