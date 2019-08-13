@@ -1,5 +1,5 @@
 /*!
-* WeatherCube - v1.2.2019
+* WeatherCube - v1.4.2019
 * https://mcx-systems.com/weatherCube
 *
 * All rights Reserved.
@@ -89,7 +89,7 @@
 	const apiMeteoAlarmUrl = 'https://www.meteoalarm.eu/documents/rss/{0}.rss';
 
 	// Weather Widget Version
-	const weatherCubeVersion = 'V1.3.2019';
+	const weatherCubeVersion = 'V1.4.2019';
 
 	/*
 	  The "Plugin" constructor, builds a new instance of the plugin for the

@@ -27,18 +27,18 @@ function getI18n(key, lang)
 			viewHours: 'View today by hours',
 			viewPartners: 'Partners:',
 			viewAt: ' at:',
-			
+
 			versionJQuery: 'JQuery Version: ',
 			versionBootstrap: 'Bootstrap Version: ',
 			versionLeafleet: 'Leafleet Version: ',
 			versionEChars: 'ECharts Version: ',
-			
-      apiError: 'WeatherCube needs API key to continue!.',
-      apiKeyError: 'OpenWeatherMap API key is missing!!',
-      browserError: 'Upgrade your browser, dude!',
+
+			apiError: 'WeatherCube needs API key to continue!.',
+			apiKeyError: 'OpenWeatherMap API key is missing!!',
+			browserError: 'Upgrade your browser, dude!',
 			satError: 'Weather Satellite Images, are disabled!',
 			satNotSet: 'Weather Satellite Images, are not set!',
-			
+
 			earthquakesLatitude: 'Latitude:',
 			earthquakesLongitude: 'Longitude:',
 			earthquakesTime: 'Time:',
@@ -49,55 +49,58 @@ function getI18n(key, lang)
 			earthquakesStrength: 'Earthquakes by strength:',
 			earthquakesMinStrength: 'Max. Strength',
 			earthquakesMaxStrength: 'Min. Strength',
-      
-      currentForecastToday: 'Today',
-      currentForecastLat: ' at Lat: ',
-      currentForecastLon: ' - Lon: ',
-      currentForecastMin: 'Min.',
-      currentForecastMax: 'Max.',
-      currentForecastUvi: 'Uvi:',
+
+			currentForecastToday: 'Today',
+			currentForecastLat: ' at Lat: ',
+			currentForecastLon: ' - Lon: ',
+			currentForecastMin: 'Min.',
+			currentForecastMax: 'Max.',
+			currentForecastUvi: 'Uvi:',
 			currentUviIndexWeek: 'UltraViolet index for a week',
-			
-			currentIndexLowDesc: '<b>Low danger</b> from the sun\'s UV rays for the average person.<br />Wear sunglasses on bright days. If you burn easily, cover up and use sunscreen.',
-			currentIndexModerateDesc: '<b>Moderate risk</b> of harm from unprotected sun exposure.<br />Take precautions, such as covering up, if you will be outside. Stay in shade near midday when the sun is strongest.',
-			currentIndexHighDesc: '<b>High risk</b> of harm from unprotected sun exposure.<br />Wear sunglasses and use SPF30+ sunscreen. Cover the body with sun protective clothing and a wide-brim hat. Reduce time in the sun from two hours before to three hours after solar noon.',
-			currentIndexExtremeDesc: '<b>Very high</b> risk of harm from unprotected sun exposure.<br />Take extra precautions. Use SPF30+ sunscreen, a shirt, sunglasses and a hat. Do not stay out in the sun for too long. If you have to be outside avoid the sun from wo hours before to three hours after solar noon.',
-			
-			
+
+			currentIndexLowDesc:
+				'<b>Low danger</b> from the sun\'s UV rays for the average person.<br />Wear sunglasses on bright days. If you burn easily, cover up and use sunscreen.',
+			currentIndexModerateDesc:
+				'<b>Moderate risk</b> of harm from unprotected sun exposure.<br />Take precautions, such as covering up, if you will be outside. Stay in shade near midday when the sun is strongest.',
+			currentIndexHighDesc:
+				'<b>High risk</b> of harm from unprotected sun exposure.<br />Wear sunglasses and use SPF30+ sunscreen. Cover the body with sun protective clothing and a wide-brim hat. Reduce time in the sun from two hours before to three hours after solar noon.',
+			currentIndexExtremeDesc:
+				'<b>Very high</b> risk of harm from unprotected sun exposure.<br />Take extra precautions. Use SPF30+ sunscreen, a shirt, sunglasses and a hat. Do not stay out in the sun for too long. If you have to be outside avoid the sun from wo hours before to three hours after solar noon.',
+
 			currentIndexLow: 'Low',
-      currentIndexModerate: 'Moderate',
-      currentIndexHigh: 'High',
-      currentIndexVeryHigh: 'Very high',
-      currentIndexVeryExtreme: 'Extreme',
-      currentIndexVeryUnknown: 'Unknown',
-      
-      currentForecastPrecipitation: 'Precipitation',
-      currentForecastWind: 'Wind',
-      currentForecastClouds: 'Clouds',
-      currentForecastPressure: 'Pressure',
-      currentForecastRain: 'Rain',
-      currentForecastTemperature: 'Temperature',
-      currentForecastEarthquakes: 'Earthquakes',
-			
+			currentIndexModerate: 'Moderate',
+			currentIndexHigh: 'High',
+			currentIndexVeryHigh: 'Very high',
+			currentIndexExtreme: 'Extreme',
+			currentIndexUnknown: 'Unknown',
+
+			currentForecastPrecipitation: 'Precipitation',
+			currentForecastWind: 'Wind',
+			currentForecastClouds: 'Clouds',
+			currentForecastPressure: 'Pressure',
+			currentForecastRain: 'Rain',
+			currentForecastTemperature: 'Temperature',
+			currentForecastEarthquakes: 'Earthquakes',
+
 			windSpeed: 'Wind Speed',
 			maxWindSpeed: 'Max. Wind Speed',
 			minWindSpeed: 'Min. Wind Speed',
 			aveWindSpeed: 'Average Wind Speed',
-			
+
 			pressure: 'Pressure',
 			humidity: 'Humidity',
-			
+
 			temperature: 'Temperature',
 			aveTemperature: 'Average Temperature',
 			minTemperature: 'Min. Temperature',
 			maxTemperature: 'Max. Temperature',
 			maxAveTemperature: 'Max. Average Temperature',
-			
+
 			mapClick: 'You clicked on map at: ',
 			moonPhases: 'Moon Phases for: ',
 			moonPhaseToday: 'Moon Phase for Today: ',
 			moonFracillum: 'Fracillum:',
-			
+
 			newMoon: 'New Moon',
 			waxingCrescent: 'Waxing Crescent',
 			firstQuarter: 'First Quarter',
@@ -106,40 +109,40 @@ function getI18n(key, lang)
 			waningGibbous: 'Waning Gibbous',
 			lastQuarter: 'Last Quarter',
 			waningCrescent: 'Waning Crescent',
-      
-      earthToday: 'Alert\'s for Today:',
-      earthTomorrow: 'Alert\'s for Tomorrow:',
-      
-      earthSun: 'Sun:',
-      earthMoon: 'Moon:',
-      
-      earthSeasons: 'This year Earth\'s Seasons and Apsides',
-      earthSeasonsWinter: 'Winter',
-      earthSeasonsSpring: 'Spring',
-      earthSeasonsSummer: 'Summer',
-      earthSeasonsFall: 'Fall',
-      earthSeasonsDate: 'On Date',
-      earthSeasonsName: 'Season',
-      
-      earthSeasonsPerihelion: 'Perihelion',
-      earthSeasonsEquinox: 'Equinox',
-      earthSeasonsSolstice: 'Solstice',
-      earthSeasonsAphelion: 'Aphelion',
-      
-      earthAstrology: 'Zodiac Sign',
-      earthAstrologyAries: 'Aries',
-      earthAstrologyTaurus: 'Taurus',
-      earthAstrologyGemini: 'Gemini',
-      earthAstrologyCancer: 'Cancer',
-      earthAstrologyLeo: 'Leo',
-      earthAstrologyVirgo: 'Virgo',
-      earthAstrologyLibra: 'Libra',
-      earthAstrologyScorpio: 'Scorpio',
-      earthAstrologySagittarius: 'Sagittarius',
-      earthAstrologyCapricorn: 'Capricorn',
-      earthAstrologyAquarius: 'Aquarius',
-      earthAstrologyPisces: 'Pisces',
-			
+
+			earthToday: 'Alert\'s for Today:',
+			earthTomorrow: 'Alert\'s for Tomorrow:',
+
+			earthSun: 'Sun:',
+			earthMoon: 'Moon:',
+
+			earthSeasons: 'This year Earth\'s Seasons and Apsides',
+			earthSeasonsWinter: 'Winter',
+			earthSeasonsSpring: 'Spring',
+			earthSeasonsSummer: 'Summer',
+			earthSeasonsFall: 'Fall',
+			earthSeasonsDate: 'On Date',
+			earthSeasonsName: 'Season',
+
+			earthSeasonsPerihelion: 'Perihelion',
+			earthSeasonsEquinox: 'Equinox',
+			earthSeasonsSolstice: 'Solstice',
+			earthSeasonsAphelion: 'Aphelion',
+
+			earthAstrology: 'Zodiac Sign',
+			earthAstrologyAries: 'Aries',
+			earthAstrologyTaurus: 'Taurus',
+			earthAstrologyGemini: 'Gemini',
+			earthAstrologyCancer: 'Cancer',
+			earthAstrologyLeo: 'Leo',
+			earthAstrologyVirgo: 'Virgo',
+			earthAstrologyLibra: 'Libra',
+			earthAstrologyScorpio: 'Scorpio',
+			earthAstrologySagittarius: 'Sagittarius',
+			earthAstrologyCapricorn: 'Capricorn',
+			earthAstrologyAquarius: 'Aquarius',
+			earthAstrologyPisces: 'Pisces',
+
 			january: 'January',
 			february: 'February',
 			march: 'March',
@@ -152,7 +155,7 @@ function getI18n(key, lang)
 			october: 'October',
 			november: 'November',
 			december: 'December',
-			
+
 			day: 'Day',
 			week: 'Week',
 			monday: 'Monday',
@@ -183,17 +186,17 @@ function getI18n(key, lang)
 			viewHours: 'Danes, po urah',
 			viewPartners: 'Partnerji:',
 			viewAt: ' ob:',
-			
+
 			versionJQuery: 'JQuery Verzija: ',
 			versionBootstrap: 'Bootstrap Verzija: ',
 			versionLeafleet: 'Leafleet Verzija: ',
 			versionEChars: 'ECharts Verzija: ',
-			
+
 			apiError: 'WeatherCube needs API key to continue!.',
 			apiKeyError: 'OpenWeatherMap API key is missing!!',
 			satError: 'Satelitske slike so onemogočene!',
 			satNotSet: 'Satelitske slike niso nastavljene!',
-			
+
 			earthquakesLatitude: 'Širina:',
 			earthquakesLongitude: 'Dolžina:',
 			earthquakesTime: 'Čas dogodka:',
@@ -204,27 +207,31 @@ function getI18n(key, lang)
 			earthquakesStrength: 'Potresi po jakosti:',
 			earthquakesMinStrength: 'Max. Moč',
 			earthquakesMaxStrength: 'Min. SMoč',
-			
-			currentForecastToday: 'Danes',
+
+			currentForecastToday: 'Trenutno',
 			currentForecastLat: ' pri Lat: ',
 			currentForecastLon: ' - Lon: ',
 			currentForecastMin: 'Min.',
 			currentForecastMax: 'Max.',
 			currentForecastUvi: 'Uvi:',
-			
+
 			currentIndexLow: 'Nizko',
 			currentIndexModerate: 'Zmerno',
 			currentIndexHigh: 'Visoko',
 			currentIndexVeryHigh: 'Zelo Visoko',
-			currentIndexVeryExtreme: 'Ekstremno',
-			currentIndexVeryUnknown: 'Neznano',
-			currentUviIndexWeek: 'Indeks UltraVioletnih žarkov za en teden.',
-			
-			currentIndexLowDesc: '<b>Majhna nevarnost</b> sončnih UV žarkov za povprečno osebo.<br /> Nosite sončna očala v svetlih dneh. Če se zlahka opečete, se pokrijete in uporabite kremo za zaščito pred soncem.',
-			currentIndexModerateDesc: '<b>Zmerno tveganje</b> zaradi nezaščitenega izpostavljanja soncu.<br />Bodite previdni, na primer pokrijte se, če boste zunaj. Ostanite v senci blizu poldneva, ko je sonce najmočnejše.',
-			currentIndexHighDesc: '<b>Velika nevarnost</b> zaradi nezaščitene izpostavljenosti soncu.<br />Nosite sončna očala in uporabljajte zaščitno kremo SPF30 +. Telo pokrijte s zaščitnimi oblačili in klobukom s širokim obodom. Skrajšajte čas na soncu v času opoldanskih ur.',
-			currentIndexExtremeDesc: '<b>Zelo veliko</b> tveganje za poškodbe zaradi nezaščitenega izpostavljanja soncu.<br />Upoštevajte dodatne varnostne ukrepe. Uporabite zaščitno kremo SPF30 +, majico, sončna očala in kapo. Ne ostajajte pod soncem predolgo. Če morate biti zunaj, se izogibajte soncu v času opoldanskih ur.',
-			
+			currentIndexExtreme: 'Ekstremno',
+			currentIndexUnknown: 'Neznano',
+			currentUviIndexWeek: 'Indeks UltraVioletnih žarkov za ta teden.',
+
+			currentIndexLowDesc:
+				'<b>Majhna nevarnost</b> sončnih UV žarkov za povprečno osebo.<br /> Nosite sončna očala v svetlih dneh. Če se zlahka opečete, se pokrijete in uporabite kremo za zaščito pred soncem.',
+			currentIndexModerateDesc:
+				'<b>Zmerno tveganje</b> zaradi nezaščitenega izpostavljanja soncu.<br />Bodite previdni, na primer pokrijte se, če boste zunaj. Ostanite v senci blizu poldneva, ko je sonce najmočnejše.',
+			currentIndexHighDesc:
+				'<b>Velika nevarnost</b> zaradi nezaščitene izpostavljenosti soncu.<br />Nosite sončna očala in uporabljajte zaščitno kremo SPF30 +. Telo pokrijte s zaščitnimi oblačili in klobukom s širokim obodom. Skrajšajte čas na soncu v času opoldanskih ur.',
+			currentIndexExtremeDesc:
+				'<b>Zelo veliko</b> tveganje za poškodbe zaradi nezaščitenega izpostavljanja soncu.<br />Upoštevajte dodatne varnostne ukrepe. Uporabite zaščitno kremo SPF30 +, majico, sončna očala in kapo. Ne ostajajte pod soncem predolgo. Če morate biti zunaj, se izogibajte soncu v času opoldanskih ur.',
+
 			currentForecastPrecipitation: 'Padavine',
 			currentForecastWind: 'Vetrovnost',
 			currentForecastClouds: 'Oblačnost',
@@ -232,26 +239,26 @@ function getI18n(key, lang)
 			currentForecastRain: 'Deževje',
 			currentForecastTemperature: 'Temperatura',
 			currentForecastEarthquakes: 'Potresi',
-			
+
 			windSpeed: 'Hitrost Vetra',
 			maxWindSpeed: 'Max. Hitrost Vetra',
 			minWindSpeed: 'Min. Hitrost Vetra',
 			aveWindSpeed: 'Povprečna Hitrost Vetra',
-			
+
 			pressure: 'Tlak',
 			humidity: 'Vlažnost',
-			
+
 			temperature: 'Temperatura',
 			aveTemperature: 'Povprečna Temperatura',
 			minTemperature: 'Min. Temperatura',
 			maxTemperature: 'Max. Temperatura',
 			maxAveTemperature: 'Max. Povprečna Temperatura',
-			
+
 			mapClick: 'Na zemljevidu ste kliknili na: ',
 			moonPhases: 'Faze lune za: ',
 			moonPhaseToday: 'Faza lune za danes: ',
 			moonFracillum: 'Osvetljenost:',
-			
+
 			newMoon: 'Nova Luna',
 			waxingCrescent: 'Naraščajoča Luna',
 			firstQuarter: 'Prva Četrtina',
@@ -260,13 +267,13 @@ function getI18n(key, lang)
 			waningGibbous: 'Pojemajoči Krajec',
 			lastQuarter: 'Zadnja Četrtina',
 			waningCrescent: 'Pojemajoča Luna',
-			
+
 			earthToday: 'Opozorila za danes:',
 			earthTomorrow: 'Opozorila za jutri:',
-			
+
 			earthSun: 'Sonce:',
 			earthMoon: 'Luna:',
-			
+
 			earthSeasons: 'Letošnji letni časi Zemlje in apsidi',
 			earthSeasonsWinter: 'Zima',
 			earthSeasonsSpring: 'Pomlad',
@@ -274,12 +281,12 @@ function getI18n(key, lang)
 			earthSeasonsFall: 'Jesen',
 			earthSeasonsDate: 'Na Datum:',
 			earthSeasonsName: 'Sezona:',
-			
+
 			earthSeasonsPerihelion: 'Perihelion',
 			earthSeasonsEquinox: 'Enakonočje',
 			earthSeasonsSolstice: 'Solsticij',
 			earthSeasonsAphelion: 'Afelija',
-			
+
 			earthAstrology: 'Trenutno Nebesno Znamenje:',
 			earthAstrologyAries: 'Oven',
 			earthAstrologyTaurus: 'Bik',
@@ -293,7 +300,7 @@ function getI18n(key, lang)
 			earthAstrologyCapricorn: 'Kozorog',
 			earthAstrologyAquarius: 'Vodnar',
 			earthAstrologyPisces: 'Ribi',
-			
+
 			january: 'Januar',
 			february: 'Februar',
 			march: 'Marec',
@@ -306,7 +313,7 @@ function getI18n(key, lang)
 			october: 'Oktober',
 			november: 'November',
 			december: 'December',
-			
+
 			day: 'Dan',
 			week: 'Teden',
 			monday: 'Ponedeljek',
@@ -319,7 +326,7 @@ function getI18n(key, lang)
 		}
 	};
 
-	if (typeof i18n[lang] != "undefined" && typeof i18n[lang][key] != "undefined")
+	if (typeof i18n[lang] != 'undefined' && typeof i18n[lang][key] != 'undefined')
 	{
 		return i18n[lang][key];
 	}
@@ -340,17 +347,17 @@ function getLocalLanguage()
 	let qs = window.location.search;
 	if (qs)
 	{
-		if (qs.substring(0, 1) === "?")
+		if (qs.substring(0, 1) === '?')
 		{
 			qs = qs.substring(1);
 		}
 
-		let params = qs.split("&");
+		let params = qs.split('&');
 
 		for (let i = 0; i < params.length; i ++)
 		{
-			let keyValue = params[i].split("=");
-			if (keyValue[0] === "lang")
+			let keyValue = params[i].split('=');
+			if (keyValue[0] === 'lang')
 			{
 				lang = keyValue[1];
 				break;
@@ -362,13 +369,13 @@ function getLocalLanguage()
 	if (!lang)
 	{
 		let tmp = navigator.language || navigator;
-		lang = tmp.split("-")[0];
+		lang = tmp.split('-')[0];
 	}
 
 	// Use only supported languages, defaults to 'en'
-	if (lang != "en" && lang != "sl" && lang != "de" && lang != "ru")
+	if (lang != 'en' && lang != 'sl')
 	{
-		lang = "en";
+		lang = 'en';
 	}
 
 	return lang;
