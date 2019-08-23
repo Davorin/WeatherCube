@@ -1,4 +1,4 @@
-# WeatherCube V1.3.2019
+# WeatherCube V1.4.2019
 
 This is a full jquery, bootstrap 4 weather widget.
 **It can show you latest weather forecast, charts for latest forecast,
@@ -135,4 +135,4 @@ Issues
 --------------------------------------------------------
 # License
 
-> Copyright 2007 - 2019 Product of MCX-Systems®
+> Copyright 2007 - 2019 Product of MCX-SystemsÂ®
