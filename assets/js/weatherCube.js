@@ -5,7 +5,6 @@
 * All rights Reserved.
 * Copyrights by Davorin Casar <casardavorin@gmail.com> (https://mcx-systems.net)
 */
-;
 (function($, window, document, undefined)
 {
 	let leaflet = L.noConflict();
@@ -410,7 +409,7 @@
 					widget.options.theme);
 				widget._windWeekChart.showLoading();
 
-				widget._earthquakeChart = echarts.init(widget.$element.find(('#weatherQuakeChart-' + widget._uId))[0],
+				widget._earthquakeChart = echarts.init(widget.$element.find('#weatherQuakeChart-' + widget._uId)[0],
 					widget.options.theme);
 				widget._earthquakeChart.showLoading();
 
@@ -489,7 +488,7 @@
 					apiUviUrl += '?lat=' + widget._locationLat + '&lon=' + widget._locationLon;
 				}
 
-				if (widget.options.units != null)
+				if (widget.options.units !== null)
 				{
 					// Append api key parameter
 					apiUrl += '&units=' + widget.options.units;
@@ -497,7 +496,7 @@
 				}
 
 				// if api key was supplied
-				if (widget.options.apiKey != null)
+				if (widget.options.apiKey !== null)
 				{
 					// append api key parameter
 					apiUrl += '&appid=' + widget.options.apiKey;
@@ -505,7 +504,7 @@
 					apiForecastUrl += '&appid=' + widget.options.apiKey;
 				}
 
-				if (widget.options.language != null)
+				if (widget.options.language !== null)
 				{
 					apiUrl += '&lang=' + widget.options.language;
 					apiForecastUrl += '&lang=' + widget.options.language;
@@ -1679,7 +1678,7 @@
 					const timeMillis = (new Date()).getTime();
 
 					//If we have at least the min number of clicks on record
-					if (nextIndex === (numClicksRequired - 1) || oldestIndex > 0)
+					if (nextIndex === numClicksRequired - 1 || oldestIndex > 0)
 					{
 						//Check that all required clicks were in required time
 						let diff = timeMillis - clickTimestamps[oldestIndex];
@@ -1839,7 +1838,7 @@
 								url = url.replace('{1}', value['type']);
 								url = url.replace('{2}', imageSize);
 
-								if (timezone != null && timezone !== '')
+								if (timezone !== null && timezone !== '')
 								{
 									url = url.replace('{3}', timezone);
 								}
@@ -1848,7 +1847,7 @@
 									url = url.replace('{3}', '');
 								}
 
-								let randomNum = Math.floor((Math.random() * 10000000) + 1);
+								let randomNum = Math.floor(Math.random() * 10000000 + 1);
 								url = url.replace('{4}', randomNum.toString());
 								url = encodeURI(url);
 								urlHttps = url.replace('http:', 'https:');
@@ -1995,7 +1994,7 @@
 					{
 						maxZoom: 19,
 						attribution:
-							'MCX-Systems © Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+							'MCX-Systems © Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 					});
 
 				let esriStreet = leaflet.tileLayer(
@@ -2125,9 +2124,9 @@
 						cache: false,
 						success: function(result)
 						{
-							if (result == null)
+							if (result === null)
 							{
-								return;
+								return true;
 							}
 
 							if (widget.options.debug)
@@ -2165,7 +2164,7 @@
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
 								$.ajax(this);
 
-								return;
+								return false;
 							}
 
 							return false;
@@ -2482,7 +2481,7 @@
 					'" class="img-fluid mt-3 mb-4" alt="' + phaseNames[phase] + '" />';
 				let moonText = phaseNames[phase];
 
-				let currentMonth = (dt.getMonth() + 1);
+				let currentMonth = dt.getMonth() + 1;
 				if (currentMonth === 12 || currentMonth === 1 || currentMonth === 2)
 				{
 					// Winter background
@@ -2640,9 +2639,9 @@
 						cache: false,
 						success: function(result)
 						{
-							if (result == null)
+							if (result === null)
 							{
-								return;
+								return true;
 							}
 
 							if (widget.options.debug)
@@ -2679,7 +2678,7 @@
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
 								$.ajax(this);
 
-								return;
+								return false;
 							}
 
 							return false;
@@ -2714,9 +2713,9 @@
 								cache: false,
 								success: function(result)
 								{
-									if (result == null)
+									if (result === null)
 									{
-										return;
+										return true;
 									}
 
 									if (widget.options.debug)
@@ -2754,7 +2753,7 @@
 											.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
 										$.ajax(this);
 
-										return;
+										return false;
 									}
 
 									return false;
@@ -2794,9 +2793,9 @@
 								cache: false,
 								success: function(result)
 								{
-									if (result == null)
+									if (result === null)
 									{
-										return;
+										return true;
 									}
 
 									if (widget.options.debug)
@@ -2841,7 +2840,7 @@
 											.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
 										$.ajax(this);
 
-										return;
+										return false;
 									}
 
 									return false;
@@ -2949,9 +2948,9 @@
 						crossDomain: true,
 						success: function(result)
 						{
-							if (result == null)
+							if (result === null)
 							{
-								return;
+								return true;
 							}
 
 							if (widget.options.debug)
@@ -2988,7 +2987,7 @@
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
 								$.ajax(this);
 
-								return;
+								return false;
 							}
 
 							return false;
@@ -3169,9 +3168,9 @@
 						crossDomain: true,
 						success: function(result)
 						{
-							if (result == null)
+							if (result === null)
 							{
-								return;
+								return true;
 							}
 
 							if (widget.options.debug)
@@ -3208,7 +3207,7 @@
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
 								$.ajax(this);
 
-								return;
+								return false;
 							}
 
 							return false;
@@ -3398,7 +3397,7 @@
 					}
 
 					// if iconTarget icon isn't null
-					if (item.weather[0].icon != null)
+					if (item.weather[0].icon !== null)
 					{
 						if (widget.options.icons === 'tick')
 						{
@@ -3979,9 +3978,9 @@
 						crossDomain: true,
 						success: function(result)
 						{
-							if (result == null)
+							if (result === null)
 							{
-								return;
+								return true;
 							}
 
 							if (widget.options.debug)
@@ -4018,7 +4017,7 @@
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
 								$.ajax(this);
 
-								return;
+								return false;
 							}
 
 							return false;
@@ -4187,9 +4186,9 @@
 						crossOrigin: true,
 						success: function(result)
 						{
-							if (result == null)
+							if (result === null)
 							{
-								return;
+								return true;
 							}
 
 							if (widget.options.debug)
@@ -4225,7 +4224,7 @@
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
 								$.ajax(this);
 
-								return;
+								return false;
 							}
 
 							return false;
@@ -4348,45 +4347,45 @@
 				const hourSecondHand = document.querySelector('.wcSecond-hours-hand');
 
 				const seconds = now.getSeconds();
-				const secondsDegrees = ((seconds / 60) * 360) + 90;
+				const secondsDegrees = seconds / 60 * 360 + 90;
 				secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
 
 				const fSeconds = now.toLocaleString('en-US',
 					{ timeZone: widget.options.firstTimezone[1], second: 'numeric' });
-				const fSecondsDegrees = ((fSeconds / 60) * 360) + 90;
+				const fSecondsDegrees = fSeconds / 60 * 360 + 90;
 				secondFirstHand.style.transform = `rotate(${fSecondsDegrees}deg)`;
 
 				const sSeconds = now.toLocaleString('en-US',
 					{ timeZone: widget.options.secondTimezone[1], second: 'numeric' });
-				const sSecondsDegrees = ((sSeconds / 60) * 360) + 90;
+				const sSecondsDegrees = sSeconds / 60 * 360 + 90;
 				secondSecondHand.style.transform = `rotate(${sSecondsDegrees}deg)`;
 
 				const minutes = now.getMinutes();
-				const minutesDegrees = ((minutes / 60) * 360) + ((seconds / 60) * 6) + 90;
+				const minutesDegrees = minutes / 60 * 360 + seconds / 60 * 6 + 90;
 				minutesHand.style.transform = `rotate(${minutesDegrees}deg)`;
 
 				const fMinutes = now.toLocaleString('en-US',
 					{ timeZone: widget.options.firstTimezone[1], minute: 'numeric' });
-				const fMinutesDegrees = ((fMinutes / 60) * 360) + ((fSeconds / 60) * 6) + 90;
+				const fMinutesDegrees = fMinutes / 60 * 360 + fSeconds / 60 * 6 + 90;
 				minutesFirstHand.style.transform = `rotate(${fMinutesDegrees}deg)`;
 
 				const sMinutes = now.toLocaleString('en-US',
 					{ timeZone: widget.options.secondTimezone[1], minute: 'numeric' });
-				const sMinutesDegrees = ((sMinutes / 60) * 360) + ((sSeconds / 60) * 6) + 90;
+				const sMinutesDegrees = sMinutes / 60 * 360 + sSeconds / 60 * 6 + 90;
 				minutesSecondHand.style.transform = `rotate(${sMinutesDegrees}deg)`;
 
 				const hour = now.getHours();
-				const hourDegrees = ((hour / 12) * 360) + ((minutes / 60) * 30) + 90;
+				const hourDegrees = hour / 12 * 360 + minutes / 60 * 30 + 90;
 				hourHand.style.transform = `rotate(${hourDegrees}deg)`;
 
 				const fHour = now.toLocaleString('en-US',
 					{ timeZone: widget.options.firstTimezone[1], hour12: false, hour: 'numeric' });
-				const fHourDegrees = ((fHour / 12) * 360) + ((fMinutes / 60) * 30) + 90;
+				const fHourDegrees = fHour / 12 * 360 + fMinutes / 60 * 30 + 90;
 				hourFirstHand.style.transform = `rotate(${fHourDegrees}deg)`;
 
 				const sHour = now.toLocaleString('en-US',
 					{ timeZone: widget.options.secondTimezone[1], hour12: false, hour: 'numeric' });
-				const sHourDegrees = ((sHour / 12) * 360) + ((sMinutes / 60) * 30) + 90;
+				const sHourDegrees = sHour / 12 * 360 + sMinutes / 60 * 30 + 90;
 				hourSecondHand.style.transform = `rotate(${sHourDegrees}deg)`;
 			},
 
@@ -4475,25 +4474,25 @@
 					t = (year - 1899.5) / 100,
 					t2 = Math.pow(t, 2),
 					t3 = Math.pow(t, 3),
-					j0 = 2415020 + (29 * k0),
-					f0 = (0.0001178 * t2) -
-						(0.000000155 * t3) +
+					j0 = 2415020 + 29 * k0,
+					f0 = 0.0001178 * t2 -
+						0.000000155 * t3 +
 						0.75933 +
-						(0.53058868 * k0) -
-						(0.000837 * t) +
-						(0.000335 * t2),
+						0.53058868 * k0 -
+						0.000837 * t +
+						0.000335 * t2,
 					m0 = 360 * this.getFractionalPart(k0 * 0.08084821133) +
 						359.2242 -
-						(0.0000333 * t2) -
-						(0.00000347 * t3),
+						0.0000333 * t2 -
+						0.00000347 * t3,
 					m1 = 360 * this.getFractionalPart(k0 * 0.07171366128) +
 						306.0253 +
-						(0.0107306 * t2) +
-						(0.00001236 * t3),
+						0.0107306 * t2 +
+						0.00001236 * t3,
 					b1 = 360 * this.getFractionalPart(k0 * 0.08519585128) +
 						21.2964 -
-						(0.0016528 * t2) -
-						(0.00000239 * t3),
+						0.0016528 * t2 -
+						0.00000239 * t3,
 					phase = 0,
 					jDay = 0,
 					oldJ,
@@ -4504,17 +4503,17 @@
 
 				while (jDay < thisJd)
 				{
-					f = f0 + (1.530588 * phase);
-					m5 = this.degreesToRadians(m0 + (phase * 29.10535608));
-					m6 = this.degreesToRadians(m1 + (phase * 385.81691806));
-					b6 = this.degreesToRadians(b1 + (phase * 390.67050646));
-					f -= (0.4068 * Math.sin(m6)) + ((0.1734 - (0.000393 * t)) * Math.sin(m5));
-					f += (0.0161 * Math.sin(2 * m6)) + (0.0104 * Math.sin(2 * b6));
-					f -= (0.0074 * Math.sin(m5 - m6)) - (0.0051 * Math.sin(m5 + m6));
-					f += (0.0021 * Math.sin(2 * m5)) + (0.0010 * Math.sin((2 * b6) - m6));
+					f = f0 + 1.530588 * phase;
+					m5 = this.degreesToRadians(m0 + phase * 29.10535608);
+					m6 = this.degreesToRadians(m1 + phase * 385.81691806);
+					b6 = this.degreesToRadians(b1 + phase * 390.67050646);
+					f -= 0.4068 * Math.sin(m6) + (0.1734 - 0.000393 * t * Math.sin(m5));
+					f += 0.0161 * Math.sin(2 * m6) + 0.0104 * Math.sin(2 * b6);
+					f -= 0.0074 * Math.sin(m5 - m6) - 0.0051 * Math.sin(m5 + m6);
+					f += 0.0021 * Math.sin(2 * m5) + 0.0010 * Math.sin(2 * b6 - m6);
 					f += 0.5 / 1440;
 					oldJ = jDay;
-					jDay = j0 + (28 * phase) + Math.floor(f);
+					jDay = j0 + 28 * phase + Math.floor(f);
 					phase += 1;
 				}
 
@@ -4532,9 +4531,9 @@
 			{
 				let a = Math.floor((14 - month) / 12);
 				let y = year + 4800 - a;
-				let m = month + (12 * a) - 3;
+				let m = month + 12 * a - 3;
 
-				return day + Math.floor(((153 * m) + 2) / 5) + (365 * y) + Math.floor(y / 4) - Math.floor(y / 100) +
+				return day + Math.floor((153 * m + 2) / 5) + 365 * y + Math.floor(y / 4) - Math.floor(y / 100) +
 					Math.floor(y / 400) - 32045;
 			},
 
@@ -4549,7 +4548,7 @@
 
 			getFractionalPart: function(floatingPointNumber)
 			{
-				return (Math.abs(floatingPointNumber) - Math.floor(floatingPointNumber));
+				return Math.abs(floatingPointNumber) - Math.floor(floatingPointNumber);
 			},
 
 			/***************************************************************************/
@@ -4777,7 +4776,7 @@
 				let windSpeed = this.getAveWindSpeed(forecast);
 				let windDeg = this.getAveWindDeg(forecast);
 				let [low, high] = this.getHighLowTemp(forecast);
-				let ave = Math.round((((high + low) / 2) * 100) / 100);
+				let ave = Math.round(high + low / 2 * 100 / 100);
 
 				return { id: id, prefix: prefix, date: data.date, day: day, main: main, icon: icon, desc: desc,
 					humidity: humidity, pressure: pressure, windSpeed: windSpeed, windDeg: windDeg, low: low,
@@ -4931,7 +4930,7 @@
 
 			getAveHumidity: function(forecast)
 			{
-				return Math.round(forecast.reduce((( acc, current ) => acc + current.main.humidity), 0) /
+				return Math.round(forecast.reduce(( acc, current ) => acc + current.main.humidity, 0) /
 					forecast.length);
 			},
 
@@ -4939,7 +4938,7 @@
 
 			getAvePressure: function(forecast)
 			{
-				return Math.round(forecast.reduce((( acc, current ) => acc + current.main.pressure), 0) /
+				return Math.round(forecast.reduce(( acc, current ) => acc + current.main.pressure, 0) /
 					forecast.length);
 			},
 
@@ -4947,14 +4946,14 @@
 
 			getAveWindSpeed: function(forecast)
 			{
-				return Math.round(forecast.reduce((( acc, current ) => acc + current.wind.speed), 0) / forecast.length);
+				return Math.round(forecast.reduce(( acc, current ) => acc + current.wind.speed, 0) / forecast.length);
 			},
 
 			/***************************************************************************/
 
 			getAveWindDeg: function(forecast)
 			{
-				return Math.round(forecast.reduce((( acc, current ) => acc + current.wind.deg), 0) / forecast.length);
+				return Math.round(forecast.reduce(( acc, current ) => acc + current.wind.deg, 0) / forecast.length);
 			},
 
 			/***************************************************************************/
@@ -5010,7 +5009,7 @@
 				} // default: 1h
 
 				let date = new Date();
-				let schedule = Math.round((date.setSeconds(date.getSeconds() + expires)) / 1000);
+				let schedule = Math.round(date.setSeconds(date.getSeconds() + expires) / 1000);
 
 				localStorage.setItem(name, value);
 				localStorage.setItem(name + '_time', schedule.toString());
@@ -5812,7 +5811,7 @@
 		timeAxis: axisCommon(),
 		logAxis: axisCommon(),
 		valueAxis: axisCommon(),
-		categoryAxis: axisCommon(),
+		categoryAxis: axisCommon()
 	};
 
 	theme.categoryAxis.splitLine.show = false;
