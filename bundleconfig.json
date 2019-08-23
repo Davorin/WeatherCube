@@ -16,5 +16,11 @@
     "inputFiles": [
       "assets/css/weatherCube.css"
     ]
+  },
+  {
+    "outputFileName": "assets/js/weatherCube_images.min.js",
+    "inputFiles": [
+      "assets/js/weatherCube_images.js"
+    ]
   }
 ]

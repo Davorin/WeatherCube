@@ -19,8 +19,8 @@
 	<link href="assets/favicon/site.webmanifest?v=WG2BO9EXnj" rel="manifest">
 	<link color="#5bbad5" href="assets/favicon/safari-pinned-tab.svg?v=WG2BO9EXnj" rel="mask-icon">
 	<link href="assets/favicon/favicon.ico?v=WG2BO9EXnj" rel="shortcut icon">
-	<meta content="FM-RadioCube" name="apple-mobile-web-app-title">
-	<meta content="FM-RadioCube" name="application-name">
+	<meta content="WeatherCube" name="apple-mobile-web-app-title">
+	<meta content="WeatherCube" name="application-name">
 	<meta content="#da532c" name="msapplication-TileColor">
 	<meta content="assets/favicon/mstile-144x144.png?v=WG2BO9EXnj" name="msapplication-TileImage">
 	<meta content="assets/favicon/browserconfig.xml?v=WG2BO9EXnj" name="msapplication-config">
@@ -31,51 +31,40 @@
 	<link href="assets/fonts/weather-icons/weather-icons.css?v=wAXeYng6BG" rel="stylesheet" />
 	<link href="assets/fonts/weather-icons/weather-icons-wind.css?v=wAXeYng6BG" rel="stylesheet" />
 	<!-- *********************************************************************************************************** -->
-	<link href="assets/js/jQuery/jquery.mobile.css?v=wAXeYng6BG" rel="stylesheet" />
 	<link href="assets/js/bootstrap/css/bootstrap.css?v=wAXeYng6BG" rel="stylesheet" />
 	<link href="assets/js/leaflet/leaflet.css" rel="stylesheet" />
 	<link href="assets/css/weatherCube.css?v=wAXeYng6BG" rel="stylesheet" />
 	<!-- *********************************************************************************************************** -->
 	<script src="assets/js/jQuery/jquery.js?v=wAXeYng6BG"></script>
-	<script src="assets/js/jQuery/jquery.mobile.js?v=wAXeYng6BG"></script>
 	<script src="assets/js/bootstrap/js/bootstrap.bundle.js?v=wAXeYng6BG"></script>
 	<script src="assets/js/eCharts/echarts.js?v=wAXeYng6BG"></script>
 	<script src="assets/js/leaflet/leaflet.js?v=wAXeYng6BG"></script>
+	<script src="assets/js/weatherCube_images.js?v=wAXeYng6BG"></script>
 	<script src="assets/js/weatherCube.js?v=wAXeYng6BG"></script>
 	<script src="assets/js/weatherCube_i18n.js?v=wAXeYng6BG"></script>
 </head>
 
 <body>
-<div class="container-fluid">
-	<div class="row mt-3">
-		<div class="col-12 mb-3">
 
-			<div id="weatherCube" class="weatherCube"></div>
+<div class="test"></div>
 
-		</div>
-	</div>
-</div>
 <script type="text/javascript">
 	$(document).ready(function()
 	{
-		$('#weatherCube').weatherCube({
+		$('.test').weatherCube({
 			// OpenWeatherMap apiKey get it here: https://openweathermap.org/api
 			apiKey: '',
 			// Selected forecast city
-			city: '',
+			city: null,
 			// We are using city so coordinates are set to null
-			latitude: '',
-			longitude: '',
+			latitude: null,
+			longitude: null,
 			// language en, sl
-			language: 'sl',
+			language: '',
 			// imperial or metric
 			units: "metric",
-			// EarthQuakes period week or day
-			quakesPeriod: "week",
 			// default, tick, weezle
 			icons: "weezle",
-			// weather update interval 2 hours
-			wInterval: 7200000,
 			// Widget theme light or dark
 			theme: 'light',
 			// Satellite images
