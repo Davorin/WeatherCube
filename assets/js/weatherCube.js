@@ -375,41 +375,46 @@
 					console.info('--------------------------------------------');
 				}
 
-				widget._tempChart = echarts.init(widget.$element.find('#weatherTempChart-' + widget._uId)[0],
+				widget._tempChart = window.echarts.init(widget.$element.find('#weatherTempChart-' + widget._uId)[0],
 					widget.options.theme);
 				widget._tempChart.showLoading();
 
-				widget._humidityChart = echarts.init(widget.$element.find('#weatherHumidityChart-' + widget._uId)[0],
+				widget._humidityChart = window.echarts.init(
+					widget.$element.find('#weatherHumidityChart-' + widget._uId)[0],
 					widget.options.theme);
 				widget._humidityChart.showLoading();
 
-				widget._pressureChart = echarts.init(widget.$element.find('#weatherPressureChart-' + widget._uId)[0],
+				widget._pressureChart = window.echarts.init(
+					widget.$element.find('#weatherPressureChart-' + widget._uId)[0],
 					widget.options.theme);
 				widget._pressureChart.showLoading();
 
-				widget._windChart = echarts.init(widget.$element.find('#weatherWindChart-' + widget._uId)[0],
+				widget._windChart = window.echarts.init(widget.$element.find('#weatherWindChart-' + widget._uId)[0],
 					widget.options.theme);
 				widget._windChart.showLoading();
 
-				widget._tempWeekChart = echarts.init(widget.$element.find('#weatherWeekTempChart-' + widget._uId)[0],
+				widget._tempWeekChart = window.echarts.init(
+					widget.$element.find('#weatherWeekTempChart-' + widget._uId)[0],
 					widget.options.theme);
 				widget._tempWeekChart.showLoading();
 
 				widget._humidityWeekChart =
-					echarts.init(widget.$element.find('#weatherWeekHumidityChart-' + widget._uId)[0],
+					window.echarts.init(widget.$element.find('#weatherWeekHumidityChart-' + widget._uId)[0],
 						widget.options.theme);
 				widget._humidityWeekChart.showLoading();
 
 				widget._pressureWeekChart =
-					echarts.init(widget.$element.find('#weatherWeekPressureChart-' + widget._uId)[0],
+					window.echarts.init(widget.$element.find('#weatherWeekPressureChart-' + widget._uId)[0],
 						widget.options.theme);
 				widget._pressureWeekChart.showLoading();
 
-				widget._windWeekChart = echarts.init(widget.$element.find('#weatherWeekWindChart-' + widget._uId)[0],
+				widget._windWeekChart = window.echarts.init(
+					widget.$element.find('#weatherWeekWindChart-' + widget._uId)[0],
 					widget.options.theme);
 				widget._windWeekChart.showLoading();
 
-				widget._earthquakeChart = echarts.init(widget.$element.find('#weatherQuakeChart-' + widget._uId)[0],
+				widget._earthquakeChart = window.echarts.init(
+					widget.$element.find('#weatherQuakeChart-' + widget._uId)[0],
 					widget.options.theme);
 				widget._earthquakeChart.showLoading();
 
@@ -572,19 +577,21 @@
 					'<span id="weatherCube-currentTemperatureIcon-' + this._uId + '"></span>' +
 					'<span id="weatherCube-currentTemperature-' + this._uId +
 					'" class="digital-numbers pb-2 pb-sm-1 h1">--</span>' +
-					'<i class="wi ' + this.generateUnitIcon(this.options.units) + ' pb-4 h3"></i>' +
+					'<i class="wi ' + this.generateUnitIcon(this.options.units) + ' pb-4 h3" aria-hidden="true"></i>' +
 					'</div>' +
 					'<div class="weatherCubeMinMaxTemperature d-flex justify-content-end flex-sm-wrap flex-lg-nowrap align-items-center mr-1">' +
 					'<span class="mr-1 pb-1">' + getI18n('weatherCube_currentForecastMin', this.options.language) +
 					'</span>' +
 					'<span id="weatherCube-currentMinTemperature-' + this._uId +
 					'" class="digital-numbers mr-1 pb-1">--</span>' +
-					'<i class="wi ' + this.generateUnitIcon(this.options.units) + ' pb-2 mr-2"></i>' +
+					'<i class="wi ' + this.generateUnitIcon(this.options.units) +
+					' pb-2 mr-2" aria-hidden="true"></i>' +
 					'<span class="mr-1 pb-1">' + getI18n('weatherCube_currentForecastMax', this.options.language) +
 					'</span>' +
 					'<span id="weatherCube-currentMaxTemperature-' + this._uId +
 					'" class="digital-numbers mr-1 pb-1">--</span>' +
-					'<i class="wi ' + this.generateUnitIcon(this.options.units) + ' pb-2 mr-2"></i>' +
+					'<i class="wi ' + this.generateUnitIcon(this.options.units) +
+					' pb-2 mr-2" aria-hidden="true"></i>' +
 					'</div>' +
 					'<div class="weatherCubeMinMaxTemperature d-flex justify-content-end align-items-center mt-3 mr-2">' +
 					'<a id="weatherCube-uviIndexTable-' + this._uId +
@@ -612,12 +619,12 @@
 					'<samp class="font-weight-bold small p-1">' +
 					getI18n('weatherCube_latitude', this.options.language) + '<span id="weatherCube-latitude-' +
 					this._uId + '" class="digital-numbers ml-2 badge badge-danger">--.---</span>' +
-					'<i class="wi wi-degrees wi-fw"></i>' +
+					'<i class="wi wi-degrees wi-fw" aria-hidden="true"></i>' +
 					'</samp>' +
 					'<samp class="font-weight-bold small p-1">' +
 					getI18n('weatherCube_longitude', this.options.language) + '<span id="weatherCube-longitude-' +
 					this._uId + '" class="digital-numbers ml-2 badge badge-danger">--.---</span>' +
-					'<i class="wi wi-degrees wi-fw"></i>' +
+					'<i class="wi wi-degrees wi-fw" aria-hidden="true"></i>' +
 					'</samp>' +
 					'<hr />' +
 					'<samp class="font-weight-bold small p-1">' +
@@ -633,7 +640,7 @@
 					this._uId + '" class="ml-2 badge badge-danger">---</span>' +
 					'</samp>' +
 					'</div>' +
-					'<div class="ml-auto h-100 pb-3 pt-2 pr-3">' +
+					'<div class="ml-auto h-100 pb-3 pt-2 pr-3 text-center">' +
 					'<span class="badge badge-danger">' + getI18n('weatherCube_local', this.options.language) +
 					'</span>' +
 					'<a href="#" class="weatherCube-timeTable">' +
@@ -648,7 +655,7 @@
 					'</div>' +
 					'</a>' +
 					'</div>' +
-					'<div class="ml-auto h-100 pb-3 pt-2 pr-3 d-none d-xl-block">' +
+					'<div class="ml-auto h-100 pb-3 pt-2 pr-3 d-none d-xl-block text-center">' +
 					'<span class="badge badge-danger">' + this.options.firstTimezone[0] + '</span>' +
 					'<a href="#" class="weatherCube-timeTable">' +
 					'<div class="weatherCube-clock mt-3">' +
@@ -662,7 +669,7 @@
 					'</div>' +
 					'</a>' +
 					'</div>' +
-					'<div class="ml-auto h-100 pb-3 pt-2 pr-3 d-none d-xl-block">' +
+					'<div class="ml-auto h-100 pb-3 pt-2 pr-3 d-none d-xl-block text-center">' +
 					'<span class="badge badge-danger">' + this.options.secondTimezone[0] + '</span>' +
 					'<a href="#" class="weatherCube-timeTable">' +
 					'<div class="weatherCube-clock mt-3">' +
@@ -771,7 +778,7 @@
 					getI18n('weatherCube_viewCurrent', this.options.language) + '" href="#tabWeatherCurrent-' +
 					this._uId + '" role="tab" aria-controls="tabWeatherCurrent-' + this._uId +
 					'" aria-selected="true" class="nav-link active">' +
-					'<i class="wi wi-day-sunny"></i>' +
+					'<i class="wi wi-day-sunny" aria-hidden="true"></i>' +
 					'</a>' +
 					'</li>' +
 					'<li class="nav-item">' +
@@ -779,7 +786,7 @@
 					getI18n('weatherCube_viewHours', this.options.language) + '" href="#tabWeatherHour-' + this._uId +
 					'" role="tab" aria-controls="tabWeatherHour-' + this._uId +
 					'" aria-selected="false" class="nav-link">' +
-					'<i class="wi wi-time-5"></i>' +
+					'<i class="wi wi-time-5" aria-hidden="true"></i>' +
 					'</a>' +
 					'</li>' +
 					'<li class="nav-item">' +
@@ -787,7 +794,7 @@
 					getI18n('weatherCube_viewDays', this.options.language) + '" href="#tabWeatherDay-' + this._uId +
 					'" role="tab" aria-controls="tabWeatherDay-' + this._uId +
 					'" aria-selected="true" class="nav-link">' +
-					'<i class="wi wi-rain-wind"></i>' +
+					'<i class="wi wi-rain-wind" aria-hidden="true"></i>' +
 					'</a>' +
 					'</li>' +
 					'<li class="nav-item d-none d-sm-block">' +
@@ -795,7 +802,7 @@
 					getI18n('weatherCube_viewUvi', this.options.language) + '" href="#tabWeatherUvi-' + this._uId +
 					'" role="tab" aria-controls="tabWeatherUvi-' + this._uId +
 					'" aria-selected="false" class="nav-link">' +
-					'<i class="wi wi-umbrella"></i>' +
+					'<i class="wi wi-umbrella" aria-hidden="true"></i>' +
 					'</a>' +
 					'</li>' +
 					'<li class="nav-item">' +
@@ -803,7 +810,7 @@
 					getI18n('weatherCube_viewSat', this.options.language) + '" href="#tabWeatherSat-' + this._uId +
 					'" role="tab" aria-controls="tabWeatherSat-' + this._uId +
 					'" aria-selected="false" class="nav-link">' +
-					'<i class="wi wi-lightning"></i>' +
+					'<i class="wi wi-lightning" aria-hidden="true"></i>' +
 					'</a>' +
 					'</li>' +
 					'<li class="nav-item">' +
@@ -811,7 +818,7 @@
 					getI18n('weatherCube_viewMoon', this.options.language) + '" href="#tabWeatherMoon-' + this._uId +
 					'" role="tab" aria-controls="tabWeatherMoon-' + this._uId +
 					'" aria-selected="false" class="nav-link">' +
-					'<i class="wi wi-moon-waxing-crescent-3"></i>' +
+					'<i class="wi wi-moon-waxing-crescent-3" aria-hidden="true"></i>' +
 					'</a>' +
 					'</li>' +
 					'<li class="nav-item">' +
@@ -819,7 +826,7 @@
 					getI18n('weatherCube_viewQuakes', this.options.language) + '" href="#tabWeatherQuake-' + this._uId +
 					'" role="tab" aria-controls="tabWeatherQuake-' + this._uId +
 					'" aria-selected="false" class="nav-link">' +
-					'<i class="wi wi-earthquake"></i>' +
+					'<i class="wi wi-earthquake" aria-hidden="true"></i>' +
 					'</a>' +
 					'</li>' +
 					'<li class="nav-item">' +
@@ -827,7 +834,7 @@
 					getI18n('weatherCube_viewCharts', this.options.language) + '" href="#tabWeatherChart-' + this._uId +
 					'" role="tab" aria-controls="tabWeatherChart-' + this._uId +
 					'" aria-selected="false" class="nav-link">' +
-					'<i class="wi wi-snowflake-cold"></i>' +
+					'<i class="wi wi-snowflake-cold" aria-hidden="true"></i>' +
 					'</a>' +
 					'</li>' +
 					'<li class="nav-item">' +
@@ -835,7 +842,7 @@
 					getI18n('weatherCube_viewMaps', this.options.language) + '" href="#tabWeatherMap-' + this._uId +
 					'" role="tab" aria-controls="tabWeatherMap-' + this._uId +
 					'" aria-selected="false" class="nav-link">' +
-					'<i class="wi wi-stars"></i>' +
+					'<i class="wi wi-stars" aria-hidden="true"></i>' +
 					'</a>' +
 					'</li>' +
 					'</ul>' +
@@ -875,7 +882,7 @@
 					'<samp id="weatherCube-detectedIP-' + this._uId +
 					'" class="mr-auto font-weight-bold small"></samp>' +
 					'<div class="weatherCube-footer-updated d-flex flex-row align-items-center font-weight-bold mr-2">' +
-					'<i class="wi wi-time-4 w-wi-fw mr-2"></i>' +
+					'<i class="wi wi-time-4 w-wi-fw mr-2" aria-hidden="true"></i>' +
 					'<samp class="small font-weight-bold mr-3">' +
 					getI18n('weatherCube_updated', this.options.language) + '&nbsp;<b id="weatherCube-update-' +
 					this._uId + '">00:00&nbsp;-&nbsp;00-00-0000</b></samp>' +
@@ -924,21 +931,21 @@
 					'</span>' +
 					'</div>' +
 					'<div class="d-flex justify-content-between"><span class="pb-1 pt-1">' +
-					'<i class="wi wi-moonrise wi-fw mr-1"></i>' +
+					'<i class="wi wi-moonrise wi-fw mr-1" aria-hidden="true"></i>' +
 					'<span class="digital-numbers" id="moonRise-' + this._uId + '"></span>' +
 					'</span>' +
 					'<span class="ml-auto pb-1 pt-1">' +
-					'<i class="wi wi-sunrise wi-fw mr-1"></i>' +
+					'<i class="wi wi-sunrise wi-fw mr-1" aria-hidden="true"></i>' +
 					'<span class="digital-numbers" id="sunRise-' + this._uId + '"></span>' +
 					'</span>' +
 					'</div>' +
 					'<div class="d-flex justify-content-between">' +
 					'<span class="pb-1 pt-1">' +
-					'<i class="wi wi-moonset wi-fw mr-1"></i>' +
+					'<i class="wi wi-moonset wi-fw mr-1" aria-hidden="true"></i>' +
 					'<span class="digital-numbers" id="moonSet-' + this._uId + '"></span>' +
 					'</span>' +
 					'<span class="ml-auto pb-1 pt-1">' +
-					'<i class="wi wi-sunset wi-fw mr-1"></i>' +
+					'<i class="wi wi-sunset wi-fw mr-1" aria-hidden="true"></i>' +
 					'<span class="digital-numbers" id="sunSet-' + this._uId + '"></span>' +
 					'</span>' +
 					'</div>' +
@@ -1390,7 +1397,7 @@
 					getI18n('weatherCube_currentForecastEarthquakes', this.options.language) + '</h6>' +
 					'<div class="d-flex flex-column align-self-center align-items-center justify-content-center flex-grow-1 mr-2 text-left">' +
 					'<h1 class="text-bold mr-2 digital-font text-warning d-flex align-self-center align-items-center justify-content-center">' +
-					'<i class="wi wi-earthquake wi-fw text-warning"></i>' +
+					'<i class="wi wi-earthquake wi-fw text-warning" aria-hidden="true"></i>' +
 					strength +
 					'</h1>' +
 					'<hr class="p-1 m-0 w-75" />' +
@@ -1696,7 +1703,7 @@
 							$('#versionJQuery-' + plugin._uId).html(window.jQuery.fn.jquery);
 							$('#versionBootstrap-' + plugin._uId).html($.fn.tooltip.Constructor.VERSION);
 							$('#versionLeaflet-' + plugin._uId).html(lString[0]);
-							$('#versionECharts-' + plugin._uId).html(echarts.version);
+							$('#versionECharts-' + plugin._uId).html(window.echarts.version);
 
 							// Appending modal background inside the div
 							$('.modal-backdrop').attr('id', 'backdrop-' + plugin._uId)
@@ -1930,7 +1937,7 @@
 					{
 						satImage += '<div class="col-12 text-center p-3 pb-1">' +
 							'<div class="alert alert-danger" role="alert">' +
-							'<i class="wi wi-snowflake-cold mr-2"></i>' +
+							'<i class="wi wi-snowflake-cold mr-2" aria-hidden="true"></i>' +
 							'<strong>' + getI18n('weatherCube_satNotSet', widget.options.language) + '</strong>' +
 							'</div></div>';
 
@@ -1944,7 +1951,7 @@
 				{
 					satImage += '<div class="col-12 text-center p-3 pb-1">' +
 						'<div class="alert alert-danger" role="alert">' +
-						'<i class="wi wi-snowflake-cold mr-2"></i>' +
+						'<i class="wi wi-snowflake-cold mr-2" aria-hidden="true"></i>' +
 						'<strong>' + getI18n('weatherCube_satError', widget.options.language) + '</strong>' +
 						'</div></div>';
 
@@ -2095,7 +2102,7 @@
 				let widget = this;
 				let retryCount = 0;
 
-				let quakes_status = widget.statusLocalStorage('weather_quakes');
+				let quakesStatus = widget.statusLocalStorage('weather_quakes');
 				let urlEarthQuake = apiEarthQuakesUrl.replace('{0}', widget.options.quakesPeriod);
 
 				if (this.options.debug)
@@ -2104,7 +2111,7 @@
 				}
 
 				// Has Data
-				if (quakes_status)
+				if (quakesStatus)
 				{
 					// Get Cache
 					let data = localStorage.getItem('weather_quakes');
@@ -2250,7 +2257,7 @@
 						'<samp class="mr-1">' + getI18n('weatherCube_earthquakesStatus', widget.options.language) +
 						'<span class="text-uppercase badge bg-primary">' + item.properties.status + '</span></samp>' +
 						'<h1 class="text-bold d-flex align-self-center align-items-center justify-content-end justify-content-sm-center ">' +
-						'<i class="wi wi-earthquake wi-fw text-info"></i>' +
+						'<i class="wi wi-earthquake wi-fw text-info" aria-hidden="true"></i>' +
 						'<samp class="digital-numbers pb-1">' + Math.round(item.properties.mag * 100) / 100 +
 						'</samp>' +
 						'</h1>' +
@@ -2264,7 +2271,7 @@
 						getI18n('weatherCube_earthquakesLatitude', widget.options.language) + '</span>' +
 						'<samp class="text-semibold digital-numbers small ml-2">' +
 						Math.round(item.geometry.coordinates[1] * 100) / 100 + '</samp>' +
-						'<i class="wi wi-degrees"></i>' +
+						'<i class="wi wi-degrees" aria-hidden="true"></i>' +
 						'<hr class="p-0 m-0 mt-1"/>' +
 						'<span class="text-semibold small">' +
 						getI18n('weatherCube_earthquakesLongitude', widget.options.language) + '</span>' +
@@ -2614,10 +2621,10 @@
 				let retryCount = 0;
 
 				// Status
-				let moon_status = widget.statusLocalStorage('weather_moon');
+				let moonStatus = widget.statusLocalStorage('weather_moon');
 
 				// Has Data
-				if (moon_status)
+				if (moonStatus)
 				{
 					// Get Cache
 					let data = localStorage.getItem('weather_moon');
@@ -2689,10 +2696,10 @@
 					{
 						let retryCount = 0;
 						// Status
-						let seasons_status = widget.statusLocalStorage('weather_seasons');
+						let seasonsStatus = widget.statusLocalStorage('weather_seasons');
 
 						// Has Data
-						if (seasons_status)
+						if (seasonsStatus)
 						{
 							// Get Cache
 							let data = localStorage.getItem('weather_seasons');
@@ -2766,10 +2773,10 @@
 					{
 						let retryCount = 0;
 						// Status
-						let eclipse_status = widget.statusLocalStorage('weather_eclipse');
+						let eclipseStatus = widget.statusLocalStorage('weather_eclipse');
 
 						// Has Data
-						if (eclipse_status)
+						if (eclipseStatus)
 						{
 							// Get Cache
 							let data = localStorage.getItem('weather_eclipse');
@@ -2924,10 +2931,10 @@
 				let retryCount = 0;
 
 				// Status
-				let current_status = this.statusLocalStorage('weather_current');
+				let currentStatus = this.statusLocalStorage('weather_current');
 
 				// Has Data
-				if (current_status)
+				if (currentStatus)
 				{
 					// Get Cache
 					let data = localStorage.getItem('weather_current');
@@ -3088,22 +3095,22 @@
 					'<div class="text-left ml-1 p-1">' +
 					'<i class="wi wi-thermometer wi-fw"></i>' +
 					'<samp class="digital-numbers">' + Math.round(data.main.temp) + '</samp>' +
-					'<i class="wi ' + widget.generateUnitIcon(widget.options.units) + ' mr-1"></i>' +
+					'<i class="wi ' + widget.generateUnitIcon(widget.options.units) + ' mr-1" aria-hidden="true"></i>' +
 					'</div>' +
 					'<div class="text-left ml-1 p-1">' +
-					'<i class="wi wi-humidity wi-fw"></i>' +
+					'<i class="wi wi-humidity wi-fw" aria-hidden="true"></i>' +
 					'<samp class="digital-numbers">' + Math.round(data.main.humidity) + '</samp>' +
 					'<span>%</span>' +
 					'</div>' +
 					'<div class="text-left ml-1 p-1">' +
-					'<i class="wi wi-barometer wi-fw"></i>' +
+					'<i class="wi wi-barometer wi-fw" aria-hidden="true"></i>' +
 					'<samp class="digital-numbers">' + Math.round(data.main.pressure) + '</samp>' +
 					'<span>mPa</span>' +
 					'</div>' +
 					'<div class="text-left ml-1 p-1">' +
 					'<a class="beaufortScaleModal" href="#" title="' +
 					getI18n('weatherCube_beaufortScale_' + windBeaufortScale, widget.options.language) + '">' +
-					'<i class="wi wi-wind-beaufort-' + windBeaufortScale + ' wi-fw"></i>' +
+					'<i class="wi wi-wind-beaufort-' + windBeaufortScale + ' wi-fw" aria-hidden="true"></i>' +
 					'</a>' +
 					'<samp class="digital-numbers">' + Math.round(data.wind.speed) + '</samp>' +
 					'<span>m/s</span>' +
@@ -3112,7 +3119,7 @@
 					'<div class="ml-auto">' +
 					'<div class="d-flex align-items-center justify-content-center mb-2 mr-2">' +
 					'<samp class="digital-numbers">' + Math.round(data.wind.deg) + '</samp>' +
-					'<i class="wi wi-degrees mr-1"></i>' +
+					'<i class="wi wi-degrees mr-1" aria-hidden="true"></i>' +
 					'<span class="h4 pt-2">' + direction + '</span>' +
 					'</div>' +
 					'<img src="data:image/png;base64,' + imageWindChooser(direction) + '" alt="' + direction +
@@ -3144,10 +3151,10 @@
 				let retryCount = 0;
 
 				// Status
-				let forecast_status = this.statusLocalStorage('weather_forecast');
+				let forecastStatus = this.statusLocalStorage('weather_forecast');
 
 				// Has Data
-				if (forecast_status)
+				if (forecastStatus)
 				{
 					// Get Cache
 					let data = localStorage.getItem('weather_forecast');
@@ -3231,7 +3238,7 @@
 				let weather = this.separateForecastByDay(data.list);
 
 				// Today and every next day - 5 day
-				$.each(weather, function(i, data)
+				$.each(weather, function(i)
 				{
 					let day = widget.consolidateToDailyForecast(weather[i]);
 					let wId;
@@ -3275,7 +3282,7 @@
 						else
 						{
 							iconUrl = '<i class="wi ' + wId +
-								' wi-fw weatherCube-currentDefault display-2 p-3" title="' +
+								' wi-fw weatherCube-currentDefault display-2 p-3" aria-hidden="true" title="' +
 								widget.capitalizeFirstLetter(day.desc) + '"></i>';
 							if (widget.options.debug)
 							{
@@ -3295,30 +3302,31 @@
 						iconUrl +
 						'<p class="card-text">' +
 						'<span class="digital-numbers h3">' + Math.round(day.low) +
-						'<i class="wi ' + widget.generateUnitIcon(widget.options.units) + '"></i>-' +
+						'<i class="wi ' + widget.generateUnitIcon(widget.options.units) + '" aria-hidden="true"></i>-' +
 						Math.round(day.high) + '<i class="wi ' + widget.generateUnitIcon(widget.options.units) +
 						'"></i></span></p>' +
 						'<div class="card-content d-flex flex-row align-items-center p-2 pt-4">' +
 						'<div class="d-flex flex-column align-items-start">' +
 						'<div class="text-left ml-1 p-1">' +
-						'<i class="wi wi-thermometer wi-fw"></i>' +
+						'<i class="wi wi-thermometer wi-fw" aria-hidden="true"></i>' +
 						'<samp class="digital-numbers">' + Math.round(day.ave) + '</samp>' +
-						'<i class="wi ' + widget.generateUnitIcon(widget.options.units) + ' mr-1"></i>' +
+						'<i class="wi ' + widget.generateUnitIcon(widget.options.units) +
+						' mr-1" aria-hidden="true"></i>' +
 						'</div>' +
 						'<div class="text-left ml-1 p-1">' +
-						'<i class="wi wi-humidity wi-fw"></i>' +
+						'<i class="wi wi-humidity wi-fw" aria-hidden="true"></i>' +
 						'<samp class="digital-numbers">' + Math.round(day.humidity) + '</samp>' +
 						'<span>%</span>' +
 						'</div>' +
 						'<div class="text-left ml-1 p-1">' +
-						'<i class="wi wi-barometer wi-fw"></i>' +
+						'<i class="wi wi-barometer wi-fw" aria-hidden="true"></i>' +
 						'<samp class="digital-numbers">' + Math.round(day.pressure) + '</samp>' +
 						'<span>mPa</span>' +
 						'</div>' +
 						'<div class="text-left ml-1 p-1">' +
 						'<a class="beaufortScaleModal" href="#" title="' +
 						getI18n('weatherCube_beaufortScale_' + windBeaufortScale, widget.options.language) + '">' +
-						'<i class="wi wi-wind-beaufort-' + windBeaufortScale + ' wi-fw"></i>' +
+						'<i class="wi wi-wind-beaufort-' + windBeaufortScale + ' wi-fw" aria-hidden="true"></i>' +
 						'</a>' +
 						'<samp class="digital-numbers">' + Math.round(day.windSpeed) + '</samp>' +
 						'<span>m/s</span>' +
@@ -3327,7 +3335,7 @@
 						'<div class="flex-fill d-none d-xl-block">' +
 						'<div class="d-flex align-items-center justify-content-center mb-2">' +
 						'<samp class="digital-numbers">' + Math.round(day.windDeg) + '</samp>' +
-						'<i class="wi wi-degrees mr-1"></i>' +
+						'<i class="wi wi-degrees mr-1" aria-hidden="true"></i>' +
 						'<span class="h4 pt-2">' + direction + '</span>' +
 						'</div>' +
 						'<img src="data:image/png;base64,' + imageWindChooser(direction) + '" alt="' + direction +
@@ -3336,7 +3344,7 @@
 						'</div>' +
 						'</div>' +
 						'<footer class="card-footer p-1">' +
-						'<i class="wi ' + wId + ' wi-fw mr-2"></i>' +
+						'<i class="wi ' + wId + ' wi-fw mr-2" aria-hidden="true"></i>' +
 						'<small class="small font-weight-bold">' +
 						getI18n('weatherCube_main' + widget.capitalizeFirstLetter(day.main), widget.options.language) +
 						'</small>' +
@@ -3423,9 +3431,7 @@
 						}
 						else
 						{
-							iconUrl = '<i class="wi ' + wId +
-								' wi-fw weatherCube-currentDefault display-4 p-3" title="' +
-								widget.capitalizeFirstLetter(item.weather[0].description) + '"></i>';
+							iconUrl = '<i class="wi ' + wId + ' wi-fw weatherCube-currentDefault display-4 p-3" aria-hidden="true" title="' + widget.capitalizeFirstLetter(item.weather[0].description) + '"></i>';
 							if (widget.options.debug)
 							{
 								console.info('Icons are set and are of type weather-icons atrr: wi wi-');
@@ -3455,24 +3461,25 @@
 						'</div>' +
 						'<div class="mt-2">' +
 						'<div class="text-left ml-1">' +
-						'<i class="wi wi-thermometer wi-fw small"></i>' +
+						'<i class="wi wi-thermometer wi-fw small" aria-hidden="true"></i>' +
 						'<samp class="digital-numbers small">' + Math.round(item.main.temp) + '</samp>' +
-						'<i class="wi ' + widget.generateUnitIcon(widget.options.units) + ' ml-1"></i>' +
+						'<i class="wi ' + widget.generateUnitIcon(widget.options.units) +
+						' ml-1" aria-hidden="true"></i>' +
 						'</div>' +
 						'<div class="text-left ml-1">' +
-						'<i class="wi wi-humidity wi-fw small"></i>' +
+						'<i class="wi wi-humidity wi-fw small" aria-hidden="true"></i>' +
 						'<samp class="digital-numbers small">' + Math.round(item.main.humidity) + '</samp>' +
 						'<small class="ml-1">%</small>' +
 						'</div>' +
 						'<div class="text-left ml-1">' +
-						'<i class="wi wi-barometer wi-fw small"></i>' +
+						'<i class="wi wi-barometer wi-fw small" aria-hidden="true"></i>' +
 						'<samp class="digital-numbers small">' + Math.round(item.main.pressure) + '</samp>' +
 						'<small class="ml-1">mPa</small>' +
 						'</div>' +
 						'<div class="text-left ml-1">' +
 						'<a class="beaufortScaleModal" href="#" title="' +
 						getI18n('weatherCube_beaufortScale_' + windBeaufortScale, widget.options.language) + '">' +
-						'<i class="wi wi-wind-beaufort-' + windBeaufortScale + ' wi-fw small"></i>' +
+						'<i class="wi wi-wind-beaufort-' + windBeaufortScale + ' wi-fw small" aria-hidden="true"></i>' +
 						'</a>' +
 						'<samp class="digital-numbers small">' + item.wind.speed + '</samp>' +
 						'<small class="ml-1">m/s</small>' +
@@ -3481,12 +3488,14 @@
 						'</div>' +
 						'</div>' +
 						'<footer class="card-footer p-1">' +
-						'<i class="wi ' + wId + ' wi-fw mr-2"></i>' +
+						'<i class="wi ' + wId + ' wi-fw mr-2" aria-hidden="true"></i>' +
 						'<small class="small font-weight-bold">' +
 						getI18n('weatherCube_main' + widget.capitalizeFirstLetter(item.weather[0].main),
 							widget.options.language) + '</small>' +
 						'</footer>' +
 						'</div>';
+
+					return true;
 				});
 
 				widget.$element.find('#weatherHoursArea-' + widget._uId).empty().append(html);
@@ -3954,10 +3963,10 @@
 				let retryCount = 0;
 
 				// Status
-				let uvi_status = this.statusLocalStorage('weather_uvi');
+				let uviStatus = this.statusLocalStorage('weather_uvi');
 
 				// Has Data
-				if (uvi_status)
+				if (uviStatus)
 				{
 					// Get Cache
 					let data = localStorage.getItem('weather_uvi');
@@ -4162,10 +4171,10 @@
 				let url = apiMeteoAlarmUrl.replace('{0}', meteo);
 
 				// Status
-				let cache_status = this.statusLocalStorage('meteo_data');
+				let cacheStatus = this.statusLocalStorage('meteo_data');
 
 				// Has Data
-				if (cache_status)
+				if (cacheStatus)
 				{
 					// Get Cache
 					let data = localStorage.getItem('meteo_data');
@@ -4203,6 +4212,7 @@
 							widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 								.text(getI18n('weatherCube_getMeteoSuccessFeed', widget.options.language));
 							retryCount = 0;
+
 							return true;
 						},
 						error: function(xhr, textStatus, thrownError)
@@ -4395,7 +4405,7 @@
 			// Restricts to supported languages ('en', 'sl' and some others).
 			getUserLanguage: function()
 			{
-				let lang;
+				let lang = '';
 
 				// 1. try to read URL parameter 'lang'
 				let qs = window.location.search;
@@ -4635,7 +4645,7 @@
 			formatTime: function(unixTimestamp, fullDate, unix = false)
 			{
 				let formattedDate;
-				let timestamp = 0;
+				let timestamp;
 				if (unix)
 				{
 					timestamp = unixTimestamp * 1000;
@@ -4960,14 +4970,14 @@
 
 			capitalizeFirstLetter: function(string)
 			{
-				return string.replace(/^./, string[0].toUpperCase());
+				return string.replace(/^(.)/g, string[0].toUpperCase());
 			},
 
 			/***************************************************************************/
 
 			deCapitalizeFirstLetter: function(string)
 			{
-				return string.replace(/^./, string[0].toLowerCase());
+				return string.replace(/^(.)/g, string[0].toLowerCase());
 			},
 
 			/***************************************************************************/
@@ -4978,15 +4988,15 @@
 				let current = Math.round(+ date / 1000);
 
 				// Get Schedule
-				let stored_time = localStorage.getItem(name + '_time');
+				let storedTime = localStorage.getItem(name + '_time');
 
-				if (stored_time === undefined || stored_time === null)
+				if (storedTime === undefined || storedTime === null)
 				{
-					stored_time = 0;
+					storedTime = 0;
 				}
 
 				// Expired
-				if (stored_time < current)
+				if (storedTime < current)
 				{
 					// Remove
 					this.removeLocalStorage(name);
@@ -5005,8 +5015,9 @@
 			{
 				if (expires === undefined || expires === null)
 				{
+					// Default: 1h
 					expires = 3600;
-				} // default: 1h
+				}
 
 				let date = new Date();
 				let schedule = Math.round(date.setSeconds(date.getSeconds() + expires) / 1000);
@@ -5077,62 +5088,61 @@
 			{
 				let widget = this;
 				let retryCount = 0;
-				let apiKey;
+				let apiLocKey;
 
 				if (widget.options.apiGeoKey || widget.options.apiGeoKey !== '')
 				{
-					apiKey = widget.options.apiGeoKey + '/';
+					apiLocKey = widget.options.apiGeoKey + '/';
+
+					$.ajax({
+						url: 'https://geoip-db.com/json/' + apiLocKey,
+						dataType: 'json',
+						success: function(location)
+						{
+							if (widget.options.debug)
+							{
+								console.info('Success, getting data for: https://geoip-db.com/json/');
+								console.log(location);
+							}
+
+							if (!widget.options.city || widget.options.city === '')
+							{
+								$(widget.element).find('#weatherCube-city-' + widget._uId).text(location.city);
+							}
+							else
+							{
+								$(widget.element).find('#weatherCube-city-' + widget._uId).text(widget.options.city);
+							}
+
+							retryCount = 0;
+
+							$(widget.element).find('#weatherCube-state-' + widget._uId).text(location.state);
+							$(widget.element).find('#weatherCube-country-' + widget._uId).text(location.country_code);
+							$(widget.element).find('#weatherCube-detectedIP-' + widget._uId).text(
+								getI18n('weatherCube_detectedIP', widget.options.language) + ' ' + location.IPv4);
+						},
+						error: function(xhr, textStatus, thrownError)
+						{
+							retryCount++;
+
+							if (retryCount <= widget.options.retryLimit)
+							{
+								// Try again
+								$(widget.element).find('#weatherCube-loaderText-' + widget._uId)
+									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
+								$.ajax(this);
+
+								return;
+							}
+
+							if (widget.options.debug)
+							{
+								console.error('Error getting JSON data from: https://geoip-db.com/json/');
+								console.error(thrownError + '\r' + xhr.statusText + '\r' + xhr.responseText);
+							}
+						}
+					});
 				}
-
-				$.ajax({
-					url: 'https://geoip-db.com/json/' + apiKey,
-					dataType: 'json',
-					jsonp: false,
-					success: function(location)
-					{
-						if (widget.options.debug)
-						{
-							console.info('Success, getting data for: https://geoip-db.com/json/');
-							console.log(location);
-						}
-
-						if (!widget.options.city || widget.options.city === '')
-						{
-							$(widget.element).find('#weatherCube-city-' + widget._uId).text(location.city);
-						}
-						else
-						{
-							$(widget.element).find('#weatherCube-city-' + widget._uId).text(widget.options.city);
-						}
-
-						retryCount = 0;
-
-						$(widget.element).find('#weatherCube-state-' + widget._uId).text(location.state);
-						$(widget.element).find('#weatherCube-country-' + widget._uId).text(location.country_code);
-						$(widget.element).find('#weatherCube-detectedIP-' + widget._uId).text(
-							getI18n('weatherCube_detectedIP', widget.options.language) + ' ' + location.IPv4);
-					},
-					error: function(xhr, textStatus, thrownError)
-					{
-						retryCount++;
-
-						if (retryCount <= widget.options.retryLimit)
-						{
-							// Try again
-							$(widget.element).find('#weatherCube-loaderText-' + widget._uId)
-								.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
-							$.ajax(this);
-
-							return;
-						}
-
-						if (widget.options.debug)
-						{
-							console.error('Error getting JSON data from: https://geoip-db.com/json/');
-							console.error(thrownError + '\r' + xhr.statusText + '\r' + xhr.responseText);
-						}
-					}
-				});
 			},
 
 			/***************************************************************************/
@@ -5140,10 +5150,10 @@
 			addTableDataToArray: function(table)
 			{
 				let data = [];
-				$(table).find('tr').each(function(rowIndex, r)
+				$(table).find('tr').each(function()
 				{
 					let cols = [];
-					$(this).find('th, td').each(function(colIndex, c)
+					$(this).find('th, td').each(function(i, c)
 					{
 						cols.push(c.innerHTML);
 					});
@@ -5556,328 +5566,50 @@
 		Attach the default plugin options directly to the plugin object. This
 		allows users to override default plugin options globally, instead of
 		passing the same option(s) every time the plugin is initialized.
-
-		For example, the user could set the "property" value once for all
-		instances of the plugin with
-		"$.fn.pluginName.defaults.property = 'myValue';". Then, every time
-		plugin is initialized, "property" will be set to "myValue".
-
-		More: http://learn.jquery.com/plugins/advanced-plugin-concepts/
 	*/
 	$.fn.weatherCube.defaults = {
 		// Get key at: https://openweathermap.org/
 		apiKey: null,
 		// Get key at: https://geoip-db.com/
 		apiGeoKey: '699283e0-b3ab-11e9-97d7-d7584e8de765',
+		// Search location weather by city
 		city: null,
+		// Search location weather by latitude
 		latitude: null,
+		// Search location weather by longitude
 		longitude: null,
+		// Weather api language
 		language: null,
+		// Weather update interval 2 hours
 		wInterval: 7200000,
+		// Imperial or metric
 		units: 'imperial',
+		// Widget theme light or dark
 		theme: 'light',
+		// Default, tick, weezle
 		icons: 'default',
+		// Set main clocks timezones
 		firstTimezone: ['Tokyo', 'Asia/Tokyo'],
 		secondTimezone: ['Los Angeles', 'America/Los_Angeles'],
+		// Header alerts carousel interval
 		alertsInterval: 6000,
+		// If error getting feed try again
 		retryLimit: 3,
-
 		// Satellite images
 		satImageEnabled: true,
 		satImageSize: '2',
 		satImageLocations: [],
-
 		// EarthQuakes period week or day
 		quakesPeriod: 'week',
-
+		// Enable plugin debug
 		debug: true,
-		cache: 60, // 3600 one hour
+		// All feeds cache - 3600 one hour
+		cache: 60,
+		// Allow async
 		async: true,
-		property: 'value',
 		// Event on complete
 		onComplete: null,
 		// Event on error
 		onError: null
 	};
 })(jQuery, window, document);
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-
-(function(root, factory)
-{
-	if (typeof window.define === 'function' && window.define.amd)
-	{
-		// AMD. Register as an anonymous module.
-		window.define(['exports', 'echarts'], factory);
-	}
-	else if (typeof window.exports === 'object' && typeof window.exports.nodeName !== 'string')
-	{
-		// CommonJS
-		factory(window.exports, window.require('echarts'));
-	}
-	else
-	{
-		// Browser globals
-		factory({}, root.echarts);
-	}
-}(this, function(exports, echarts)
-{
-	let log = function(msg)
-	{
-		if (typeof console !== 'undefined')
-		{
-			console && console.error && console.error(msg);
-		}
-	};
-
-	if (!echarts)
-	{
-		log('ECharts is not Loaded');
-		return;
-	}
-
-	const colorPalette = [
-		'rgb(193,46,52)', 'rgb(230,182,0)', 'rgb(0,152,217)', 'rgb(43,130,29)',
-		'rgb(0,94,170)', 'rgb(51,156,168)', 'rgb(205,168,25)', 'rgb(50,164,135)'
-	];
-
-	const contrastColor = 'rgb(238,238,238)';
-	let axisCommon = function()
-	{
-		return {
-			axisLine: {
-				lineStyle: {
-					color: contrastColor
-				}
-			},
-			axisTick: {
-				lineStyle: {
-					color: contrastColor
-				}
-			},
-			axisLabel: {
-				textStyle: {
-					color: contrastColor
-				}
-			},
-			splitLine: {
-				lineStyle: {
-					type: 'dashed',
-					color: 'rgb(170,170,170)'
-				}
-			},
-			splitArea: {
-				areaStyle: {
-					color: contrastColor
-				}
-			}
-		};
-	};
-
-	let theme = {
-		color: colorPalette,
-
-		legend: {
-			textStyle: {
-				color: contrastColor
-			}
-		},
-
-		textStyle: {
-			color: contrastColor
-		},
-
-		title: {
-			textStyle: {
-				color: contrastColor,
-				fontWeight: 'normal'
-			}
-		},
-
-		toolbox: {
-			iconStyle: {
-				normal: {
-					borderColor: contrastColor
-				}
-			}
-		},
-
-		tooltip: {
-			backgroundColor: 'rgba(0,0,0,0.6)'
-		},
-
-		dataZoom: {
-			dataBackgroundColor: 'rgb(222,222,222)',
-			fillerColor: 'rgba(154,217,247,0.2)',
-			handleColor: 'rgb(0,94,170)',
-			textStyle: {
-				color: contrastColor
-			}
-		},
-
-		visualMap: {
-			textStyle: {
-				color: contrastColor
-			}
-		},
-
-		timeline: {
-			lineStyle: {
-				color: contrastColor
-			},
-			itemStyle: {
-				normal: {
-					color: colorPalette[1]
-				}
-			},
-			label: {
-				normal: {
-					textStyle: {
-						color: contrastColor
-					}
-				}
-			},
-			controlStyle: {
-				normal: {
-					color: contrastColor,
-					borderColor: contrastColor
-				}
-			}
-		},
-
-		candlestick: {
-			itemStyle: {
-				normal: {
-					color: 'rgb(193,46,52)',
-					color0: 'rgb(43,130,29)',
-					lineStyle: {
-						width: 1,
-						color: 'rgb(193,46,52)',
-						color0: 'rgb(43,130,29)'
-					}
-				}
-			}
-		},
-
-		line: {
-			symbol: 'circle'
-		},
-
-		graph: {
-			color: colorPalette
-		},
-
-		map: {
-			label: {
-				normal: {
-					textStyle: {
-						color: 'rgb(193,46,52)'
-					}
-				},
-				emphasis: {
-					textStyle: {
-						color: 'rgb(193,46,52)'
-					}
-				}
-			},
-			itemStyle: {
-				normal: {
-					borderColor: 'rgb(238,238,238)',
-					areaColor: 'rgb(221,221,221)'
-				},
-				emphasis: {
-					areaColor: 'rgb(230,182,0)'
-				}
-			}
-		},
-
-		timeAxis: axisCommon(),
-		logAxis: axisCommon(),
-		valueAxis: axisCommon(),
-		categoryAxis: axisCommon()
-	};
-
-	theme.categoryAxis.splitLine.show = false;
-	echarts.registerTheme('dark', theme);
-}));
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-
-(function(root, factory)
-{
-	if (typeof define === 'function' && define.amd)
-	{
-		// AMD. Register as an anonymous module.
-		define(['exports', 'echarts'], factory);
-	}
-	else if (typeof exports === 'object' && typeof exports.nodeName !== 'string')
-	{
-		// CommonJS
-		factory(exports, require('echarts'));
-	}
-	else
-	{
-		// Browser globals
-		factory({}, root.echarts);
-	}
-}(this, function(exports, echarts)
-{
-	let log = function(msg)
-	{
-		if (typeof console !== 'undefined')
-		{
-			console && console.error && console.error(msg);
-		}
-	};
-
-	if (!echarts)
-	{
-		log('ECharts is not Loaded');
-		return;
-	}
-
-	let colorPalette = ['rgb(216,124,124)', 'rgb(145,158,139)', 'rgb(215,171,130)', 'rgb(110,112,116)',
-		'rgb(97,160,168)', 'rgb(239,161,141)', 'rgb(120,116,100)', 'rgb(204,126,99)', 'rgb(114,78,88)', 'rgb(75,86,91)'
-	];
-	echarts.registerTheme('light',
-		{
-			color: colorPalette,
-			graph: {
-				color: colorPalette
-			}
-		});
-}));
