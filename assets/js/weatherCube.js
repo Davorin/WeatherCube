@@ -1217,6 +1217,10 @@
 					'<img src="data:image/png;base64,' + getImage('weatherInfo', 8) +
 					'" class="img-fluid weatherInfoImage" alt="Fourmilab" />' +
 					'</a>' +
+					'<a href="https://www.windy.com/" title="Windy">' +
+					'<img src="data:image/png;base64,' + getImage('weatherInfo', 9) +
+					'" class="img-fluid weatherInfoImage" alt="Windy" />' +
+					'</a>' +
 					'</div>' +
 					'</div>' +
 					'<a href="https://mcx-systems.net" title="MCX-Systems" target="_blank">' +
