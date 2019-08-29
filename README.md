@@ -8,7 +8,7 @@ There are no extra images for the script. All images are in.svg format
 and are base64 encoded in the WeatherCube Widget. You can use three tipes of images 
 set in options:
 
-* default - this are default font based icons from https://erikflowers.github.io/weather-icons/
+* default - this are default font icons from https://erikflowers.github.io/weather-icons/
 * tick
 * weezle
 
