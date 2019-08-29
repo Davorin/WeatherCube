@@ -20,6 +20,9 @@ Used api endpoints are:
 - MetoAlarm for live weather warning  https://www.meteoalarm.eu/
 - sat24 for satellite images  https://en.sat24.com/en
 - Naval Oceanography Portal for astronomy data  https://www.public.navy.mil/
+- NOAA National Weather Service  https://www.noaa.gov/
+- Fourmilab  https://www.fourmilab.ch/
+- Windy  https://www.windy.com/
 
 --------------------------------------------------------------
 
