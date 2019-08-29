@@ -1208,6 +1208,14 @@
 					'<a href="https://www.usno.navy.mil/" title="US Navy">' +
 					'<img src="data:image/png;base64,' + getImage('weatherInfo', 6) +
 					'" class="img-fluid weatherInfoImage" alt="US Navy" />' +
+					'</a><br />' +
+					'<a href="https://www.noaa.gov/" title="NOAA">' +
+					'<img src="data:image/png;base64,' + getImage('weatherInfo', 7) +
+					'" class="img-fluid weatherInfoImage" alt="NOAA" />' +
+					'</a>' +
+					'<a href="https://www.fourmilab.ch/" title="Fourmilab">' +
+					'<img src="data:image/png;base64,' + getImage('weatherInfo', 8) +
+					'" class="img-fluid weatherInfoImage" alt="Fourmilab" />' +
 					'</a>' +
 					'</div>' +
 					'</div>' +

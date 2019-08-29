@@ -1,4 +1,4 @@
-/*!
+/*
  * Internationalization of some texts used by the weatherCube.
  * @return String the localized text item or the id if there's no translation found
  * @param key

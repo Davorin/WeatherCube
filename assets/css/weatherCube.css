@@ -256,9 +256,9 @@
 
 .weatherCube .weatherInfoImage
 {
-	height: 80px;
+	height: 60px;
 	padding: 5px;
-	width: 80px;
+	width: 60px;
 }
 
 .weatherCube .weatherCube-modal .modal-body
