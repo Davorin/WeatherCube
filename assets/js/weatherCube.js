@@ -1,5 +1,5 @@
 /*!
-* WeatherCube - v2.0.2019
+* WeatherCube - v2.2.2019
 * https://mcx-systems.com/weatherCube
 *
 * All rights Reserved.
@@ -60,15 +60,15 @@
 		'ANA', 'AMA', 'ASA', 'JP'
 	];
 
-	// MeteoAlarm, rss feeds for extreme weather conditions
-	let apiMeteoAlarmUrl = 'https://www.meteoalarm.eu/documents/rss/{0}.rss';
-
 	// Europe Country regions codes as on sat24
 	const europeRegions = [
 		'AT', 'BA', 'BE', 'BO', 'CH', 'CY', 'CZ', 'DE', 'EE', 'ES', 'FI', 'FR', 'GR', 'HR', 'HU', 'IE', 'IL',
 		'IS', 'IT', 'LT', 'LU', 'LV', 'MD', 'ME', 'MK', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'SE', 'SI', 'SK',
 		'UK'
 	];
+
+	// MeteoAlarm, rss feeds for extreme weather conditions
+	let apiMeteoAlarmUrl = 'https://www.meteoalarm.eu/documents/rss/{0}.rss';
 
 	// OpenWetherMap API
 	// Define basic api endpoint https://www.openweathermap.org
@@ -100,8 +100,8 @@
 		*/
 		this.element = element;
 		this._name = pluginName;
-		this._date = new Date();
-		this._version = 'V2.0.2019';
+		this._version = 'V2.2.2019';
+		/***************************************************************************/
 		this._flag = false;
 		this._language = this.getUserLanguage();
 		this._locationLat = null;
@@ -110,6 +110,8 @@
 		/***************************************************************************/
 		this._dataResult = [];
 		/***************************************************************************/
+		this._windy = null;
+		this._windyMap = null;
 		this._tempChart = null;
 		this._humidityChart = null;
 		this._pressureChart = null;
@@ -122,8 +124,8 @@
 		this._earthquakesArray = leaflet.layerGroup();
 		/***************************************************************************/
 		this._uId = this.createUniqId(8);
-		this._timezone = -(this._date.getTimezoneOffset() / 60);
-
+		this._timezone = -(new Date().getTimezoneOffset() / 60);
+		/***************************************************************************/
 		this._defaults = $.fn.weatherCube.defaults;
 
 		/*
@@ -363,14 +365,11 @@
 					console.info('Language is set to: ' + widget.options.language);
 					console.info('Units are set to: ' + widget.options.units);
 					console.info('Uniq ID generated: ' + widget._uId);
-
 					console.info('Current time is: ' + widget.formatTime($.now(), 0));
-					console.info('Current time is: ' + widget.formatTime($.now(), 1));
+					console.info('Current time is: ' + widget.formatTime($.now(), 2));
 					console.info('Current time is: ' + widget.formatTime($.now()));
-
 					console.info('Current timezone is set to: ' + widget._timezone);
 					console.info('Current timezone name is: ' + widget.getTimezoneName());
-
 					console.info('--------------------------------------------');
 					console.info('--------------------------------------------');
 				}
@@ -379,23 +378,23 @@
 					widget.options.theme);
 				widget._tempChart.showLoading();
 
-				widget._humidityChart = window.echarts.init(
-					widget.$element.find('#weatherHumidityChart-' + widget._uId)[0],
-					widget.options.theme);
+				widget._humidityChart =
+					window.echarts.init(widget.$element.find('#weatherHumidityChart-' + widget._uId)[0],
+						widget.options.theme);
 				widget._humidityChart.showLoading();
 
-				widget._pressureChart = window.echarts.init(
-					widget.$element.find('#weatherPressureChart-' + widget._uId)[0],
-					widget.options.theme);
+				widget._pressureChart =
+					window.echarts.init(widget.$element.find('#weatherPressureChart-' + widget._uId)[0],
+						widget.options.theme);
 				widget._pressureChart.showLoading();
 
 				widget._windChart = window.echarts.init(widget.$element.find('#weatherWindChart-' + widget._uId)[0],
 					widget.options.theme);
 				widget._windChart.showLoading();
 
-				widget._tempWeekChart = window.echarts.init(
-					widget.$element.find('#weatherWeekTempChart-' + widget._uId)[0],
-					widget.options.theme);
+				widget._tempWeekChart =
+					window.echarts.init(widget.$element.find('#weatherWeekTempChart-' + widget._uId)[0],
+						widget.options.theme);
 				widget._tempWeekChart.showLoading();
 
 				widget._humidityWeekChart =
@@ -408,14 +407,14 @@
 						widget.options.theme);
 				widget._pressureWeekChart.showLoading();
 
-				widget._windWeekChart = window.echarts.init(
-					widget.$element.find('#weatherWeekWindChart-' + widget._uId)[0],
-					widget.options.theme);
+				widget._windWeekChart =
+					window.echarts.init(widget.$element.find('#weatherWeekWindChart-' + widget._uId)[0],
+						widget.options.theme);
 				widget._windWeekChart.showLoading();
 
-				widget._earthquakeChart = window.echarts.init(
-					widget.$element.find('#weatherQuakeChart-' + widget._uId)[0],
-					widget.options.theme);
+				widget._earthquakeChart =
+					window.echarts.init(widget.$element.find('#weatherQuakeChart-' + widget._uId)[0],
+						widget.options.theme);
 				widget._earthquakeChart.showLoading();
 
 				$(window).bind('resize', function()
@@ -432,26 +431,7 @@
 					widget._weatherMap.invalidateSize();
 				});
 
-				setTimeout(function()
-				{
-					$(widget.element).find('#weatherCube-loaderText-' + widget._uId)
-						.text(getI18n('weatherCube_getDataFeeds', widget.options.language));
-					$(widget.element).find('#imagesContainer-' + widget._uId)
-						.append(widget.createWeatherSatImages(widget._uId));
-					widget.initWeather();
-				}, 500);
-
-				if (!widget._weatherIntervalId)
-				{
-					widget._weatherIntervalId = setInterval(function()
-					{
-						$(widget.element).find('#weatherCube-loaderText-' + widget._uId)
-							.text(getI18n('weatherCube_getDataFeeds', widget.options.language));
-						$(widget.element).find('#imagesContainer-' + widget._uId)
-							.append(widget.createWeatherSatImages(widget._uId));
-						widget.initWeather();
-					}, widget.options.wInterval); // Interval every 360000 or 6 minutes
-				}
+				widget.initWeather();
 			},
 
 			/***************************************************************************/
@@ -522,27 +502,99 @@
 					console.info('--------------------------------------------');
 				}
 
+				widget.createWeatherMap();
+
+				let lat;
+				let lon;
+				let ns;
+				let ew;
+
+				if (widget._locationLat < 0)
+				{
+					lat = - 1 * widget._locationLat;
+					ns = 'SOUTH';
+				}
+				else
+				{
+					lat = widget._locationLat;
+					ns = 'NORTH';
+				}
+
+				if (widget._locationLon < 0)
+				{
+					lon = - 1 * widget._locationLon;
+					ew = 'WEST';
+				}
+				else
+				{
+					lon = widget._locationLon;
+					ew = 'EAST';
+				}
+
+				let strLatLon = '&lat=' + lat + '&ns=' + ns + '&lon=' + lon + '&ew=' + ew;
+
 				setTimeout(function()
 				{
 					widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 						.text(getI18n('weatherCube_getDataFeeds', widget.options.language));
-
-					widget.getWeatherCurrentData();
+					widget.$element.find('#imagesContainer-' + widget._uId)
+						.append(widget.createWeatherSatImages(widget._uId));
 					setTimeout(function()
 					{
-						widget.getWeatherForecastData();
+						widget.$element.find('#weatherCube-loaderText-' + widget._uId)
+							.text(getI18n('weatherCube_getDataFeeds', widget.options.language));
+						widget.$element.find('#weatherCubeEarthImage-' + widget._uId).attr('src',
+							'https://www.fourmilab.ch/cgi-bin/Earth?img=NASA500m.evif&imgsize=240&dynimg=y&opt=-l' +
+							strLatLon + '&alt=35785&date=0');
+
+						widget.getWeatherCurrentData();
 						setTimeout(function()
 						{
-							widget.getWeatherAstronomyData();
+							widget.getWeatherForecastData();
 							setTimeout(function()
 							{
-								widget.getWeatherQuakesData();
+								widget.getWeatherAstronomyData();
+								setTimeout(function()
+								{
+									widget.getWeatherQuakesData();
+								}, 500);
 							}, 500);
 						}, 500);
 					}, 500);
 				}, 500);
 
-				widget.createWeatherMap();
+				if (!widget._weatherIntervalId)
+				{
+					widget._weatherIntervalId = setInterval(function()
+					{
+						widget.$element.find('#weatherCubeEarthImage-' + widget._uId).attr('src',
+							'https://www.fourmilab.ch/cgi-bin/Earth?img=NASA500m.evif&imgsize=240&dynimg=y&opt=-l' +
+							strLatLon + '&alt=35785&date=0');
+						widget.$element.find('#weatherCube-loaderText-' + widget._uId)
+							.text(getI18n('weatherCube_getDataFeeds', widget.options.language));
+						widget.$element.find('#imagesContainer-' + widget._uId)
+							.append(widget.createWeatherSatImages(widget._uId));
+						setTimeout(function()
+						{
+							widget.$element.find('#weatherCube-loaderText-' + widget._uId)
+								.text(getI18n('weatherCube_getDataFeeds', widget.options.language));
+
+							widget.getWeatherCurrentData();
+							setTimeout(function()
+							{
+								widget.getWeatherForecastData();
+								setTimeout(function()
+								{
+									widget.getWeatherAstronomyData();
+									setTimeout(function()
+									{
+										widget.getWeatherQuakesData();
+									}, 500);
+								}, 500);
+							}, 500);
+						}, 500);
+					}, widget.options.wInterval); // Interval every 360000 or 6 minutes
+				}
 			},
 
 			/***************************************************************************/
@@ -764,6 +816,32 @@
 					'</div>' +
 					'</div>' +
 					'</div>' +
+					'<div id="tabWeatherSun-' + this._uId +
+					'" class="weatherMapTab tab-pane fade" role="tabpanel" aria-labelledby="tabWeatherSunToggle-' +
+					this._uId + '">' +
+					this.createWeatherSunContent() +
+					'</div>' +
+					'<div id="tabWeatherWind-' + this._uId +
+					'" class="weatherWindTab tab-pane fade" role="tabpanel" aria-labelledby="tabWeatherWindToggle-' +
+					this._uId + '">' +
+					this.createWeatherWindMap() +
+					'</div>' +
+					'<div id="tabWeatherSpace-' + this._uId +
+					'" class="weatherSpaceTab tab-pane fade" role="tabpanel" aria-labelledby="tabWeatherSpaceToggle-' +
+					this._uId + '">' +
+					this.createWeatherSpaceImages() +
+					'</div>' +
+					'<div id="tabWeatherPlanets-' + this._uId +
+					'" class="weatherPlanetsTab tab-pane fade" style="background-color: black" role="tabpanel" aria-labelledby="tabWeatherPlanetsToggle-' +
+					this._uId + '">' +
+					'<div class="row no-gutters">' +
+					'<div class="col-md-12">' +
+					'<img src="data:image/png;base64,' + getImage('space') +
+					'" class="img-fluid" alt="Solar System Image" />' +
+					'</div>' +
+					'<div id="weatherCube-planetsTable-' + this._uId + '" class="col-md-12 table-responsive"></div>' +
+					'</div>' +
+					'</div>' +
 					'</main>';
 			},
 
@@ -842,7 +920,40 @@
 					getI18n('weatherCube_viewMaps', this.options.language) + '" href="#tabWeatherMap-' + this._uId +
 					'" role="tab" aria-controls="tabWeatherMap-' + this._uId +
 					'" aria-selected="false" class="nav-link">' +
+					'<i class="wi wi-smoke" aria-hidden="true"></i>' +
+					'</a>' +
+					'</li>' +
+					'<li class="nav-item">' +
+					'<a id="tabWeatherSunToggle-' + this._uId + '" title="' +
+					getI18n('weatherCube_viewSun', this.options.language) + '" href="#tabWeatherSun-' + this._uId +
+					'" role="tab" aria-controls="tabWeatherSun-' + this._uId +
+					'" aria-selected="false" class="nav-link">' +
+					'<i class="wi wi-hot" aria-hidden="true"></i>' +
+					'</a>' +
+					'</li>' +
+					'<li class="nav-item">' +
+					'<a id="tabWeatherWindToggle-' + this._uId + '" title="' +
+					getI18n('weatherCube_viewWind', this.options.language) + '" href="#tabWeatherWind-' + this._uId +
+					'" role="tab" aria-controls="tabWeatherWind-' + this._uId +
+					'" aria-selected="false" class="nav-link">' +
+					'<i class="wi wi-strong-wind" aria-hidden="true"></i>' +
+					'</a>' +
+					'</li>' +
+					'<li class="nav-item">' +
+					'<a id="tabWeatherSpaceToggle-' + this._uId + '" title="' +
+					getI18n('weatherCube_viewSpace', this.options.language) + '" href="#tabWeatherSpace-' + this._uId +
+					'" role="tab" aria-controls="tabWeatherSpace-' + this._uId +
+					'" aria-selected="false" class="nav-link">' +
 					'<i class="wi wi-stars" aria-hidden="true"></i>' +
+					'</a>' +
+					'</li>' +
+					'<li class="nav-item">' +
+					'<a id="tabWeatherPlanetsToggle-' + this._uId + '" title="' +
+					getI18n('weatherCube_viewPlanets', this.options.language) + '" href="#tabWeatherPlanets-' +
+					this._uId +
+					'" role="tab" aria-controls="tabWeatherPlanets-' + this._uId +
+					'" aria-selected="false" class="nav-link">' +
+					'<i class="wi wi-moon-full" aria-hidden="true"></i>' +
 					'</a>' +
 					'</li>' +
 					'</ul>' +
@@ -896,32 +1007,45 @@
 
 			createWeatherMoonData: function()
 			{
-				return '<div class="row no-gutters">' +
-					'<div class="weatherCube-moonSeasons col-md-6">' +
+				return '<div class="row no-gutters overflow-hidden">' +
+					'<div class="weatherCube-moonSeasons col-lg-12 col-xl-6">' +
 					'<div class="d-flex">' +
 					'<img id="weatherCube-seasonsImage-' + this._uId +
 					'" src="" class="img-fluid d-none d-lg-block" alt="" />' +
-					'<div class="alert flex-fill align-items-stretch rounded-0 m-0" role="alert">' +
-					'<h5 class="alert-heading">' + getI18n('weatherCube_earthSeasons', this.options.language) +
-					'</h5>' +
+					'<div class="alert flex-fill align-items-stretch rounded-0 m-0 text-center p-2" role="alert">' +
+					'<h5 class="alert-heading text-warning">' +
+					getI18n('weatherCube_earthSeasons', this.options.language) + '</h5>' +
 					'<div id="weatherCube-seasonsTable-' + this._uId + '" class="table-responsive"></div>' +
-					'<hr />' +
-					'<h5 class="alert-heading">' + getI18n('weatherCube_earthAstrology', this.options.language) +
-					'</h5>' +
-					'<div id="weatherCube-astronomyTable-' + this._uId +
-					'" class="table-responsive text-center"></div>' +
+					'<hr class="mb-0 pb-0" />' +
+					'<div class="d-flex justify-content-around align-items-center">' +
+					'<img id="weatherCubeEarthImage-' + this._uId + '" src="#" class="img-fluid" alt="Earth" />' +
+					'<div class="alert rounded-0 alert-info mt-auto mb-0" role="alert">' +
+					'<h4 class="alert-heading text-warning">' +
+					getI18n('weatherCube_earthSolar', this.options.language) + '</h4>' +
+					'<p id="currentEclipsesData-' + this._uId + '"></p>' +
 					'</div>' +
 					'</div>' +
 					'</div>' +
-					'<div class="weatherCube-moonDesc col-md-6 text-center d-flex flex-column align-self-stretch">' +
-					'<div class="alert rounded-0 alert-success" role="alert">' +
-					'<h5 class="alert-heading">' + getI18n('weatherCube_moonPhaseToday', this.options.language) +
-					'</h5>' +
+					'</div>' +
+					'</div>' +
+					'<div class="weatherCube-moonDesc col-lg-12 col-xl-6 text-center d-flex flex-column align-self-stretch p-2">' +
+					'<h5 class="alert-heading text-warning">' +
+					getI18n('weatherCube_moonPhase', this.options.language) + '</h5>' +
+					'<div id="weatherCube-moonTable-' + this._uId + '" class="table-responsive"></div>' +
+					'<div class="row">' +
+					'<div class="col-md-8 alert rounded-0 alert-success" role="alert">' +
+					'<div class="d-flex justify-content-between align-items-center">' +
+					'<div id="weatherMoon-' + this._uId + '"></div>' +
+					'<div class="d-flex flex-column">' +
+					'<h5 class="alert-heading text-warning">' +
+					getI18n('weatherCube_moonPhaseToday', this.options.language) + '</h5><br />' +
 					'<p class="h4 text-danger" id="currentMoonPhase-' + this._uId + '"></p>' +
 					'<span class="h5">' + getI18n('weatherCube_moonFracillum', this.options.language) +
 					'<b class="digital-numbers ml-2" id="currentMoonFracillum-' + this._uId + '"></b>' +
 					'</span>' +
-					'<hr class="m-0 p-0 mt-2">' +
+					'</div>' +
+					'</div>' +
+					'<hr class="m-0 p-0 mb-1">' +
 					'<div class="d-flex justify-content-between">' +
 					'<span>' +
 					'<span class="card-text">' + getI18n('weatherCube_earthMoon', this.options.language) + '</span>' +
@@ -950,18 +1074,96 @@
 					'</span>' +
 					'</div>' +
 					'</div>' +
-					'<div id="weatherMoon-' + this._uId + '"></div>' +
-					'<div class="alert rounded-0 alert-info mt-auto mb-0" role="alert">' +
-					'<h4 class="alert-heading">' + getI18n('weatherCube_earthSolar', this.options.language) + '</h4>' +
-					'<p id="currentEclipsesData-' + this._uId + '"></p>' +
+					'<div class="col-md-4">' +
+					'<h5 class="alert-heading">' + getI18n('weatherCube_earthAstrology', this.options.language) +
+					'</h5>' +
+					'<div id="weatherCube-astronomyTable-' + this._uId +
+					'" class="table-responsive text-center"></div>' +
+					'</div>' +
 					'</div>' +
 					'</div>' +
 					'<div class="weatherCube-moonCalendar table-responsive col-md-12 d-none d-xl-block">' +
 					'<table id="moonCalendar-' + this._uId +
-					'" class="weatherCube-moonTable table table-sm table-striped table-borderless w-100 m-0">' +
+					'" class="weatherCube-moonTable text-white table table-sm t table-striped table-borderless w-100 m-0">' +
 					'<thead></thead>' +
 					'<tbody></tbody>' +
 					'</table>' +
+					'</div>' +
+					'</div>';
+			},
+
+			/***************************************************************************/
+
+			createWeatherSunContent: function()
+			{
+				return '<div class="row no-gutters">' +
+					'<div class="weatherCube-moonSeasons col-sm-6 col-md-3">' +
+					'<a target="_blank" href="https://sohodata.nascom.nasa.gov/cgi-bin/data_query_search_url?Session=web&Resolution=2&Display=Images&NumImg=30&Types=instrument=EIT:wavelength=171">' +
+					'<img src="https://sohowww.nascom.nasa.gov/data/realtime/eit_171/512/latest.jpg" class="img-fluid" alt="eit_171" />' +
+					'</a>' +
+					'</div>' +
+					'<div class="weatherCube-moonSeasons col-sm-6 col-md-3">' +
+					'<a target="_blank" href="https://sohodata.nascom.nasa.gov/cgi-bin/data_query_search_url?Session=web&Resolution=2&Display=Images&NumImg=30&Types=instrument=EIT:wavelength=195">' +
+					'<img src="https://sohowww.nascom.nasa.gov/data/realtime/eit_195/512/latest.jpg" class="img-fluid" alt="eit_195" />' +
+					'</a>' +
+					'</div>' +
+					'<div class="weatherCube-moonSeasons col-sm-6 col-md-3">' +
+					'<a target="_blank" href="https://sohodata.nascom.nasa.gov/cgi-bin/data_query_search_url?Session=web&Resolution=2&Display=Images&NumImg=30&Types=instrument=EIT:wavelength=284">' +
+					'<img src="https://sohowww.nascom.nasa.gov/data/realtime/eit_284/512/latest.jpg" class="img-fluid" alt="eit_284" />' +
+					'</a>' +
+					'</div>' +
+					'<div class="weatherCube-moonSeasons col-sm-6 col-md-3">' +
+					'<a target="_blank" href="https://sohodata.nascom.nasa.gov/cgi-bin/data_query_search_url?Session=web&Resolution=2&Display=Images&NumImg=30&Types=instrument=EIT:wavelength=304">' +
+					'<img src="https://sohowww.nascom.nasa.gov/data/realtime/eit_304/512/latest.jpg" class="img-fluid" alt="eit_304" />' +
+					'</a>' +
+					'</div>' +
+					'<div class="weatherCube-moonSeasons col-md-12 text-center">' +
+					'<div class="alert alert-info" role="alert">' +
+					'<h4 class="alert-heading font-weight-bold">' +
+					getI18n('weatherCube_sunImages', this.options.language) + '</h4>' +
+					'<p>' + getI18n('weatherCube_sunLeg', this.options.language) + '</p>' +
+					'<hr />' +
+					'<p class="mb-0">' + getI18n('weatherCube_sunDesc', this.options.language) + '</p>' +
+					'</div>' +
+					'</div>' +
+					'</div>';
+			},
+
+			/***************************************************************************/
+
+			createWeatherWindMap: function()
+			{
+				return '<div id="windy"></div>';
+			},
+
+			/***************************************************************************/
+
+			createWeatherSpaceImages: function()
+			{
+				return '<div class="row text-center no-gutters">' +
+					'<div class="col-md-12 col-lg-6 col-xl-3">' +
+					'<img id="spaceImage-0-' + this._uId + '" src="" class="img-fluid" alt="Space Image North" />' +
+					'</div>' +
+					'<div class="col-md-12 col-lg-6 col-xl-3">' +
+					'<img id="spaceImage-1-' + this._uId + '" src="" class="img-fluid" alt="Space Image NorthEast" />' +
+					'</div>' +
+					'<div class="col-md-12 col-lg-6 col-xl-3">' +
+					'<img id="spaceImage-2-' + this._uId + '" src="" class="img-fluid" alt="Space Image East" />' +
+					'</div>' +
+					'<div class="col-md-12 col-lg-6 col-xl-3">' +
+					'<img id="spaceImage-3-' + this._uId + '" src="" class="img-fluid" alt="Space Image SouthEast" />' +
+					'</div>' +
+					'<div class="col-md-12 col-lg-6 col-xl-3">' +
+					'<img id="spaceImage-4-' + this._uId + '" src="" class="img-fluid" alt="Space Image South" />' +
+					'</div>' +
+					'<div class="col-md-12 col-lg-6 col-xl-3">' +
+					'<img id="spaceImage-5-' + this._uId + '" src="" class="img-fluid" alt="Space Image SouthWest" />' +
+					'</div>' +
+					'<div class="col-md-12 col-lg-6 col-xl-3">' +
+					'<img id="spaceImage-6-' + this._uId + '" src="" class="img-fluid" alt="Space Image West" />' +
+					'</div>' +
+					'<div class="col-md-12 col-lg-6 col-xl-3">' +
+					'<img id="spaceImage-7-' + this._uId + '" src="" class="img-fluid" alt="Space Image NorthWest" />' +
 					'</div>' +
 					'</div>';
 			},
@@ -1325,8 +1527,8 @@
 			{
 				let widget = this;
 				let opts = {
-					imgUrl: 'https://api.usno.navy.mil/imagery/earth.png?date=' + widget.formatTime($.now(), 1) +
-						'&time=' + widget.formatTime($.now(), 2),
+					imgUrl:
+						'https://www.fourmilab.ch/cgi-bin/Earth?img=NASA500m.evif&imgsize=420&dynimg=y&opt=-p&date=0',
 					beforeLoad: function()
 					{
 					},
@@ -1357,7 +1559,7 @@
 				};
 
 				// Load each Image
-				widget.loadSatImage(opts);
+				widget.loadImage(opts);
 
 				return '<div class="weatherCube-modal modal fade" id="weatherCubeTimeModal-' + this._uId +
 					'" tabindex="-1" role="dialog" aria-labelledby="weatherCubeTimeModal-' + this._uId +
@@ -1608,6 +1810,45 @@
 					else if (res[1] === 'tabWeatherQuake-' + plugin._uId)
 					{
 						plugin._earthquakeChart.resize();
+					}
+					else if (res[1] === 'tabWeatherWind-' + plugin._uId)
+					{
+						const options = {
+							key: plugin.options.apiWindyKey,
+							lat: plugin._locationLat,
+							lon: plugin._locationLon,
+							zoom: 5
+						};
+
+						if (!plugin._windy)
+						{
+							windyInit(options, windyApi =>
+							{
+								const { store } = windyApi;
+								// broadcast is main Windy's event emmiter that
+								// let you know what is happening inside
+
+								// Change overlays programatically
+								const overlays = ['rain', 'wind', 'temp', 'clouds'];
+								let i = 0;
+
+								setInterval(() =>
+								{
+									i = i === 3 ? 0 : i + 1;
+									store.set('overlay', overlays[i]);
+								}, 10000);
+
+								const { map } = windyApi;
+								plugin._windyMap = map;
+
+								plugin._windy = true;
+							});
+						}
+
+						if (plugin._windy)
+						{
+							plugin._windyMap.invalidateSize();
+						}
 					}
 				});
 
@@ -1925,7 +2166,7 @@
 							};
 
 							// Load each Image
-							widget.loadSatImage(opts);
+							widget.loadImage(opts);
 
 							if (widget.options.debug)
 							{
@@ -1964,8 +2205,10 @@
 				widget.$element.find('#imagesContainer-' + widget._uId).empty().append(satImage);
 				setTimeout(function()
 				{
+					widget.getSpaceImages();
 					widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 						.text(getI18n('weatherCube_getSatAll', widget.options.language));
+
 					setTimeout(function()
 					{
 						widget.$element.find('#weatherCube-spinner-' + widget._uId).hide();
@@ -2105,7 +2348,7 @@
 				let quakesStatus = widget.statusLocalStorage('weather_quakes');
 				let urlEarthQuake = apiEarthQuakesUrl.replace('{0}', widget.options.quakesPeriod);
 
-				if (this.options.debug)
+				if (widget.options.debug)
 				{
 					console.info('Updating earthquake data!');
 				}
@@ -2128,7 +2371,8 @@
 
 					$.ajax({
 						url: urlEarthQuake,
-						cache: false,
+						dataType: 'json',
+						cache: true,
 						success: function(result)
 						{
 							if (result === null)
@@ -2169,7 +2413,12 @@
 								// Try again
 								widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
-								$.ajax(this);
+
+								let aj = this;
+								setTimeout(function()
+								{
+									$.ajax(aj);
+								}, 2000);
 
 								return false;
 							}
@@ -2283,15 +2532,15 @@
 						'<span class="text-semibold small">' +
 						getI18n('weatherCube_earthquakesTime', widget.options.language) + '</span>' +
 						'<samp class="text-semibold small digital-numbers">' +
-						widget.formatTime(item.properties.time, 2, false) + '</samp>' +
+						widget.formatTime(item.properties.time, 3, false) + '</samp>' +
 						'<hr class="p-0 m-0 mt-1"/>' +
 						'<samp class="text-semibold small digital-numbers">' +
 						widget.formatTime(item.properties.time, 1, false) + '</samp>' +
 						'</div>' +
 						'<div class="text-right">' +
-						'<span class="text-semibold small">' +
+						'<span class="text-semibold small mt-1"><i class="wi wi-tsunami mr-2"></i>' +
 						getI18n('weatherCube_earthquakesTsunami', widget.options.language) + '</span>' +
-						'<hr class="p-0 m-0 mt-1"/>' +
+						'<hr class="p-0 m-0 mt-1 mb-1"/>' +
 						'<h3 class="text-uppercase badge badge-danger">' + tsunami + '</h3>' +
 						'</div>' +
 						'</div>' +
@@ -2390,6 +2639,240 @@
 				{
 					console.info('Earthquake list successfully updated!');
 				}
+			},
+
+			/***************************************************************************/
+
+			getSpaceImages: function()
+			{
+				let widget = this;
+				let retryCount = 0;
+
+				let spaceStatus = widget.statusLocalStorage('weather_space');
+
+				if (widget.options.debug)
+				{
+					console.info('Updating earthquake data!');
+				}
+
+				// Has Data
+				if (spaceStatus)
+				{
+					// Get Cache
+					let data = localStorage.getItem('weather_space');
+					let myArray = JSON.parse(data);
+					widget.parseWeatherSpaceData(myArray, 'Space data from local storage: ');
+					// Expired or Empty Cache
+					widget.$element.find('#weatherCube-loaderText-' + widget._uId)
+						.text(getI18n('weatherCube_getSpaceCacheFeed', widget.options.language));
+				}
+				else
+				{
+					widget.$element.find('#weatherCube-loaderText-' + widget._uId)
+						.text(getI18n('weatherCube_getSpaceLiveFeed', widget.options.language));
+
+					$.ajax({
+						url: 'https://mcx-systems.net/astronomy.php?latitude=' + widget._locationLat + '&longitude=' +
+							widget._locationLon,
+						dataType: 'json',
+						cache: true,
+						success: function(result)
+						{
+							if (result === null)
+							{
+								return true;
+							}
+
+							if (widget.options.debug)
+							{
+								console.info('Success, getting data for: https://mcx-systems.net/');
+							}
+
+							widget.setLocalStorage('weather_space', JSON.stringify(result), widget.options.cache);
+							let data = localStorage.getItem('weather_space');
+							let dataArray = JSON.parse(data);
+							widget.parseWeatherSpaceData(dataArray, 'Space data from local storage: ');
+
+							widget.$element.find('#weatherCube-loaderText-' + widget._uId)
+								.text(getI18n('weatherCube_getSpaceSuccessFeed', widget.options.language));
+							retryCount = 0;
+
+							return true;
+						},
+						error: function(xhr, textStatus, thrownError)
+						{
+							if (widget.options.debug)
+							{
+								console.error('Error getting JSON data from: https://mcx-systems.net/');
+								console.error(thrownError + '\r' + xhr.statusText + '\r' + xhr.responseText);
+							}
+							widget.$element.find('#weatherCube-loaderText-' + widget._uId)
+								.text(getI18n('weatherCube_getSpaceErrorFeed', widget.options.language));
+
+							retryCount ++;
+
+							if (retryCount <= widget.options.retryLimit)
+							{
+								// Try again
+								widget.$element.find('#weatherCube-loaderText-' + widget._uId)
+									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
+
+								let aj = this;
+								setTimeout(function()
+								{
+									$.ajax(aj);
+								}, 2000);
+
+								return false;
+							}
+
+							return false;
+						}
+					});
+				}
+			},
+
+			/***************************************************************************/
+
+			parseWeatherSpaceData: function(data, message)
+			{
+				let widget = this;
+
+				if (widget.options.debug)
+				{
+					console.log(message, data);
+				}
+
+				if (widget.options.debug)
+				{
+					console.info('Updating current data!');
+				}
+
+				// Each each earthquake in a week
+				$.each(data.astroHorizonts, function(i, item)
+				{
+					widget.$element.find('#spaceImage-' + i + '-' + widget._uId).attr('src', item.url);
+				});
+
+				let html = '<table class="table table-sm table-striped table-bordered table-dark mb-0 text-center">' +
+					'<tr>' +
+					'<th rowspan="2">&nbsp;</th>' +
+					'<th rowspan="2" class="text-warning">' +
+					getI18n('weatherCube_planetRightAscension', widget.options.language) + '</th>' +
+					'<th rowspan="2" class="text-warning">' +
+					getI18n('weatherCube_planetDeclination', widget.options.language) + '</th>' +
+					'<th rowspan="2" class="text-warning">' +
+					getI18n('weatherCube_planetDistance', widget.options.language) + '</th>' +
+					'<th colspan="2" class="text-warning">' + widget.getDegreePart(data.astroHorizonts[0].loc) +
+					'</th>' +
+					'</tr>' +
+					'<tr>' +
+					'<th class="text-danger">' + getI18n('weatherCube_planetAltitude', widget.options.language) +
+					'</th>' +
+					'<th class="text-success">' + getI18n('weatherCube_planetAzimuth', widget.options.language) +
+					'</th>' +
+					'</tr>' +
+					'<tr>' +
+					'<th><b class="text-warning">' + getI18n('weatherCube_planetSun', widget.options.language) +
+					'</b></th>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.sun.rightAscension + '</td>' +
+					'<td class="digital-numbers small">' +
+					widget.getDegreePart(data.astroHorizonts[0].planets.sun.declination) + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.sun.distance + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.sun.altitude + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.sun.azimuth + '</td>' +
+					'</tr>' +
+					'<tr>' +
+					'<th><b class="text-warning">' + getI18n('weatherCube_planetMercury', widget.options.language) +
+					'</b></th>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.mercury.rightAscension +
+					'</td>' +
+					'<td class="digital-numbers small">' +
+					widget.getDegreePart(data.astroHorizonts[0].planets.mercury.declination) + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.mercury.distance + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.mercury.altitude + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.mercury.azimuth + '</td>' +
+					'</tr>' +
+					'<tr>' +
+					'<th><b class="text-warning">' + getI18n('weatherCube_planetVenus', widget.options.language) +
+					'</b></th>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.venus.rightAscension +
+					'</td>' +
+					'<td class="digital-numbers small">' +
+					widget.getDegreePart(data.astroHorizonts[0].planets.venus.declination) + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.venus.distance + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.venus.altitude + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.venus.azimuth + '</td>' +
+					'</tr>' +
+					'<tr>' +
+					'<th><b class="text-warning">' + getI18n('weatherCube_planetMoon', widget.options.language) +
+					'</b></th>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.moon.rightAscension +
+					'</td>' +
+					'<td class="digital-numbers small">' +
+					widget.getDegreePart(data.astroHorizonts[0].planets.moon.declination) + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.moon.distance + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.moon.altitude + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.moon.azimuth + '</td>' +
+					'</tr>' +
+					'<tr>' +
+					'<th><b class="text-warning">' + getI18n('weatherCube_planetJupiter', widget.options.language) +
+					'</b></th>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.jupiter.rightAscension +
+					'</td>' +
+					'<td class="digital-numbers small">' +
+					widget.getDegreePart(data.astroHorizonts[0].planets.jupiter.declination) + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.jupiter.distance + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.jupiter.altitude + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.jupiter.azimuth + '</td>' +
+					'</tr>' +
+					'<tr>' +
+					'<th><b class="text-warning">' + getI18n('weatherCube_planetSaturn', widget.options.language) +
+					'</b></th>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.saturn.rightAscension +
+					'</td>' +
+					'<td class="digital-numbers small">' +
+					widget.getDegreePart(data.astroHorizonts[0].planets.saturn.declination) + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.saturn.distance + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.saturn.altitude + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.saturn.azimuth + '</td>' +
+					'</tr>' +
+					'<tr>' +
+					'<th><b class="text-warning">' + getI18n('weatherCube_planetUranus', widget.options.language) +
+					'</b></th>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.uranus.rightAscension +
+					'</td>' +
+					'<td class="digital-numbers small">' +
+					widget.getDegreePart(data.astroHorizonts[0].planets.uranus.declination) + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.uranus.distance + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.uranus.altitude + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.uranus.azimuth + '</td>' +
+					'</tr>' +
+					'<tr>' +
+					'<th><b class="text-warning">' + getI18n('weatherCube_planetNeptune', widget.options.language) +
+					'</b></th>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.neptune.rightAscension +
+					'</td>' +
+					'<td class="digital-numbers small">' +
+					widget.getDegreePart(data.astroHorizonts[0].planets.neptune.declination) + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.neptune.distance + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.neptune.altitude + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.neptune.azimuth + '</td>' +
+					'</tr>' +
+					'<tr>' +
+					'<th><b class="text-warning">' + getI18n('weatherCube_planetPluto', widget.options.language) +
+					'</b></th>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.pluto.rightAscension +
+					'</td>' +
+					'<td class="digital-numbers small">' +
+					widget.getDegreePart(data.astroHorizonts[0].planets.pluto.declination) + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.pluto.distance + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.pluto.altitude + '</td>' +
+					'<td class="digital-numbers small">' + data.astroHorizonts[0].planets.pluto.azimuth + '</td>' +
+					'</tr>' +
+					'</table>';
+
+				widget.$element.find('#weatherCube-planetsTable-' + widget._uId).empty().append(html);
 			},
 
 			/***************************************************************************/
@@ -2521,7 +3004,7 @@
 					'" alt="' + zodiac + '" /></td>' +
 					'</tr>' +
 					'<tr>' +
-					'<td class="font-weight-bold h4">' + zodiac + '</td>' +
+					'<td class="font-weight-bold h4 text-warning">' + zodiac + '</td>' +
 					'</tr>' +
 					'</table>';
 
@@ -2558,6 +3041,7 @@
 				for (let index1 = 0; index1 < 7; index1 += 1)
 				{
 					cell = document.createElement('th');
+					cell.setAttribute('class', 'text-warning');
 					cell.appendChild(document.createTextNode(dayNames[index1]));
 					row.appendChild(cell);
 				}
@@ -2587,8 +3071,31 @@
 							cell.setAttribute('class', 'active');
 						}
 
-						let phase = this.getMoonPhase(year, month, index2 - first + 1);
+						let phase = widget.getMoonPhase(year, month, index2 - first + 1);
 						image.src = 'data:image/png;base64,' + getImage('moon', phase);
+						let t = index2 - first + 1 + '-' + month + '-' + year;
+
+						setTimeout(function()
+						{
+							switch (phase)
+							{
+								case 0:
+									widget.$element.find('#moonDateNew-' + widget._uId).text(t);
+									break;
+								case 7:
+									widget.$element.find('#moonDateFirst-' + widget._uId).text(t);
+									break;
+								case 14:
+									widget.$element.find('#moonDateFull-' + widget._uId).text(t);
+									break;
+								case 23:
+									widget.$element.find('#moonDateSecond-' + widget._uId).text(t);
+									break;
+								default:
+									widget.$element.find('#moonDateNew-' + widget._uId).text(t);
+									break;
+							}
+						}, 2000);
 
 						let dayDiv = document.createElement('div');
 						let daySpan = document.createElement('span');
@@ -2643,7 +3150,8 @@
 						url: apiMoonDataUrl + '?coords=' + encodeURIComponent(location) + '&date=' +
 							(dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear() + '&tz=' +
 							-dt.getTimezoneOffset() / 60,
-						cache: false,
+						dataType: 'json',
+						cache: true,
 						success: function(result)
 						{
 							if (result === null)
@@ -2683,7 +3191,12 @@
 								// Try again
 								widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
-								$.ajax(this);
+
+								let aj = this;
+								setTimeout(function()
+								{
+									$.ajax(aj);
+								}, 2000);
 
 								return false;
 							}
@@ -2717,7 +3230,8 @@
 							$.ajax({
 								url: apiSeasonsDataUrl + '?year=' + dt.getFullYear() + '&tz=' +
 									- dt.getTimezoneOffset() / 60 + '&dst=true',
-								cache: false,
+								dataType: 'json',
+								cache: true,
 								success: function(result)
 								{
 									if (result === null)
@@ -2758,7 +3272,12 @@
 										// Try again
 										widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 											.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
-										$.ajax(this);
+
+										let aj = this;
+										setTimeout(function()
+										{
+											$.ajax(aj);
+										}, 2000);
 
 										return false;
 									}
@@ -2797,7 +3316,8 @@
 
 							$.ajax({
 								url: apiEclipseDataUrl + '?year=' + dt.getFullYear(),
-								cache: false,
+								dataType: 'json',
+								cache: true,
 								success: function(result)
 								{
 									if (result === null)
@@ -2845,7 +3365,12 @@
 										// Try again
 										widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 											.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
-										$.ajax(this);
+
+										let aj = this;
+										setTimeout(function()
+										{
+											$.ajax(aj);
+										}, 2000);
 
 										return false;
 									}
@@ -2873,9 +3398,58 @@
 					console.info('Updating current data!');
 				}
 
+				let moon1;
+				let moon2;
+
+				if (data.moondata[0].phen === 'R')
+				{
+					moon1 = data.moondata[0].time;
+				}
+				else
+				{
+					moon1 = data.prevmoondata[0].time;
+				}
+
+				if (data.moondata[1].phen === 'S')
+				{
+					moon2 = data.moondata[1].time;
+				}
+				else
+				{
+					moon2 = data.moondata[2].time;
+				}
+
+				let html = '<table class="table w-100 text-center text-white">' +
+					'<tr>' +
+					'<th><small id="moonDateFirst-' + widget._uId + '" class="digital-numbers">---</small></th>' +
+					'<th><small id="moonDateFull-' + widget._uId + '" class="digital-numbers">---</small></th>' +
+					'<th><small id="moonDateSecond-' + widget._uId + '" class="digital-numbers">---</small></th>' +
+					'<th><small id="moonDateNew-' + widget._uId + '" class="digital-numbers">---</small></th>' +
+					'</tr><tr>' +
+					'<td><img src="data:image/png;base64,' + getImage('moon', 7) + '" alt="' +
+					getI18n('weatherCube_earthSeasonsSpring', widget.options.language) + '" /></td>' +
+					'<td><img src="data:image/png;base64,' + getImage('moon', 14) + '" alt="' +
+					getI18n('weatherCube_earthSeasonsSummer', widget.options.language) + '" /></td>' +
+					'<td><img src="data:image/png;base64,' + getImage('moon', 23) + '" alt="' +
+					getI18n('weatherCube_earthSeasonsFall', widget.options.language) + '" /></td>' +
+					'<td><img src="data:image/png;base64,' + getImage('moon', 0) + '" alt="' +
+					getI18n('weatherCube_earthSeasonsWinter', widget.options.language) + '" /></td>' +
+					'</tr><tr>' +
+					'<td><small class="text-warning">' +
+					getI18n('weatherCube_moonFirstQuarter', widget.options.language) + '</small></td>' +
+					'<td><small class="text-warning">' + getI18n('weatherCube_moonFullMoon', widget.options.language) +
+					'</small></td>' +
+					'<td><small class="text-warning">' +
+					getI18n('weatherCube_moonLastQuarter', widget.options.language) + '</small></td>' +
+					'<td><small class="text-warning">' + getI18n('weatherCube_moonNewMoon', widget.options.language) +
+					'</small></td>' +
+					'</tr>' +
+					'</table>';
+
+				widget.$element.find('#weatherCube-moonTable-' + widget._uId).empty().append(html);
 				widget.$element.find('#currentMoonFracillum-' + widget._uId).text(data.fracillum);
-				widget.$element.find('#moonRise-' + widget._uId).text(data.moondata[0].time);
-				widget.$element.find('#moonSet-' + widget._uId).text(data.moondata[2].time);
+				widget.$element.find('#moonRise-' + widget._uId).text(moon1);
+				widget.$element.find('#moonSet-' + widget._uId).text(moon2);
 				widget.$element.find('#sunRise-' + widget._uId).text(data.sundata[1].time);
 				widget.$element.find('#sunSet-' + widget._uId).text(data.sundata[3].time);
 			},
@@ -2895,29 +3469,53 @@
 					console.info('Updating current data!');
 				}
 
-				let html = '<table class="table table-striped table-bordered w-100">' +
-					'<thead>' +
+				let html = '<table class="table w-100 text-center text-white">' +
 					'<tr>' +
-					'<th scope="col" class="text-left">' +
-					getI18n('weatherCube_earthSeasonsDate', widget.options.language) + '</th>' +
-					'<th scope="col" class="text-left">' +
-					getI18n('weatherCube_earthSeasonsName', widget.options.language) + '</th>' +
+					'<th><small class="digital-numbers">' + data.data[1].day + '-' + data.data[1].month + '-' +
+					data.data[1].year + '</small></th>' +
+					'<th><small class="digital-numbers">' + data.data[2].day + '-' + data.data[2].month + '-' +
+					data.data[2].year + '</small></th>' +
+					'<th><small class="digital-numbers">' + data.data[4].day + '-' + data.data[4].month + '-' +
+					data.data[4].year + '</small></th>' +
+					'<th><small class="digital-numbers">' + data.data[5].day + '-' + data.data[5].month + '-' +
+					data.data[5].year + '</small></th>' +
+					'</tr><tr>' +
+					'<td><img src="data:image/png;base64,' + getImage('earth', 0) + '" alt="' +
+					getI18n('weatherCube_earthSeasonsSpring', widget.options.language) + '" /></td>' +
+					'<td><img src="data:image/png;base64,' + getImage('earth', 1) + '" alt="' +
+					getI18n('weatherCube_earthSeasonsSummer', widget.options.language) + '" /></td>' +
+					'<td><img src="data:image/png;base64,' + getImage('earth', 2) + '" alt="' +
+					getI18n('weatherCube_earthSeasonsFall', widget.options.language) + '" /></td>' +
+					'<td><img src="data:image/png;base64,' + getImage('earth', 3) + '" alt="' +
+					getI18n('weatherCube_earthSeasonsWinter', widget.options.language) + '" /></td>' +
+					'</tr><tr>' +
+					'<td><small>Vernal ' +
+					getI18n('weatherCube_earthSeasons' + widget.capitalizeFirstLetter(data.data[1].phenom),
+						widget.options.language) +
+					'<br /><b class="text-warning">' +
+					getI18n('weatherCube_earthSeasonsStart', widget.options.language) +
+					getI18n('weatherCube_earthSeasonsSpring', widget.options.language) + '</b></small></td>' +
+					'<td><small>Summer ' +
+					getI18n('weatherCube_earthSeasons' + widget.capitalizeFirstLetter(data.data[2].phenom),
+						widget.options.language) +
+					'<br /><b class="text-warning">' +
+					getI18n('weatherCube_earthSeasonsStart', widget.options.language) +
+					getI18n('weatherCube_earthSeasonsSummer', widget.options.language) + '</b></small></td>' +
+					'<td><small>Autumn ' +
+					getI18n('weatherCube_earthSeasons' + widget.capitalizeFirstLetter(data.data[4].phenom),
+						widget.options.language) +
+					'<br /><b class="text-warning">' +
+					getI18n('weatherCube_earthSeasonsStart', widget.options.language) +
+					getI18n('weatherCube_earthSeasonsFall', widget.options.language) + '</b></small></td>' +
+					'<td><small>Winter ' +
+					getI18n('weatherCube_earthSeasons' + widget.capitalizeFirstLetter(data.data[5].phenom),
+						widget.options.language) +
+					'<br /><b class="text-warning">' +
+					getI18n('weatherCube_earthSeasonsStart', widget.options.language) +
+					getI18n('weatherCube_earthSeasonsWinter', widget.options.language) + '</b></small></td>' +
 					'</tr>' +
-					'</thead>' +
-					'<tbody>';
+					'</table>';
 
-				$.each(data.data, function(i, item)
-				{
-					html += '<tr>' +
-						'<th scope="row" class="text-left digital-numbers">' + item.day + '-' + item.month + '-' +
-						item.year + '</th>' +
-						'<td class="text-left font-weight-bold">' +
-						getI18n('weatherCube_earthSeasons' + widget.capitalizeFirstLetter(item.phenom),
-							widget.options.language) + '</td>' +
-						'</tr>';
-				});
-
-				html += '</tbody></table>';
 				widget.$element.find('#weatherCube-seasonsTable-' + widget._uId).empty().append(html);
 				widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 					.text(getI18n('weatherCube_getMoonCreate', widget.options.language));
@@ -2951,8 +3549,8 @@
 
 					$.ajax({
 						url: apiUrl,
-						cache: false,
-						crossDomain: true,
+						dataType: 'json',
+						cache: true,
 						success: function(result)
 						{
 							if (result === null)
@@ -2992,7 +3590,12 @@
 								// Try again
 								widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
-								$.ajax(this);
+
+								let aj = this;
+								setTimeout(function()
+								{
+									$.ajax(aj);
+								}, 2000);
 
 								return false;
 							}
@@ -3126,7 +3729,7 @@
 					'" class="img-fluid mr-3" />' +
 					'</div>';
 
-				this.$element.find('#weatherCube-currentMore-' + widget._uId).empty().append(html);
+				widget.$element.find('#weatherCube-currentMore-' + widget._uId).empty().append(html);
 
 				if (widget.options.debug)
 				{
@@ -3171,8 +3774,8 @@
 
 					$.ajax({
 						url: apiForecastUrl,
-						cache: false,
-						crossDomain: true,
+						dataType: 'json',
+						cache: true,
 						success: function(result)
 						{
 							if (result === null)
@@ -3212,7 +3815,12 @@
 								// Try again
 								widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
-								$.ajax(this);
+
+								let aj = this;
+								setTimeout(function()
+								{
+									$.ajax(aj);
+								}, 2000);
 
 								return false;
 							}
@@ -3229,13 +3837,13 @@
 			{
 				let widget = this;
 
-				if (this.options.debug)
+				if (widget.options.debug)
 				{
 					console.log(message, data);
 				}
 
 				let html = '';
-				let weather = this.separateForecastByDay(data.list);
+				let weather = widget.separateForecastByDay(data.list);
 
 				// Today and every next day - 5 day
 				$.each(weather, function(i)
@@ -3431,7 +4039,9 @@
 						}
 						else
 						{
-							iconUrl = '<i class="wi ' + wId + ' wi-fw weatherCube-currentDefault display-4 p-3" aria-hidden="true" title="' + widget.capitalizeFirstLetter(item.weather[0].description) + '"></i>';
+							iconUrl = '<i class="wi ' + wId +
+								' wi-fw weatherCube-currentDefault display-4 p-3" aria-hidden="true" title="' +
+								widget.capitalizeFirstLetter(item.weather[0].description) + '"></i>';
 							if (widget.options.debug)
 							{
 								console.info('Icons are set and are of type weather-icons atrr: wi wi-');
@@ -3516,7 +4126,7 @@
 			updateChartData: function(data)
 			{
 				let widget = this;
-				if (this.options.debug)
+				if (widget.options.debug)
 				{
 					console.info('Updating charts data!');
 				}
@@ -3548,7 +4158,7 @@
 				let weekChartWindSpeed = [];
 
 				let days = data[0].forecast;
-				let unit = this.options.units === 'imperial' ? '°F' : '°C';
+				let unit = widget.options.units === 'imperial' ? '°F' : '°C';
 
 				$.each(data, function(i)
 				{
@@ -3615,52 +4225,52 @@
 					series: [
 						{
 							type: 'bar',
-							name: getI18n('weatherCube_chartMaxTemperature', this.options.language),
+							name: getI18n('weatherCube_chartMaxTemperature', widget.options.language),
 							data: dayChartMaxTemp,
 							markPoint: {
 								data: [
 									{ type: 'max',
-										name: getI18n('weatherCube_chartMaxTemperature', this.options.language) },
+										name: getI18n('weatherCube_chartMaxTemperature', widget.options.language) },
 									{ type: 'min',
-										name: getI18n('weatherCube_chartMinTemperature', this.options.language) }
+										name: getI18n('weatherCube_chartMinTemperature', widget.options.language) }
 								]
 							},
 							markLine: {
 								data: [
 									{ type: 'average',
-										name: getI18n('weatherCube_chartMaxAveTemperature', this.options.language) }
+										name: getI18n('weatherCube_chartMaxAveTemperature', widget.options.language) }
 								]
 							}
 						},
 						{
 							type: 'bar',
-							name: getI18n('weatherCube_chartTemperature', this.options.language),
+							name: getI18n('weatherCube_chartTemperature', widget.options.language),
 							data: dayChartTemp,
 							markPoint: {
 								data: [
 									{ type: 'max',
-										name: getI18n('weatherCube_chartMaxTemperature', this.options.language) },
+										name: getI18n('weatherCube_chartMaxTemperature', widget.options.language) },
 									{ type: 'min',
-										name: getI18n('weatherCube_chartMinTemperature', this.options.language) }
+										name: getI18n('weatherCube_chartMinTemperature', widget.options.language) }
 								]
 							},
 							markLine: {
 								data: [
 									{ type: 'average',
-										name: getI18n('weatherCube_chartAveTemperature', this.options.language) }
+										name: getI18n('weatherCube_chartAveTemperature', widget.options.language) }
 								]
 							}
 						},
 						{
 							type: 'bar',
-							name: getI18n('weatherCube_chartMinTemperature', this.options.language),
+							name: getI18n('weatherCube_chartMinTemperature', widget.options.language),
 							data: dayChartMinTemp,
 							markPoint: {
 								data: [
 									{ type: 'max',
-										name: getI18n('weatherCube_chartMaxTemperature', this.options.language) },
+										name: getI18n('weatherCube_chartMaxTemperature', widget.options.language) },
 									{ type: 'min',
-										name: getI18n('weatherCube_chartMinTemperature', this.options.language) }
+										name: getI18n('weatherCube_chartMinTemperature', widget.options.language) }
 								]
 							}
 						}
@@ -3688,7 +4298,7 @@
 					color: ['rgb(39,122,255)'],
 					series: [
 						{
-							name: getI18n('weatherCube_chartHumidity', this.options.language),
+							name: getI18n('weatherCube_chartHumidity', widget.options.language),
 							type: 'line',
 							smooth: true,
 							data: dayChartHumidity,
@@ -3713,7 +4323,7 @@
 					color: ['rgb(255,162,67)'],
 					series: [
 						{
-							name: getI18n('weatherCube_chartPressure', this.options.language),
+							name: getI18n('weatherCube_chartPressure', widget.options.language),
 							type: 'line',
 							smooth: true,
 							data: dayChartPressure,
@@ -3738,21 +4348,23 @@
 					color: ['rgb(200,70,8)'],
 					series: [
 						{
-							name: getI18n('weatherCube_chartWindSpeed', this.options.language),
+							name: getI18n('weatherCube_chartWindSpeed', widget.options.language),
 							data: dayChartWindSpeed,
 							type: 'bar',
 							markPoint: {
 								data: [
-									{ type: 'max', name: getI18n('weatherCube_chartMaxWindSpeed', this.options.language)
+									{ type: 'max',
+										name: getI18n('weatherCube_chartMaxWindSpeed', widget.options.language)
 									},
-									{ type: 'min', name: getI18n('weatherCube_chartMinWindSpeed', this.options.language)
+									{ type: 'min',
+										name: getI18n('weatherCube_chartMinWindSpeed', widget.options.language)
 									}
 								]
 							},
 							markLine: {
 								data: [
 									{ type: 'average',
-										name: getI18n('weatherCube_chartAveWindSpeed', this.options.language) }
+										name: getI18n('weatherCube_chartAveWindSpeed', widget.options.language) }
 								]
 							}
 						}
@@ -3800,52 +4412,52 @@
 					series: [
 						{
 							type: 'bar',
-							name: getI18n('weatherCube_chartMaxTemperature', this.options.language),
+							name: getI18n('weatherCube_chartMaxTemperature', widget.options.language),
 							data: weekChartMaxTemp,
 							markPoint: {
 								data: [
 									{ type: 'max',
-										name: getI18n('weatherCube_chartMaxTemperature', this.options.language) },
+										name: getI18n('weatherCube_chartMaxTemperature', widget.options.language) },
 									{ type: 'min',
-										name: getI18n('weatherCube_chartMinTemperature', this.options.language) }
+										name: getI18n('weatherCube_chartMinTemperature', widget.options.language) }
 								]
 							},
 							markLine: {
 								data: [
 									{ type: 'average',
-										name: getI18n('weatherCube_chartMaxAveTemperature', this.options.language) }
+										name: getI18n('weatherCube_chartMaxAveTemperature', widget.options.language) }
 								]
 							}
 						},
 						{
 							type: 'bar',
-							name: getI18n('weatherCube_chartTemperature', this.options.language),
+							name: getI18n('weatherCube_chartTemperature', widget.options.language),
 							data: weekChartTemp,
 							markPoint: {
 								data: [
 									{ type: 'max',
-										name: getI18n('weatherCube_chartMaxTemperature', this.options.language) },
+										name: getI18n('weatherCube_chartMaxTemperature', widget.options.language) },
 									{ type: 'min',
-										name: getI18n('weatherCube_chartMinTemperature', this.options.language) }
+										name: getI18n('weatherCube_chartMinTemperature', widget.options.language) }
 								]
 							},
 							markLine: {
 								data: [
 									{ type: 'average',
-										name: getI18n('weatherCube_chartAveTemperature', this.options.language) }
+										name: getI18n('weatherCube_chartAveTemperature', widget.options.language) }
 								]
 							}
 						},
 						{
 							type: 'bar',
-							name: getI18n('weatherCube_chartMinTemperature', this.options.language),
+							name: getI18n('weatherCube_chartMinTemperature', widget.options.language),
 							data: weekChartMinTemp,
 							markPoint: {
 								data: [
 									{ type: 'max',
-										name: getI18n('weatherCube_chartMaxTemperature', this.options.language) },
+										name: getI18n('weatherCube_chartMaxTemperature', widget.options.language) },
 									{ type: 'min',
-										name: getI18n('weatherCube_chartMinTemperature', this.options.language) }
+										name: getI18n('weatherCube_chartMinTemperature', widget.options.language) }
 								]
 							}
 						}
@@ -3873,7 +4485,7 @@
 					color: ['rgb(39,122,255)'],
 					series: [
 						{
-							name: getI18n('weatherCube_chartHumidity', this.options.language),
+							name: getI18n('weatherCube_chartHumidity', widget.options.language),
 							type: 'line',
 							smooth: true,
 							data: weekChartHumidity,
@@ -3898,7 +4510,7 @@
 					color: ['rgb(255,162,67)'],
 					series: [
 						{
-							name: getI18n('weatherCube_chartPressure', this.options.language),
+							name: getI18n('weatherCube_chartPressure', widget.options.language),
 							type: 'line',
 							smooth: true,
 							data: weekChartPressure,
@@ -3923,21 +4535,23 @@
 					color: ['rgb(200,70,8)'],
 					series: [
 						{
-							name: getI18n('weatherCube_chartWindSpeed', this.options.language),
+							name: getI18n('weatherCube_chartWindSpeed', widget.options.language),
 							data: weekChartWindSpeed,
 							type: 'bar',
 							markPoint: {
 								data: [
-									{ type: 'max', name: getI18n('weatherCube_chartMaxWindSpeed', this.options.language)
+									{ type: 'max',
+										name: getI18n('weatherCube_chartMaxWindSpeed', widget.options.language)
 									},
-									{ type: 'min', name: getI18n('weatherCube_chartMinWindSpeed', this.options.language)
+									{ type: 'min',
+										name: getI18n('weatherCube_chartMinWindSpeed', widget.options.language)
 									}
 								]
 							},
 							markLine: {
 								data: [
 									{ type: 'average',
-										name: getI18n('weatherCube_chartAveWindSpeed', this.options.language) }
+										name: getI18n('weatherCube_chartAveWindSpeed', widget.options.language) }
 								]
 							}
 						}
@@ -3983,8 +4597,8 @@
 
 					$.ajax({
 						url: apiUviUrl,
-						cache: false,
-						crossDomain: true,
+						dataType: 'json',
+						cache: true,
 						success: function(result)
 						{
 							if (result === null)
@@ -4024,7 +4638,12 @@
 								// Try again
 								widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
-								$.ajax(this);
+
+								let aj = this;
+								setTimeout(function()
+								{
+									$.ajax(aj);
+								}, 2000);
 
 								return false;
 							}
@@ -4190,9 +4809,8 @@
 						.text(getI18n('weatherCube_getMeteoLiveFeed', widget.options.language));
 					$.ajax({
 						url: 'https://mcx-systems.net/proxy.php?url=' + encodeURIComponent(url),
-						cache: false,
 						dataType: 'json',
-						crossOrigin: true,
+						cache: true,
 						success: function(result)
 						{
 							if (result === null)
@@ -4232,7 +4850,12 @@
 								// Try again
 								widget.$element.find('#weatherCube-loaderText-' + widget._uId)
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
-								$.ajax(this);
+
+								let aj = this;
+								setTimeout(function()
+								{
+									$.ajax(aj);
+								}, 2000);
 
 								return false;
 							}
@@ -4563,6 +5186,13 @@
 
 			/***************************************************************************/
 
+			getDegreePart: function(string)
+			{
+				return string.replace(/\?/g, '&deg;');
+			},
+
+			/***************************************************************************/
+
 			getZodiacSign: function(month, day, zodiac)
 			{
 				let zodiacSign = '';
@@ -4679,6 +5309,9 @@
 						break;
 					case 1:
 						formattedDate = month + '/' + day + '/' + year;
+						break;
+					case 2:
+						formattedDate = day + '-' + month + '-' + year;
 						break;
 					default:
 						formattedDate = hours + ':' + minutes;
@@ -5036,13 +5669,13 @@
 
 			/***************************************************************************/
 
-			loadSatImage: function(opts)
+			loadImage: function(opts)
 			{
 				let loadedImage = new Image();
 
 				if (typeof opts !== 'object' || opts === null)
 				{
-					console.log('loadSatImage(): Please pass valid options!');
+					console.log('loadImage(): Please pass valid options!');
 					return;
 				}
 
@@ -5130,7 +5763,12 @@
 								// Try again
 								$(widget.element).find('#weatherCube-loaderText-' + widget._uId)
 									.text(getI18n('weatherCube_getFeedTryAgain', widget.options.language));
-								$.ajax(this);
+
+								let aj = this;
+								setTimeout(function()
+								{
+									$.ajax(aj);
+								}, 2000);
 
 								return;
 							}
@@ -5572,6 +6210,8 @@
 		apiKey: null,
 		// Get key at: https://geoip-db.com/
 		apiGeoKey: '699283e0-b3ab-11e9-97d7-d7584e8de765',
+		// Api key from https://api4.windy.com/
+		apiWindyKey: null,
 		// Search location weather by city
 		city: null,
 		// Search location weather by latitude
@@ -5604,7 +6244,7 @@
 		// Enable plugin debug
 		debug: true,
 		// All feeds cache - 3600 one hour
-		cache: 60,
+		cache: 120,
 		// Allow async
 		async: true,
 		// Event on complete

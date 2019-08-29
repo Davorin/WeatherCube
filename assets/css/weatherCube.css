@@ -12,13 +12,12 @@
 	padding: 0;
 }
 
-.weatherCube .modal,
-.weatherCube .modal-backdrop
+.weatherCube .modal, .weatherCube .modal-backdrop
 {
 	height: 100%;
+	overflow: hidden;
 	position: absolute;
 	width: 100%;
-	overflow: hidden;
 }
 
 .weatherCube .tab-content .weatherCube-quakeChart
@@ -59,12 +58,7 @@
 
 .weatherCube .tab-content .weatherMapTab .weatherCube-map
 {
-	height: 450px;
-	width: 100%;
-}
-
-.weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable .moonPhase
-{
+	height: 500px;
 	width: 100%;
 }
 
@@ -90,8 +84,7 @@
 	text-align: center;
 }
 
-.weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable,
-.weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable td
+.weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable, .weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable td
 {
 	border: 1px solid rgba(131, 143, 150, 0.50);
 	padding: 0 3px 3px;
@@ -106,7 +99,7 @@
 
 .weatherCube .weatherCube-navigation li a.active
 {
-	color: rgb(163, 28, 16)
+	color: rgb(163, 28, 16);
 }
 
 .weatherCube .weatherCube-clock
@@ -136,25 +129,19 @@
 	width: 50%;
 }
 
-.weatherCube .weatherCube-clock .hand.wcFirst-hours-hand,
-.weatherCube .weatherCube-clock .hand.wcSecond-hours-hand,
-.weatherCube .weatherCube-clock .hand.wcLocal-hours-hand
+.weatherCube .weatherCube-clock .hand.wcFirst-hours-hand, .weatherCube .weatherCube-clock .hand.wcSecond-hours-hand, .weatherCube .weatherCube-clock .hand.wcLocal-hours-hand
 {
 	width: 30%;
 	z-index: 3;
 }
 
-.weatherCube .weatherCube-clock .hand.wcFirst-minutes-hand,
-.weatherCube .weatherCube-clock .hand.wcSecond-minutes-hand,
-.weatherCube .weatherCube-clock .hand.wcLocal-minutes-hand
+.weatherCube .weatherCube-clock .hand.wcFirst-minutes-hand, .weatherCube .weatherCube-clock .hand.wcSecond-minutes-hand, .weatherCube .weatherCube-clock .hand.wcLocal-minutes-hand
 {
 	width: 40%;
 	z-index: 10;
 }
 
-.weatherCube .weatherCube-clock .hand.wcFirst-seconds-hand,
-.weatherCube .weatherCube-clock .hand.wcSecond-seconds-hand,
-.weatherCube .weatherCube-clock .hand.wcLocal-seconds-hand
+.weatherCube .weatherCube-clock .hand.wcFirst-seconds-hand, .weatherCube .weatherCube-clock .hand.wcSecond-seconds-hand, .weatherCube .weatherCube-clock .hand.wcLocal-seconds-hand
 {
 	background: rgb(125, 130, 123);
 	height: 3px;
@@ -220,10 +207,10 @@
 	transform: translate(10%, -30%);
 	transition: all .2s ease-out;
 	z-index: 1;
+	visibility: hidden;
 }
 
-.weatherCube .weatherCubeDayBody .card-content,
-.weatherCube .weatherCubeDayBody::after
+.weatherCube .weatherCubeDayBody .card-content, .weatherCube .weatherCubeDayBody::after
 {
 	left: 0;
 	position: absolute;
@@ -240,6 +227,7 @@
 	top: 0;
 	transform: rotate3d(-1, 1, 0, 100deg);
 	transition: all .4s ease-in-out;
+	visibility: hidden;
 }
 
 .weatherCube .weatherCubeDayBody:hover .card-content
@@ -247,12 +235,14 @@
 	opacity: 1;
 	transform: translate(0, -50%);
 	transition-delay: .2s;
+	visibility: visible;
 }
 
 .weatherCube .weatherCubeDayBody:hover::after
 {
 	opacity: 1;
 	transform: rotate3d(0, 0, 0, 0deg);
+	visibility: visible;
 }
 
 .weatherCube .weatherInfoImage
@@ -268,21 +258,16 @@
 	overflow: auto;
 }
 
-.weatherCube .weatherCube-alertsCarousel .carousel-item
-{
-    width: 100%;
-}
-
 .weatherCube .weatherCube-header-carousel .carousel-item img
 {
 	margin-right: 12px;
 }
 
 .weatherCube .weatherCube-alertsCarousel table
- {
+{
 	min-width: 350px;
 	text-align: left;
- }
+}
 
 .weatherCube-loader-overlay
 {
@@ -296,23 +281,21 @@
 	z-index: 100;
 }
 
-.modal-full,
-.weatherCube .modal-full
+.modal-full, .weatherCube .modal-full
 {
-	min-width: 100%;
 	margin: 0;
+	min-width: 100%;
 }
 
-.modal-full .modal-content,
-.weatherCube .modal-full .modal-content
+.modal-full .modal-content, .weatherCube .modal-full .modal-content
 {
 	overflow: auto;
 }
 
 .weatherCube .weatherChart
 {
-	width: 100%;
 	height: 340px;
+	width: 100%;
 }
 
 .weatherCube .weatherCube-quakeChart
@@ -320,36 +303,48 @@
 	min-height: 400px;
 }
 
-.weatherCube .weatherDayTab .weatherCubeDayBody .card-content,
-.weatherCube .weatherDayTab .weatherCubeDayBody::after
+.weatherCube .weatherDayTab .weatherCubeDayBody .card-content, .weatherCube .weatherDayTab .weatherCubeDayBody::after
 {
 	right: 0;
 }
 
-@media (min-width: 576px) { }
-
-@media (min-width: 768px) { }
-
-@media (min-width: 992px) {  }
+.weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable .moonPhase, .weatherCube .weatherCube-alertsCarousel .carousel-item
+{
+	width: 100%;
+}
 
 @media (min-width: 1200px)
 {
-	.weatherCube .weatherCubeDayBody .card-content,
-	.weatherCube .weatherCubeDayBody::after
+	.weatherCube .weatherCubeDayBody .card-content, .weatherCube .weatherCubeDayBody::after
 	{
 		right: 220px;
 	}
 }
 
-/* --------------------------------------------------------------------------- */
+#windy
+{
+	width: 100%;
+	height: 500px;
+}
 
-/* --------------------------------------------------------------------------- */
+#bottom,
+#bottom-credits,
+#rhpane-bootom,
+#rh-icons,
+#embed-zoom,
+#mobile-ovr-select,
+#plugins,
+#search,
+#rhpane
+{
+	display: none;
+	visibility: collapse;
+}
 
-/* ------------------------------------------------------------------------------
-*  # WeatherCube Theme Area
-*
-*  HyperCube component
-* ---------------------------------------------------------------------------- */
+#logo
+{
+	z-index: 1000;
+}
 
 .weatherCube .alert,
 .weatherCube .weatherDay,
@@ -361,8 +356,6 @@
 .weatherCube .weatherCube-footer,
 .weatherCube .weatherCube-navigation,
 .weatherCube .weatherCubeDayBody::after,
-.weatherCube .weatherCubeTimeBackground,
-.weatherCube .weatherCubeCurrentBackground,
 .weatherCube .weatherCube-modal .modal-body,
 .weatherCube .weatherCube-modal .modal-footer,
 .weatherCube .uviTableInfo .uviTableInfo-tr th
@@ -372,10 +365,16 @@
 	color: black;
 }
 
-.weatherCube .weatherCube-modal .modal-body,
-.weatherCube .weatherCube-modal .modal-footer
+.weatherCube .tab-content .weatherMoonTab .alert,
+.weatherCube .tab-content .weatherMoonTab
 {
-    background-color: #495057;
+	background: black;
+	color: rgb(255, 255, 255);
+}
+
+.weatherCube .weatherCube-modal .modal-body, .weatherCube .weatherCube-modal .modal-footer
+{
+	background-color: #495057;
 	color: white;
 }
 
@@ -389,19 +388,13 @@
 	color: black;
 }
 
-
-/*
-.weatherCube .weatherCube-navigation
+.weatherCube-darkTheme .weatherCube .weatherCube-navigation
 {
 	background-color: #1D2124;
 }
 
-.weatherCube .weatherCube-header,
-.weatherCube .weatherCube-footer
+.weatherCube-darkTheme .weatherCube .weatherCube-header, .weatherCube-darkTheme .weatherCube .weatherCube-footer
 {
 	background-color: #CCAF3C;
 	color: black;
 }
-*/
-/* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
