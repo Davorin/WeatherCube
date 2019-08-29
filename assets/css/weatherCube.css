@@ -12,7 +12,8 @@
 	padding: 0;
 }
 
-.weatherCube .modal, .weatherCube .modal-backdrop
+.weatherCube .modal,
+.weatherCube .modal-backdrop
 {
 	height: 100%;
 	overflow: hidden;
@@ -84,7 +85,8 @@
 	text-align: center;
 }
 
-.weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable, .weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable td
+.weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable,
+.weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable td
 {
 	border: 1px solid rgba(131, 143, 150, 0.50);
 	padding: 0 3px 3px;
@@ -129,19 +131,25 @@
 	width: 50%;
 }
 
-.weatherCube .weatherCube-clock .hand.wcFirst-hours-hand, .weatherCube .weatherCube-clock .hand.wcSecond-hours-hand, .weatherCube .weatherCube-clock .hand.wcLocal-hours-hand
+.weatherCube .weatherCube-clock .hand.wcFirst-hours-hand,
+.weatherCube .weatherCube-clock .hand.wcSecond-hours-hand,
+.weatherCube .weatherCube-clock .hand.wcLocal-hours-hand
 {
 	width: 30%;
 	z-index: 3;
 }
 
-.weatherCube .weatherCube-clock .hand.wcFirst-minutes-hand, .weatherCube .weatherCube-clock .hand.wcSecond-minutes-hand, .weatherCube .weatherCube-clock .hand.wcLocal-minutes-hand
+.weatherCube .weatherCube-clock .hand.wcFirst-minutes-hand,
+.weatherCube .weatherCube-clock .hand.wcSecond-minutes-hand,
+.weatherCube .weatherCube-clock .hand.wcLocal-minutes-hand
 {
 	width: 40%;
 	z-index: 10;
 }
 
-.weatherCube .weatherCube-clock .hand.wcFirst-seconds-hand, .weatherCube .weatherCube-clock .hand.wcSecond-seconds-hand, .weatherCube .weatherCube-clock .hand.wcLocal-seconds-hand
+.weatherCube .weatherCube-clock .hand.wcFirst-seconds-hand,
+.weatherCube .weatherCube-clock .hand.wcSecond-seconds-hand,
+.weatherCube .weatherCube-clock .hand.wcLocal-seconds-hand
 {
 	background: rgb(125, 130, 123);
 	height: 3px;
@@ -210,7 +218,8 @@
 	visibility: hidden;
 }
 
-.weatherCube .weatherCubeDayBody .card-content, .weatherCube .weatherCubeDayBody::after
+.weatherCube .weatherCubeDayBody .card-content,
+.weatherCube .weatherCubeDayBody::after
 {
 	left: 0;
 	position: absolute;
@@ -281,13 +290,15 @@
 	z-index: 100;
 }
 
-.modal-full, .weatherCube .modal-full
+.modal-full,
+.weatherCube .modal-full
 {
 	margin: 0;
 	min-width: 100%;
 }
 
-.modal-full .modal-content, .weatherCube .modal-full .modal-content
+.modal-full .modal-content,
+.weatherCube .modal-full .modal-content
 {
 	overflow: auto;
 }
@@ -303,19 +314,23 @@
 	min-height: 400px;
 }
 
-.weatherCube .weatherDayTab .weatherCubeDayBody .card-content, .weatherCube .weatherDayTab .weatherCubeDayBody::after
+.weatherCube .weatherDayTab .weatherCubeDayBody .card-content,
+.weatherCube .weatherDayTab .weatherCubeDayBody::after
 {
 	right: 0;
 }
 
-.weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable .moonPhase, .weatherCube .weatherCube-alertsCarousel .carousel-item
+.weatherCube .tab-content .weatherMoonTab .weatherCube-moonTable .moonPhase,
+.weatherCube .weatherCube-alertsCarousel .carousel-item
 {
 	width: 100%;
 }
 
-@media (min-width: 1200px)
+@media
+(min-width: 1200px)
 {
-	.weatherCube .weatherCubeDayBody .card-content, .weatherCube .weatherCubeDayBody::after
+	.weatherCube .weatherCubeDayBody .card-content,
+	.weatherCube .weatherCubeDayBody::after
 	{
 		right: 220px;
 	}
@@ -372,7 +387,8 @@
 	color: rgb(255, 255, 255);
 }
 
-.weatherCube .weatherCube-modal .modal-body, .weatherCube .weatherCube-modal .modal-footer
+.weatherCube .weatherCube-modal .modal-body,
+.weatherCube .weatherCube-modal .modal-footer
 {
 	background-color: #495057;
 	color: white;
@@ -393,7 +409,8 @@
 	background-color: #1D2124;
 }
 
-.weatherCube-darkTheme .weatherCube .weatherCube-header, .weatherCube-darkTheme .weatherCube .weatherCube-footer
+.weatherCube-darkTheme .weatherCube .weatherCube-header,
+.weatherCube-darkTheme .weatherCube .weatherCube-footer
 {
 	background-color: #CCAF3C;
 	color: black;
